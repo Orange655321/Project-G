@@ -23,7 +23,7 @@ public class HeroMove : MonoBehaviour
         moveVelocity = moveInput.normalized * speedHero;
 
         spriteRenderer.flipY = moveVelocity.y > 0.0f;
-        spriteRenderer.flipX = moveVelocity.x < 0.0f;
+        spriteRenderer.flipX = moveVelocity.x > 0.0f;
     }
 
     private void FixedUpdate()
