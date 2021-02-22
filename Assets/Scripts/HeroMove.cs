@@ -22,8 +22,8 @@ public class HeroMove : MonoBehaviour
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput.normalized * speedHero;
 
-        spriteRenderer.flipY = moveVelocity.y > 0.0f;
-        spriteRenderer.flipX = moveVelocity.x > 0.0f;
+        //spriteRenderer.flipY = moveVelocity.y > 0.0f;
+        //spriteRenderer.flipX = moveVelocity.x > 0.0f;
     }
 
     private void FixedUpdate()

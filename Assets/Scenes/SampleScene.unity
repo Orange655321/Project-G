@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 338417347}
   - component: {fileID: 338417346}
   - component: {fileID: 338417345}
+  - component: {fileID: 338417350}
   m_Layer: 0
   m_Name: hero
   m_TagString: Untagged
@@ -179,7 +180,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.12, y: 4.9}
+    oldSize: {x: 4.9, y: 5.12}
     newSize: {x: 5.12, y: 4.9}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -265,6 +266,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &338417350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338417344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfa379bae4584e847a65266a680fda5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,11 +327,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.4
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
