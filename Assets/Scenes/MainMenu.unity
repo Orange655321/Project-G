@@ -212,10 +212,9 @@ GameObject:
   - component: {fileID: 97729202}
   - component: {fileID: 97729201}
   - component: {fileID: 97729206}
-  - component: {fileID: 97729204}
   - component: {fileID: 97729205}
-  - component: {fileID: 97729207}
-  - component: {fileID: 97729208}
+  - component: {fileID: 97729209}
+  - component: {fileID: 97729204}
   m_Layer: 5
   m_Name: btnLeaderboard
   m_TagString: Untagged
@@ -286,7 +285,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1055839505}
+      - m_Target: {fileID: 1020408259}
         m_MethodName: OpenLeaderboard
         m_Mode: 1
         m_Arguments:
@@ -343,12 +342,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 97729199}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fbf737644e06c41a94641334f0812d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c016e04bd90d4c40b98053bcdca493a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFX: {fileID: 97729206}
-  hoverFX: {fileID: 8300000, guid: de78f8e80052d7148b1dffaee5a74e84, type: 3}
-  clickFX: {fileID: 8300000, guid: 75fbee2118020eb4898dc7b502db2c20, type: 3}
+  ButtonPlay: {fileID: 1081317604}
+  ButtonSettings: {fileID: 1197644924}
+  ButtonLeaderboard: {fileID: 97729199}
+  ButtonExit: {fileID: 1114857333}
+  settingsButtonExit: {fileID: 2071787764}
+  leaderboardButtonExit: {fileID: 907312243}
 --- !u!114 &97729205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,7 +368,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 97729204}
+        - m_Target: {fileID: 97729209}
           m_MethodName: HoverSound
           m_Mode: 1
           m_Arguments:
@@ -381,7 +383,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 97729204}
+        - m_Target: {fileID: 97729209}
           m_MethodName: ClickSound
           m_Mode: 1
           m_Arguments:
@@ -488,7 +490,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &97729207
+--- !u!114 &97729209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -497,31 +499,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 97729199}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4f296180475f6c459862f571bea1f33, type: 3}
+  m_Script: {fileID: 11500000, guid: 85502a87b3ab5bf4eb78ccc55fd34c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1020408257}
-  settingsMenu: {fileID: 1250841556}
-  leaderboardMenu: {fileID: 1055839503}
-  settingsButtonExit: {fileID: 2071787764}
-  leaderboardButtonExit: {fileID: 907312243}
---- !u!114 &97729208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97729199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a2a18c82491d94d9867a0468ee1722, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1020408257}
-  settingsMenu: {fileID: 1250841556}
-  leaderboardMenu: {fileID: 1055839503}
-  settingsButtonExit: {fileID: 2071787764}
-  leaderboardButtonExit: {fileID: 907312243}
+  myFX: {fileID: 97729206}
+  hoverFX: {fileID: 8300000, guid: de78f8e80052d7148b1dffaee5a74e84, type: 3}
+  clickFX: {fileID: 8300000, guid: 75fbee2118020eb4898dc7b502db2c20, type: 3}
 --- !u!1 &134114805
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,10 +759,10 @@ RectTransform:
   m_Children:
   - {fileID: 1661871602}
   - {fileID: 10955503}
+  - {fileID: 1203632130}
   - {fileID: 1020408258}
   - {fileID: 1250841557}
   - {fileID: 1055839504}
-  - {fileID: 1203632130}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -975,8 +958,8 @@ GameObject:
   - component: {fileID: 907312247}
   - component: {fileID: 907312246}
   - component: {fileID: 907312251}
-  - component: {fileID: 907312249}
   - component: {fileID: 907312250}
+  - component: {fileID: 907312252}
   - component: {fileID: 907312245}
   m_Layer: 5
   m_Name: btnExit
@@ -1014,12 +997,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 907312243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a2a18c82491d94d9867a0468ee1722, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c016e04bd90d4c40b98053bcdca493a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1020408257}
-  settingsMenu: {fileID: 1250841556}
-  leaderboardMenu: {fileID: 1055839503}
+  ButtonPlay: {fileID: 1081317604}
+  ButtonSettings: {fileID: 1197644924}
+  ButtonLeaderboard: {fileID: 97729199}
+  ButtonExit: {fileID: 1114857333}
   settingsButtonExit: {fileID: 2071787764}
   leaderboardButtonExit: {fileID: 907312243}
 --- !u!114 &907312246
@@ -1065,7 +1049,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1055839505}
+      - m_Target: {fileID: 1020408259}
         m_MethodName: ExitLeaderboard
         m_Mode: 1
         m_Arguments:
@@ -1113,21 +1097,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 907312243}
   m_CullTransparentMesh: 0
---- !u!114 &907312249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 907312243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fbf737644e06c41a94641334f0812d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myFX: {fileID: 907312251}
-  hoverFX: {fileID: 8300000, guid: de78f8e80052d7148b1dffaee5a74e84, type: 3}
-  clickFX: {fileID: 8300000, guid: 75fbee2118020eb4898dc7b502db2c20, type: 3}
 --- !u!114 &907312250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1145,7 +1114,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 907312249}
+        - m_Target: {fileID: 907312252}
           m_MethodName: HoverSound
           m_Mode: 1
           m_Arguments:
@@ -1160,7 +1129,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 907312249}
+        - m_Target: {fileID: 907312252}
           m_MethodName: ClickSound
           m_Mode: 1
           m_Arguments:
@@ -1267,6 +1236,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &907312252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 907312243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85502a87b3ab5bf4eb78ccc55fd34c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myFX: {fileID: 907312251}
+  hoverFX: {fileID: 8300000, guid: de78f8e80052d7148b1dffaee5a74e84, type: 3}
+  clickFX: {fileID: 8300000, guid: 75fbee2118020eb4898dc7b502db2c20, type: 3}
 --- !u!1 &1020408257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1300,7 +1284,7 @@ RectTransform:
   - {fileID: 97729200}
   - {fileID: 1114857334}
   m_Father: {fileID: 374992681}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1316,12 +1300,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1020408257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4f296180475f6c459862f571bea1f33, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c016e04bd90d4c40b98053bcdca493a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1020408257}
-  settingsMenu: {fileID: 1250841556}
-  leaderboardMenu: {fileID: 1055839503}
+  ButtonPlay: {fileID: 1081317604}
+  ButtonSettings: {fileID: 1197644924}
+  ButtonLeaderboard: {fileID: 97729199}
+  ButtonExit: {fileID: 1114857333}
   settingsButtonExit: {fileID: 2071787764}
   leaderboardButtonExit: {fileID: 907312243}
 --- !u!1 &1053840207
@@ -1411,7 +1396,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1055839504}
-  - component: {fileID: 1055839505}
   m_Layer: 5
   m_Name: LeaderboardMenu
   m_TagString: Untagged
@@ -1432,30 +1416,13 @@ RectTransform:
   m_Children:
   - {fileID: 907312244}
   m_Father: {fileID: 374992681}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1055839505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1055839503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a2a18c82491d94d9867a0468ee1722, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1020408257}
-  settingsMenu: {fileID: 1250841556}
-  leaderboardMenu: {fileID: 1055839503}
-  settingsButtonExit: {fileID: 2071787764}
-  leaderboardButtonExit: {fileID: 907312243}
 --- !u!1 &1081317604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,10 +1435,9 @@ GameObject:
   - component: {fileID: 1081317607}
   - component: {fileID: 1081317606}
   - component: {fileID: 1081317608}
-  - component: {fileID: 1081317609}
   - component: {fileID: 1081317611}
-  - component: {fileID: 1081317610}
   - component: {fileID: 1081317612}
+  - component: {fileID: 1081317609}
   m_Layer: 5
   m_Name: btnPlay
   m_TagString: Untagged
@@ -1599,24 +1565,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1081317604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4f296180475f6c459862f571bea1f33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenu: {fileID: 0}
-  settingsMenu: {fileID: 0}
-  leaderboardMenu: {fileID: 0}
-  settingsButtonExit: {fileID: 0}
-  leaderboardButtonExit: {fileID: 0}
---- !u!114 &1081317610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081317604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fbf737644e06c41a94641334f0812d, type: 3}
+  m_Script: {fileID: 11500000, guid: 85502a87b3ab5bf4eb78ccc55fd34c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myFX: {fileID: 1081317611}
@@ -1735,7 +1684,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1081317610}
+        - m_Target: {fileID: 1081317609}
           m_MethodName: HoverSound
           m_Mode: 1
           m_Arguments:
@@ -1750,7 +1699,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1081317610}
+        - m_Target: {fileID: 1081317609}
           m_MethodName: ClickSound
           m_Mode: 1
           m_Arguments:
@@ -1773,10 +1722,9 @@ GameObject:
   - component: {fileID: 1114857337}
   - component: {fileID: 1114857336}
   - component: {fileID: 1114857335}
-  - component: {fileID: 1114857338}
   - component: {fileID: 1114857341}
-  - component: {fileID: 1114857339}
   - component: {fileID: 1114857340}
+  - component: {fileID: 1114857342}
   m_Layer: 5
   m_Name: btnExit
   m_TagString: Untagged
@@ -1895,38 +1843,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1114857333}
   m_CullTransparentMesh: 0
---- !u!114 &1114857338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114857333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4f296180475f6c459862f571bea1f33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenu: {fileID: 0}
-  settingsMenu: {fileID: 0}
-  leaderboardMenu: {fileID: 0}
-  settingsButtonExit: {fileID: 0}
-  leaderboardButtonExit: {fileID: 0}
---- !u!114 &1114857339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1114857333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fbf737644e06c41a94641334f0812d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myFX: {fileID: 1114857341}
-  hoverFX: {fileID: 8300000, guid: de78f8e80052d7148b1dffaee5a74e84, type: 3}
-  clickFX: {fileID: 8300000, guid: 75fbee2118020eb4898dc7b502db2c20, type: 3}
 --- !u!114 &1114857340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1944,7 +1860,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1114857339}
+        - m_Target: {fileID: 1114857342}
           m_MethodName: HoverSound
           m_Mode: 1
           m_Arguments:
@@ -1959,7 +1875,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1114857339}
+        - m_Target: {fileID: 1114857342}
           m_MethodName: ClickSound
           m_Mode: 1
           m_Arguments:
@@ -2066,6 +1982,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1114857342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114857333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85502a87b3ab5bf4eb78ccc55fd34c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myFX: {fileID: 1114857341}
+  hoverFX: {fileID: 8300000, guid: de78f8e80052d7148b1dffaee5a74e84, type: 3}
+  clickFX: {fileID: 8300000, guid: 75fbee2118020eb4898dc7b502db2c20, type: 3}
 --- !u!1 &1197644924
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,8 +2010,8 @@ GameObject:
   - component: {fileID: 1197644927}
   - component: {fileID: 1197644926}
   - component: {fileID: 1197644931}
-  - component: {fileID: 1197644930}
   - component: {fileID: 1197644929}
+  - component: {fileID: 1197644930}
   - component: {fileID: 1197644932}
   m_Layer: 5
   m_Name: btnSettings
@@ -2152,7 +2083,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1250841558}
+      - m_Target: {fileID: 1020408259}
         m_MethodName: OpenSettings
         m_Mode: 1
         m_Arguments:
@@ -2252,7 +2183,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1197644924}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fbf737644e06c41a94641334f0812d, type: 3}
+  m_Script: {fileID: 11500000, guid: 85502a87b3ab5bf4eb78ccc55fd34c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myFX: {fileID: 1197644931}
@@ -2363,12 +2294,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1197644924}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6511ede512f7d6945b832f1e1f8b7648, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c016e04bd90d4c40b98053bcdca493a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1020408257}
-  settingsMenu: {fileID: 1250841556}
-  leaderboardMenu: {fileID: 1055839503}
+  ButtonPlay: {fileID: 1081317604}
+  ButtonSettings: {fileID: 1197644924}
+  ButtonLeaderboard: {fileID: 97729199}
+  ButtonExit: {fileID: 1114857333}
   settingsButtonExit: {fileID: 2071787764}
   leaderboardButtonExit: {fileID: 907312243}
 --- !u!1 &1203632129
@@ -2402,7 +2334,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 374992681}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2480,7 +2412,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1250841557}
-  - component: {fileID: 1250841558}
   m_Layer: 5
   m_Name: SettingsMenu
   m_TagString: Untagged
@@ -2501,30 +2432,13 @@ RectTransform:
   m_Children:
   - {fileID: 2071787765}
   m_Father: {fileID: 374992681}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1250841558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1250841556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6511ede512f7d6945b832f1e1f8b7648, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1020408257}
-  settingsMenu: {fileID: 1250841556}
-  leaderboardMenu: {fileID: 1055839503}
-  settingsButtonExit: {fileID: 2071787764}
-  leaderboardButtonExit: {fileID: 907312243}
 --- !u!1 &1269719858
 GameObject:
   m_ObjectHideFlags: 0
@@ -2703,8 +2617,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00061035, y: -0.00177}
-  m_SizeDelta: {x: 1781.0011, y: 919.9963}
+  m_AnchoredPosition: {x: -0.00026512, y: 0.000043869}
+  m_SizeDelta: {x: 1856.9996, y: 919.9998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1661871603
 MonoBehaviour:
@@ -2912,8 +2826,8 @@ GameObject:
   - component: {fileID: 2071787768}
   - component: {fileID: 2071787767}
   - component: {fileID: 2071787772}
-  - component: {fileID: 2071787770}
   - component: {fileID: 2071787771}
+  - component: {fileID: 2071787773}
   - component: {fileID: 2071787766}
   m_Layer: 5
   m_Name: btnExit
@@ -2951,12 +2865,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2071787764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6511ede512f7d6945b832f1e1f8b7648, type: 3}
+  m_Script: {fileID: 11500000, guid: 3c016e04bd90d4c40b98053bcdca493a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1020408257}
-  settingsMenu: {fileID: 1250841556}
-  leaderboardMenu: {fileID: 1055839503}
+  ButtonPlay: {fileID: 1081317604}
+  ButtonSettings: {fileID: 1197644924}
+  ButtonLeaderboard: {fileID: 97729199}
+  ButtonExit: {fileID: 1114857333}
   settingsButtonExit: {fileID: 2071787764}
   leaderboardButtonExit: {fileID: 907312243}
 --- !u!114 &2071787767
@@ -3002,7 +2917,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1250841558}
+      - m_Target: {fileID: 1020408259}
         m_MethodName: ExitSettings
         m_Mode: 1
         m_Arguments:
@@ -3050,21 +2965,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2071787764}
   m_CullTransparentMesh: 0
---- !u!114 &2071787770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2071787764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06fbf737644e06c41a94641334f0812d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myFX: {fileID: 2071787772}
-  hoverFX: {fileID: 8300000, guid: de78f8e80052d7148b1dffaee5a74e84, type: 3}
-  clickFX: {fileID: 8300000, guid: 75fbee2118020eb4898dc7b502db2c20, type: 3}
 --- !u!114 &2071787771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3082,7 +2982,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2071787770}
+        - m_Target: {fileID: 2071787773}
           m_MethodName: HoverSound
           m_Mode: 1
           m_Arguments:
@@ -3097,7 +2997,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 2071787770}
+        - m_Target: {fileID: 2071787773}
           m_MethodName: ClickSound
           m_Mode: 1
           m_Arguments:
@@ -3204,3 +3104,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2071787773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071787764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85502a87b3ab5bf4eb78ccc55fd34c48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myFX: {fileID: 2071787772}
+  hoverFX: {fileID: 8300000, guid: de78f8e80052d7148b1dffaee5a74e84, type: 3}
+  clickFX: {fileID: 8300000, guid: 75fbee2118020eb4898dc7b502db2c20, type: 3}
