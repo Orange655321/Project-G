@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject ButtonPlay;
+    /*public GameObject ButtonPlay;
     public GameObject ButtonSettings;
     public GameObject ButtonLeaderboard;
     public GameObject ButtonExit;
     public GameObject settingsButtonExit;
-    public GameObject leaderboardButtonExit;
+    public GameObject leaderboardButtonExit;*/
+    public GameObject SettingsMenu;
+    public GameObject LeaderboardMenu;
+    public GameObject mMenu;
     public void PlayGame()
     {
         StartCoroutine(StartTimer());       
@@ -42,11 +45,13 @@ public class MainMenu : MonoBehaviour
     IEnumerator OpenSettingsTimer()
     {
         yield return new WaitForSeconds(0.5f);
-        ButtonPlay.SetActive(false);
+        /*ButtonPlay.SetActive(false);
         ButtonSettings.SetActive(false);
         ButtonLeaderboard.SetActive(false);
         ButtonExit.SetActive(false);
-        settingsButtonExit.SetActive(true);
+        settingsButtonExit.SetActive(true);*/
+        SettingsMenu.SetActive(true);
+        mMenu.SetActive(false);
     }
 
     public void ExitSettings()
@@ -57,11 +62,13 @@ public class MainMenu : MonoBehaviour
     IEnumerator ExitSettingsTimer()
     {
         yield return new WaitForSeconds(0.5f);
-        ButtonPlay.SetActive(true);
+        /*ButtonPlay.SetActive(true);
         ButtonSettings.SetActive(true);
         ButtonLeaderboard.SetActive(true);
         ButtonExit.SetActive(true);
-        settingsButtonExit.SetActive(false);
+        settingsButtonExit.SetActive(false);*/
+        mMenu.SetActive(true);
+        SettingsMenu.SetActive(false);
     }
 
     public void OpenLeaderboard()
@@ -72,11 +79,13 @@ public class MainMenu : MonoBehaviour
     IEnumerator OpenLeaderboardTimer()
     {
         yield return new WaitForSeconds(0.5f);
-        ButtonPlay.SetActive(false);
+        /*ButtonPlay.SetActive(false);
         ButtonSettings.SetActive(false);
         ButtonLeaderboard.SetActive(false);
         ButtonExit.SetActive(false);
-        leaderboardButtonExit.SetActive(true);
+        leaderboardButtonExit.SetActive(true);*/
+        LeaderboardMenu.SetActive(true);
+        mMenu.SetActive(false);
     }
 
     public void ExitLeaderboard()
@@ -87,10 +96,12 @@ public class MainMenu : MonoBehaviour
     IEnumerator ExitLeaderboardTimer()
     {
         yield return new WaitForSeconds(0.5f);
-        ButtonPlay.SetActive(true);
+        /*ButtonPlay.SetActive(true);
         ButtonSettings.SetActive(true);
         ButtonLeaderboard.SetActive(true);
         ButtonExit.SetActive(true);
-        leaderboardButtonExit.SetActive(false);
+        leaderboardButtonExit.SetActive(false);*/
+        mMenu.SetActive(true);
+        LeaderboardMenu.SetActive(false);
     }
 }
