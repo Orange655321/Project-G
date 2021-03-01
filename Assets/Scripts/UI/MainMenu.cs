@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    /*public GameObject ButtonPlay;
-    public GameObject ButtonSettings;
-    public GameObject ButtonLeaderboard;
-    public GameObject ButtonExit;
-    public GameObject settingsButtonExit;
-    public GameObject leaderboardButtonExit;*/
     public GameObject SettingsMenu;
     public GameObject LeaderboardMenu;
     public GameObject mMenu;
+
+    public GameObject mSlider;
+    public GameObject sSlider;
+
+    private void Start()
+    {
+        mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
+        sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
+    }
     public void PlayGame()
     {
         StartCoroutine(StartTimer());       
@@ -45,11 +49,6 @@ public class MainMenu : MonoBehaviour
     IEnumerator OpenSettingsTimer()
     {
         yield return new WaitForSeconds(0.5f);
-        /*ButtonPlay.SetActive(false);
-        ButtonSettings.SetActive(false);
-        ButtonLeaderboard.SetActive(false);
-        ButtonExit.SetActive(false);
-        settingsButtonExit.SetActive(true);*/
         SettingsMenu.SetActive(true);
         mMenu.SetActive(false);
     }
@@ -62,11 +61,6 @@ public class MainMenu : MonoBehaviour
     IEnumerator ExitSettingsTimer()
     {
         yield return new WaitForSeconds(0.5f);
-        /*ButtonPlay.SetActive(true);
-        ButtonSettings.SetActive(true);
-        ButtonLeaderboard.SetActive(true);
-        ButtonExit.SetActive(true);
-        settingsButtonExit.SetActive(false);*/
         mMenu.SetActive(true);
         SettingsMenu.SetActive(false);
     }
@@ -79,11 +73,6 @@ public class MainMenu : MonoBehaviour
     IEnumerator OpenLeaderboardTimer()
     {
         yield return new WaitForSeconds(0.5f);
-        /*ButtonPlay.SetActive(false);
-        ButtonSettings.SetActive(false);
-        ButtonLeaderboard.SetActive(false);
-        ButtonExit.SetActive(false);
-        leaderboardButtonExit.SetActive(true);*/
         LeaderboardMenu.SetActive(true);
         mMenu.SetActive(false);
     }
@@ -96,11 +85,6 @@ public class MainMenu : MonoBehaviour
     IEnumerator ExitLeaderboardTimer()
     {
         yield return new WaitForSeconds(0.5f);
-        /*ButtonPlay.SetActive(true);
-        ButtonSettings.SetActive(true);
-        ButtonLeaderboard.SetActive(true);
-        ButtonExit.SetActive(true);
-        leaderboardButtonExit.SetActive(false);*/
         mMenu.SetActive(true);
         LeaderboardMenu.SetActive(false);
     }
