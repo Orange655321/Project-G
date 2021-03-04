@@ -11,16 +11,11 @@ public class PauseMenu : MonoBehaviour
     public GameObject psMenu;
     public GameObject SettingsMenu;
 
-    public GameObject hero;
-    private MouseFollow heroMouseScript;
-
     public GameObject mSlider;
     public GameObject sSlider;
 
     private void Start()
     {
-        heroMouseScript = hero.GetComponent<MouseFollow>();
-
         mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
         sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
     }
@@ -43,7 +38,6 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        heroMouseScript.enabled = true;
         psMenu.SetActive(false);
         SettingsMenu.SetActive(false);
         Time.timeScale = 1f;
@@ -52,7 +46,6 @@ public class PauseMenu : MonoBehaviour
 
     void Pause()
     {
-        heroMouseScript.enabled = false;
         psMenu.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;       
