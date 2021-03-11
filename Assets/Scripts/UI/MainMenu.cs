@@ -13,10 +13,15 @@ public class MainMenu : MonoBehaviour
     public GameObject mSlider;
     public GameObject sSlider;
 
+    public GameObject logo;
+
+    public InputField nicknameInputText;
+
     private void Start()
     {
         mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
         sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
+        nicknameInputText.text = PlayerDataHolder.nickname;
     }
     public void PlayGame()
     {
@@ -73,6 +78,7 @@ public class MainMenu : MonoBehaviour
     IEnumerator OpenLeaderboardTimer()
     {
         yield return new WaitForSeconds(0.5f);
+        logo.SetActive(false);
         LeaderboardMenu.SetActive(true);
         mMenu.SetActive(false);
     }
@@ -85,7 +91,9 @@ public class MainMenu : MonoBehaviour
     IEnumerator ExitLeaderboardTimer()
     {
         yield return new WaitForSeconds(0.5f);
+        logo.SetActive(true);
         mMenu.SetActive(true);
         LeaderboardMenu.SetActive(false);
+        PlayerDataHolder.nickname = nicknameInputText.text;
     }
 }
