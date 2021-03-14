@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3360222734027813898}
   - component: {fileID: 622239089278039451}
   - component: {fileID: 8435913277766147430}
+  - component: {fileID: -8270117133030590331}
   m_Layer: 0
   m_Name: PistolBullet
   m_TagString: Untagged
@@ -46,7 +47,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.26604202, y: 0.015718937}
+  m_Offset: {x: 0.01577741, y: 0.17185688}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -57,7 +58,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.031208456, y: 0.09489584}
+  m_Size: {x: 0.03212571, y: 0.09396744}
   m_EdgeRadius: 0
 --- !u!50 &622239089278039451
 Rigidbody2D:
@@ -130,3 +131,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-8270117133030590331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236449361567314506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490ed230b5308994ba0e4a150004975d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 12
