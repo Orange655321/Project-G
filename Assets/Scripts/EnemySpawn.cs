@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public float minX, minY; // край координат
-    public float maxX, maxY; // край координат
+    public float max; // край координат
     public float minDist; // дистанция проверки на префабы вокруг
-    public GameObject prefabEnemy; // список префабов
+    public GameObject prefabEnemy; // префаб
     public int numberEnemy;
     public int countEnemySpawned;
     public int counterEnemy;
+
+    private GameObject[] respawnPlace;
     void Start()
     {
         counterEnemy = 0;
+        respawnPlace = GameObject.FindGameObjectsWithTag("Grass");
     }
 
     void Update()
@@ -29,21 +31,21 @@ public class EnemySpawn : MonoBehaviour
         Collider2D[] coll;
         float x;
         float y;
+        int respawnNumber;
 
 
         do
         {
             do
             {
-                x = Random.Range(minX, maxX) + transform.position.x;// позиция
+                /* x = Random.Range(-max, max) + transform.position.x;// позиция
+                 y = Random.Range(-max, max) + transform.position.y;*/
+                respawnNumber = Random.Range(0, respawnPlace.Length);
+                x = respawnPlace[respawnNumber].transform.position.x;
+                y = respawnPlace[respawnNumber].transform.position.y;
             }
-            while (Mathf.Abs(x - transform.position.x) < minDist * 2);
+            while (Mathf.Pow(x,2) + Mathf.Pow(y, 2) < Mathf.Pow(minDist,2) && Mathf.Pow(x, 2) + Mathf.Pow(y, 2) > Mathf.Pow(max,2));
 
-            do
-            {
-                y = Random.Range(minY, maxY) + transform.position.y;// позиция
-            }
-            while (Mathf.Abs(y - transform.position.y) < minDist * 2);
             /*coll = Physics2D.OverlapCircleAll(new Vector2(x, y), minDist * 2, prefabEnemy.layer); // берем список коллайдеров, которые есть вокруг точки
             
             foreach (Collider2D col in coll) // перебираем все найденные коллайдеры

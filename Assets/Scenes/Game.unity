@@ -887,15 +887,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4632f7b937ded404b99d7d9ab2c6db92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minX: -15
-  minY: -15
-  maxX: 15
-  maxY: 15
+  max: 10
   minDist: 3
   prefabEnemy: {fileID: 9078221761693117838, guid: 0b8068d9a3b74264b8ac9616502077a1,
     type: 3}
   numberEnemy: 100
-  countEnemySpawned: 1
+  countEnemySpawned: 100
   counterEnemy: 0
 --- !u!114 &338417351
 MonoBehaviour:
