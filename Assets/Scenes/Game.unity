@@ -1324,7 +1324,7 @@ MonoBehaviour:
   SettingsMenu: {fileID: 926619612}
   mSlider: {fileID: 656450318}
   sSlider: {fileID: 1440405268}
-  Player: {fileID: 0}
+  Player: {fileID: 338417344}
 --- !u!1 &656450318
 GameObject:
   m_ObjectHideFlags: 0
