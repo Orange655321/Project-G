@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -10,12 +11,17 @@ public class PauseMenu : MonoBehaviour
     public GameObject psMenu;
     public GameObject SettingsMenu;
 
-    public GameObject hero;
-    private MouseFollow heroMouseScript;
+    public GameObject mSlider;
+    public GameObject sSlider;
+
+    public GameObject Player;
+    private Shooting script;
 
     private void Start()
     {
-       heroMouseScript = hero.GetComponent<MouseFollow>();
+        script = Player.GetComponent<Shooting>();
+        mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
+        sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
     }
 
     // Update is called once per frame
@@ -36,15 +42,16 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        heroMouseScript.enabled = true;
+        script.enabled = true;
         psMenu.SetActive(false);
+        SettingsMenu.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
 
     void Pause()
     {
-        heroMouseScript.enabled = false;
+        script.enabled = false;
         psMenu.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;       
@@ -64,6 +71,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ToMainMenu()
     {
+        script.enabled = true;
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }

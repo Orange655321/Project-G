@@ -5,15 +5,16 @@ using UnityEngine;
 public class HeroMove : MonoBehaviour
 {
     public float speedHero = 20f;
+   
 
-    private Rigidbody2D rigidbody;
-    private SpriteRenderer spriteRenderer;
+    public Rigidbody2D rb;
     private Vector2 moveVelocity;
+    private Vector2 mousePosition;
+    public Camera cam;
 
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -21,16 +22,16 @@ public class HeroMove : MonoBehaviour
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput.normalized * speedHero;
-
-        //spriteRenderer.flipY = moveVelocity.y > 0.0f;
-        //spriteRenderer.flipX = moveVelocity.x > 0.0f;
+        mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);//положение мыши из экранных в мировые координаты
     }
+    
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        rigidbody.MovePosition(rigidbody.position + moveVelocity * Time.deltaTime);
+        rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
 
-        
-
+        Vector2 lookDir = mousePosition - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта к мыше и осью х
+        rb.rotation = angle;// привязка угла к развороту героя
     }
 }
