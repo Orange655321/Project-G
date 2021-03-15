@@ -828,17 +828,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4632f7b937ded404b99d7d9ab2c6db92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minX: -3
-  minY: -3
-  maxX: 3
-  maxY: 3
-  minDist: 1
+  minX: -15
+  minY: -15
+  maxX: 15
+  maxY: 15
+  minDist: 3
   prefabEnemy: {fileID: 9078221761693117838, guid: 0b8068d9a3b74264b8ac9616502077a1,
     type: 3}
-  player: {fileID: 338417349}
-  prefab_tag: Enemy
   numberEnemy: 100
-  countEnemySpawned: 5
+  countEnemySpawned: 100
   counterEnemy: 0
 --- !u!114 &338417351
 MonoBehaviour:
@@ -852,7 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79cd49e3d6062b46a4ea9c111819724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPoint: {fileID: 54367529}
+  firePoint: {fileID: 54367529}
   prefabBullet: {fileID: 4236449361567314506, guid: 465e1adfeb69c634591782464f4ea875,
     type: 3}
   bulletForce: 8
