@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     public GameObject SettingsMenu;
     public GameObject LeaderboardMenu;
     public GameObject mMenu;
+    public GameObject playMenu;
 
     public GameObject mSlider;
     public GameObject sSlider;
@@ -23,15 +24,15 @@ public class MainMenu : MonoBehaviour
         sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
         nicknameInputText.text = PlayerDataHolder.nickname;
     }
-    public void PlayGame()
+    public void PlaySurvival() //
     {
         StartCoroutine(StartTimer());       
     }
 
-    IEnumerator StartTimer()
+    IEnumerator StartTimer() //
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Survival");
     }
 
     public void ExitGame()
@@ -95,5 +96,29 @@ public class MainMenu : MonoBehaviour
         mMenu.SetActive(true);
         LeaderboardMenu.SetActive(false);
         PlayerDataHolder.nickname = nicknameInputText.text;
+    }
+
+    public void OpenPlay()
+    {
+        StartCoroutine(OpenPlayTimer());
+    }
+
+    IEnumerator OpenPlayTimer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        playMenu.SetActive(true);
+        mMenu.SetActive(false);
+    }
+
+    public void ExitPlay()
+    {
+        StartCoroutine(ExitPlayTimer());
+    }
+
+    IEnumerator ExitPlayTimer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        mMenu.SetActive(true);
+        playMenu.SetActive(false);
     }
 }
