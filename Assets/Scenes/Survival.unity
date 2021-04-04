@@ -538,7 +538,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 164842016}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -751,6 +751,8 @@ GameObject:
   - component: {fileID: 338417350}
   - component: {fileID: 338417346}
   - component: {fileID: 338417351}
+  - component: {fileID: 338417352}
+  - component: {fileID: 338417353}
   m_Layer: 0
   m_Name: hero
   m_TagString: Player
@@ -892,7 +894,7 @@ MonoBehaviour:
   prefabEnemy: {fileID: 9078221761693117838, guid: 0b8068d9a3b74264b8ac9616502077a1,
     type: 3}
   numberEnemy: 100
-  countEnemySpawned: 100
+  countEnemySpawned: 70
   counterEnemy: 0
 --- !u!114 &338417351
 MonoBehaviour:
@@ -910,6 +912,37 @@ MonoBehaviour:
   prefabBullet: {fileID: 4236449361567314506, guid: 465e1adfeb69c634591782464f4ea875,
     type: 3}
   bulletForce: 8
+--- !u!95 &338417352
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338417344}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 536764cadc7f4b940b853702bad968e9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &338417353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338417344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ccc1876356cba44832941427af97b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &513709788
 GameObject:
   m_ObjectHideFlags: 0

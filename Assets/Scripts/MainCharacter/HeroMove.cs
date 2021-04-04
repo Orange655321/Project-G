@@ -11,10 +11,12 @@ public class HeroMove : MonoBehaviour
     private Vector2 moveVelocity;
     private Vector2 mousePosition;
     public Camera cam;
+    private AnimationController animCtrl;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animCtrl = GetComponent<AnimationController>();
     }
 
     // Update is called once per frame
@@ -22,6 +24,14 @@ public class HeroMove : MonoBehaviour
     {
         Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput.normalized * speedHero;
+        if(moveVelocity != Vector2.zero) // включение и отключение анимации бега в зависимости от того, есть ли в данный момент скорость у персонажа
+        {
+            animCtrl.RunAnimationOn();
+        }
+        else
+        {
+            animCtrl.RunAnimationOff();
+        }
         mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);//положение мыши из экранных в мировые координаты
     }
     
