@@ -6,14 +6,28 @@ public class Shooting : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject prefabBullet;
+    public ParticleSystem partSys;
+    private PistolSoundController pistolSC;
+    public GameObject pistol;
+    private AnimationController animCtrl;
 
     public float bulletForce = 8f;
+
+    void Start()
+    {
+        animCtrl = GetComponent<AnimationController>();
+        pistolSC = pistol.GetComponent<PistolSoundController>();
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))//жмакай ЛКМ
         {
             shoot();
+            animCtrl.ShootAnimationPlay();
+            pistolSC.shootSound();
+            partSys.Play();
         }
     }
     void shoot()

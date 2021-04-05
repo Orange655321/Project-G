@@ -19,4 +19,9 @@ public class AnimationController : MonoBehaviour
     {
         animator.SetBool("isRunning", false);
     }
+
+    public void ShootAnimationPlay()
+    {
+        animator.SetTrigger("shoot");
+    }
 }

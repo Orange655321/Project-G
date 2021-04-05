@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 7d797f1525b32ba439830adaa8557204
+guid: 8c6e8f5f0ea603449bc76b1ec98595f9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2996376286835421531
-    second: MainCharacterIDLE_0
+      213: 6679602212924569289
+    second: MainCharacterIDLE 1_0
   - first:
-      213: 831500439328903501
-    second: MainCharacterIDLE_1
+      213: -6819209484736774873
+    second: MainCharacterIDLE 1_1
   - first:
-      213: -1230701412238755883
-    second: MainCharacterIDLE_2
+      213: 8171285720981572857
+    second: MainCharacterIDLE 1_2
   - first:
-      213: 2995630705377819673
-    second: MainCharacterIDLE_3
+      213: -3786268119383888508
+    second: MainCharacterIDLE 1_3
   - first:
-      213: 3765433444297023605
-    second: MainCharacterIDLE_4
+      213: -1206796934159444219
+    second: MainCharacterIDLE 1_4
   - first:
-      213: 8753241369231912932
-    second: MainCharacterIDLE_5
+      213: 5378997253237395245
+    second: MainCharacterIDLE 1_5
   - first:
-      213: 2768083580944350098
-    second: MainCharacterIDLE_6
+      213: 2512599151580492480
+    second: MainCharacterIDLE 1_6
   - first:
-      213: -3336161507441660745
-    second: MainCharacterIDLE_7
+      213: 8601992388229088999
+    second: MainCharacterIDLE 1_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -147,13 +147,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MainCharacterIDLE_0
+      name: MainCharacterIDLE 1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ae45c184abba66d0800000000000000
-      internalID: -2996376286835421531
+      spriteID: 9c6384692d6b2bc50800000000000000
+      internalID: 6679602212924569289
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainCharacterIDLE_1
+      name: MainCharacterIDLE 1_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 40
         y: 0
-        width: 32
-        height: 32
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,20 +182,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d41d7cc7e351a8b00800000000000000
-      internalID: 831500439328903501
+      spriteID: 72d3a457a1d4d51a0800000000000000
+      internalID: -6819209484736774873
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainCharacterIDLE_2
+      name: MainCharacterIDLE 1_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 80
         y: 0
-        width: 32
-        height: 32
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,20 +203,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d7ffea069babeee0800000000000000
-      internalID: -1230701412238755883
+      spriteID: 9fc0455e11d366170800000000000000
+      internalID: 8171285720981572857
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainCharacterIDLE_3
+      name: MainCharacterIDLE 1_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 120
         y: 0
-        width: 32
-        height: 32
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,41 +224,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91c3c48414e929920800000000000000
-      internalID: 2995630705377819673
+      spriteID: 48dacb7b439747bc0800000000000000
+      internalID: -3786268119383888508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainCharacterIDLE_4
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 57023b874c1814430800000000000000
-      internalID: 3765433444297023605
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MainCharacterIDLE_5
+      name: MainCharacterIDLE 1_4
       rect:
         serializedVersion: 2
         x: 160
         y: 0
-        width: 32
-        height: 32
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -266,20 +245,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ef625e06a2c97970800000000000000
-      internalID: 8753241369231912932
+      spriteID: 507556f0598904fe0800000000000000
+      internalID: -1206796934159444219
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainCharacterIDLE_6
+      name: MainCharacterIDLE 1_5
       rect:
         serializedVersion: 2
-        x: 192
+        x: 200
         y: 0
-        width: 32
-        height: 32
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -287,20 +266,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 29b77c6d9553a6620800000000000000
-      internalID: 2768083580944350098
+      spriteID: d2f440fa08906aa40800000000000000
+      internalID: 5378997253237395245
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainCharacterIDLE_7
+      name: MainCharacterIDLE 1_6
       rect:
         serializedVersion: 2
-        x: 224
+        x: 240
         y: 0
-        width: 32
-        height: 32
+        width: 40
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -308,8 +287,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bcab93e8c293b1d0800000000000000
-      internalID: -3336161507441660745
+      spriteID: 0c237e4bd9b8ed220800000000000000
+      internalID: 2512599151580492480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MainCharacterIDLE 1_7
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 0
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e64205708a606770800000000000000
+      internalID: 8601992388229088999
       vertices: []
       indices: 
       edges: []
