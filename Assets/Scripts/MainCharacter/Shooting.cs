@@ -12,12 +12,13 @@ public class Shooting : MonoBehaviour
     private AnimationController animCtrl;
     private Vector2 mosPosition;
     public Camera cam;
+    public GameObject hero;
 
     public float bulletForce = 8f;
 
     void Start()
     {
-        animCtrl = GetComponent<AnimationController>();
+        animCtrl = hero.GetComponent<AnimationController>();
         pistolSC = GetComponent<PistolSoundController>();
     }
 
@@ -42,6 +43,5 @@ public class Shooting : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         transform.eulerAngles = new Vector3(0, 0, angle);
         rb.AddForce(transform.up * bulletForce, ForceMode2D.Impulse);//отправляем пулю из ствола на...
-       
     }
 }

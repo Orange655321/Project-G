@@ -435,6 +435,7 @@ MonoBehaviour:
     type: 3}
   partSys: {fileID: 689960923}
   cam: {fileID: 519420031}
+  hero: {fileID: 338417344}
   bulletForce: 8
 --- !u!1 &71064835
 GameObject:
@@ -1044,7 +1045,7 @@ MonoBehaviour:
   prefabEnemy: {fileID: 9078221761693117838, guid: 0b8068d9a3b74264b8ac9616502077a1,
     type: 3}
   numberEnemy: 100
-  countEnemySpawned: 0
+  countEnemySpawned: 15
   counterEnemy: 0
 --- !u!95 &338417352
 Animator:
