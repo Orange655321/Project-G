@@ -22,6 +22,7 @@ public class PauseMenu : MonoBehaviour
         script = Player.GetComponent<Shooting>();
         mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
         sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
+        
     }
 
     // Update is called once per frame
@@ -74,5 +75,6 @@ public class PauseMenu : MonoBehaviour
         script.enabled = true;
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
+        PlayerDataHolder.score = Player.GetComponent<Hero>().GetScore();
     }
 }

@@ -31,4 +31,8 @@ public class Hero : MonoBehaviour
     {
         score += cost;
     }
+    public int GetScore()
+    {
+        return score;
+    }
 }
