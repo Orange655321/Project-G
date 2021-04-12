@@ -28,7 +28,7 @@ public class EnemySpawn : MonoBehaviour
 
     public void Placement()
     {
-        Collider2D[] coll;
+        //Collider2D[] coll;
         float x;
         float y;
         int respawnNumber;
