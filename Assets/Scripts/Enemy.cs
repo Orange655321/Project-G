@@ -8,14 +8,15 @@ public class Enemy : MonoBehaviour
     public int armor;
     public int RateOfFire;
     public int speed;
+    public int cost;
 
     
-    private Transform player;
+    private GameObject player;
     private Rigidbody2D rb;
 
     public void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -26,8 +27,8 @@ public class Enemy : MonoBehaviour
 
     private void Angry() 
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.fixedDeltaTime);
-        Vector2 lookDir = player.position - transform.position;
+        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.fixedDeltaTime);
+        Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
         rb.rotation = angle;// привязка угла к герою
     }
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour
     }
     void Die()
     {
+        player.GetComponent<Hero>().AddToScore(cost);
         Destroy(gameObject);
     }
 }
