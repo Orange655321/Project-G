@@ -9,8 +9,10 @@ public class Enemy : MonoBehaviour
     public int RateOfFire;
     public int speed;
     public int cost;
+   // Collider2D[] coll;
+   // private bool check ;
 
-    
+
     private GameObject player;
     private Rigidbody2D rb;
 
@@ -19,12 +21,33 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
     }
+   /* private void OnCollisionEnter2D(Collision2D collision)
+    {
+        check = false;
+    }*/
 
+    private void Update()
+    {
+        /*coll = Physics2D.OverlapCircleAll(transform.position, 100f, gameObject.layer);
+        foreach (Collider2D col in coll) // перебираем все найденные коллайдеры
+            if (CompareTag(col.tag)) 
+            {
+                Angry(); 
+            }*/
+       
+            
+       
+    }
     private void FixedUpdate()
     {
-        Angry();
+
+        if( Mathf.Pow(transform.position.x,2) + Mathf.Pow(transform.position.y, 2) > 0.95)
+        {
+            Angry();
+        }
     }
 
+ 
     private void Angry() 
     {
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.fixedDeltaTime);

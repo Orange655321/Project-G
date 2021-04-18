@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 54367529}
   - component: {fileID: 54367531}
   - component: {fileID: 54367530}
+  - component: {fileID: 54367532}
   m_Layer: 0
   m_Name: FirePoint
   m_TagString: Untagged
@@ -418,6 +419,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &54367532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54367528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d79cd49e3d6062b46a4ea9c111819724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabBullet: {fileID: 4236449361567314506, guid: 465e1adfeb69c634591782464f4ea875,
+    type: 3}
+  partSys: {fileID: 689960923}
+  cam: {fileID: 519420031}
+  hero: {fileID: 338417344}
+  bulletForce: 8
 --- !u!1 &71064835
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +901,6 @@ GameObject:
   - component: {fileID: 338417345}
   - component: {fileID: 338417350}
   - component: {fileID: 338417346}
-  - component: {fileID: 338417351}
   - component: {fileID: 338417352}
   - component: {fileID: 338417353}
   - component: {fileID: 338417354}
@@ -1029,24 +1047,6 @@ MonoBehaviour:
   numberEnemy: 100
   countEnemySpawned: 15
   counterEnemy: 0
---- !u!114 &338417351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338417344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d79cd49e3d6062b46a4ea9c111819724, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 54367529}
-  prefabBullet: {fileID: 4236449361567314506, guid: 465e1adfeb69c634591782464f4ea875,
-    type: 3}
-  partSys: {fileID: 689960923}
-  pistol: {fileID: 0}
-  bulletForce: 8
 --- !u!95 &338417352
 Animator:
   serializedVersion: 3
