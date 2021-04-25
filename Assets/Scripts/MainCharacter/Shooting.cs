@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    public Transform firePoint;
+   // public Transform firePoint;
     public GameObject prefabBullet;
     public ParticleSystem partSys;
     private PistolSoundController pistolSC;
-    public GameObject pistol;
+    //public GameObject pistol;
     private AnimationController animCtrl;
+    private Vector2 mosPosition;
+    public Camera cam;
 
     public float bulletForce = 8f;
 
     void Start()
     {
         animCtrl = GetComponent<AnimationController>();
-        pistolSC = pistol.GetComponent<PistolSoundController>();
+        pistolSC = GetComponent<PistolSoundController>();
     }
 
     // Update is called once per frame
@@ -32,8 +34,14 @@ public class Shooting : MonoBehaviour
     }
     void shoot()
     {
-        GameObject bullet = Instantiate(prefabBullet, firePoint.position, firePoint.rotation);//создаем объект из префаба в месте поинта
+        mosPosition = cam.ScreenToWorldPoint(Input.mousePosition);
+       
+        GameObject bullet = Instantiate(prefabBullet, transform.position, transform.rotation);//создаем объект из префаба в месте поинта
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.AddForce(firePoint.up * bulletForce, ForceMode2D.Impulse);//отправляем пулю из ствола на...
+        Vector2 lookDir = (mosPosition - rb.position).normalized;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        transform.eulerAngles = new Vector3(0, 0, angle);
+        rb.AddForce(transform.up * bulletForce, ForceMode2D.Impulse);//отправляем пулю из ствола на...
+       
     }
 }
