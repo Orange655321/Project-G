@@ -504,7 +504,7 @@ Canvas:
   m_GameObject: {fileID: 71064835}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
@@ -514,7 +514,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 209360267
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &71064839
 RectTransform:
@@ -1670,7 +1670,7 @@ MonoBehaviour:
   SettingsMenu: {fileID: 926619612}
   mSlider: {fileID: 656450318}
   sSlider: {fileID: 1440405268}
-  Player: {fileID: 338417344}
+  FirePoint: {fileID: 54367528}
 --- !u!1 &656450318
 GameObject:
   m_ObjectHideFlags: 0

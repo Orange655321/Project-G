@@ -14,12 +14,12 @@ public class PauseMenu : MonoBehaviour
     public GameObject mSlider;
     public GameObject sSlider;
 
-    public GameObject Player;
-    private Shooting script;
+    public GameObject FirePoint;
+    //private Shooting script;
 
     private void Start()
     {
-        script = Player.GetComponent<Shooting>();
+       // script = Player.GetComponent<Shooting>();
         mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
         sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
     }
@@ -42,7 +42,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        script.enabled = true;
+        // script.enabled = true;
+        FirePoint.SetActive(true);
         psMenu.SetActive(false);
         SettingsMenu.SetActive(false);
         Time.timeScale = 1f;
@@ -51,7 +52,8 @@ public class PauseMenu : MonoBehaviour
 
     void Pause()
     {
-        script.enabled = false;
+        // script.enabled = false;
+        FirePoint.SetActive(false);
         psMenu.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;       
@@ -71,7 +73,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ToMainMenu()
     {
-        script.enabled = true;
+       // script.enabled = true;
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
     }
