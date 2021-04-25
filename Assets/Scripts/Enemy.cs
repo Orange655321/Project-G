@@ -9,57 +9,67 @@ public class Enemy : MonoBehaviour
     public int RateOfFire;
     public int speed;
     public int cost;
-   // Collider2D[] coll;
-   // private bool check ;
+    public int zombieDamage;
+    public float attackRange;
+    public GameObject pointAttack;//сделай по уму, с без геймобжекта
+    public LayerMask layerHero;
 
 
     private GameObject player;
     private Rigidbody2D rb;
+    private float nextAttackTime;
 
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
+        nextAttackTime = 0f;
     }
-   /* private void OnCollisionEnter2D(Collision2D collision)
-    {
-        check = false;
-    }*/
+ 
 
     private void Update()
-    {
-        /*coll = Physics2D.OverlapCircleAll(transform.position, 100f, gameObject.layer);
-        foreach (Collider2D col in coll) // перебираем все найденные коллайдеры
-            if (CompareTag(col.tag)) 
+    { 
+        if(player != null) 
+        {
+            if (Vector2.Distance(player.transform.position, transform.position) > attackRange)
             {
-                Angry(); 
-            }*/
-       
-            
-       
+                Angry();
+            }
+            else
+            {
+                if (Time.time >= nextAttackTime)
+                {
+                    Attack();
+                    nextAttackTime = Time.time + 1f / RateOfFire;
+                }
+            }
+        }
     }
     private void FixedUpdate()
     {
-
-        if( Mathf.Pow(transform.position.x,2) + Mathf.Pow(transform.position.y, 2) > 0.95)
-        {
-            Angry();
-        }
+  
     }
 
- 
+    private void Attack() 
+    {
+        Collider2D colInfo = Physics2D.OverlapCircle(pointAttack.transform.position, attackRange/3, layerHero);
+        if (colInfo != null)
+        {
+            player.GetComponent<Hero>().TakeDamage(zombieDamage);
+        }
+    }
     private void Angry() 
     {
-        transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.fixedDeltaTime);
+        //transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.fixedDeltaTime);
         Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
-        rb.rotation = angle;// привязка угла к герою
+        transform.eulerAngles = new Vector3(0, 0, angle);
+        rb.velocity = lookDir.normalized * speed;
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
-
         if(health <= 0) 
         {
             Die();
@@ -69,5 +79,28 @@ public class Enemy : MonoBehaviour
     {
         player.GetComponent<Hero>().AddToScore(cost);
         Destroy(gameObject);
+    }
+
+   /* private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player")) 
+        {
+            isAttack = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if(collision.collider.CompareTag("Player"))
+        {
+            isAttack = false;
+        }
+    }*/
+
+    private IEnumerator CoroutineAttack()
+    {
+        yield return new WaitForSeconds(1);
+        
+        yield break;
     }
 }
