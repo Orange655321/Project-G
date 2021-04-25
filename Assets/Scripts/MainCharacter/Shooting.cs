@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-   // public Transform firePoint;
     public GameObject prefabBullet;
     public ParticleSystem partSys;
     private PistolSoundController pistolSC;
-    //public GameObject pistol;
     private AnimationController animCtrl;
     private Vector2 mosPosition;
     public Camera cam;

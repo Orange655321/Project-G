@@ -9,7 +9,7 @@ public class Unit : MonoBehaviour
         Destroy(gameObject);
     }
     
-    public virtual void TakeDamage() 
+    public virtual void TakeDamage(int damage) 
     {
         Die();
     }
