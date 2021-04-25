@@ -34,16 +34,22 @@ public class Enemy : MonoBehaviour
             {
                 Angry(); 
             }*/
+       
+            
+       
     }
     private void FixedUpdate()
     {
-        Angry();
+
+        if( Mathf.Pow(transform.position.x,2) + Mathf.Pow(transform.position.y, 2) > 0.95)
+        {
+            Angry();
+        }
     }
 
  
     private void Angry() 
     {
-
         transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.fixedDeltaTime);
         Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
