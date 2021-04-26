@@ -93,9 +93,9 @@ public class Hero : Unit
             else
             {
                 armor -= damage;
-                if (armor < 0)
+                if (armor <= 0)
                 {
-                    StartCoroutine(invulnerability());
+                    StartCoroutine(Invulnerability());
                     armor = 0;
                     armorText.text = "" + armor;
                 }
@@ -107,7 +107,6 @@ public class Hero : Unit
             }
         }
     }
-
     public override void Die()
     {
         dieCanvas.SetActive(true);
@@ -144,7 +143,7 @@ public class Hero : Unit
             }
         }
     }
-    IEnumerator invulnerability()
+    IEnumerator Invulnerability()
     {
         isInvulnerability = true;
         yield return new WaitForSeconds(3);
