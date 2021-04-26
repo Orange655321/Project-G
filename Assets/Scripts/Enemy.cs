@@ -83,7 +83,7 @@ public class Enemy : MonoBehaviour
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMaster.enemyCount--;
-        if(dropChance > 0)
+        if(dropChance > 0.5)
         {
             GM.spawnItems(transform.position);
         }
