@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Grass
+  - GameManager
+  - Wall
   layers:
   - Default
   - TransparentFX

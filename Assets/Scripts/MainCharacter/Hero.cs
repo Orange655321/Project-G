@@ -12,7 +12,9 @@ public class Hero : Unit
     [SerializeField]
     private int armor = 0;
     [SerializeField]
-    private int score= 0;
+    private int score = 0;
+    [SerializeField]
+    private int pistolBullet = 0;
     [SerializeField]
     private Text healthText;
     [SerializeField]
@@ -28,51 +30,48 @@ public class Hero : Unit
     private AnimationController animCtrl;
     [SerializeField]
     private GameObject dieCanvas;
+    private bool isInvulnerability;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
-        spriteRend = GetComponent<SpriteRenderer>();
-        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
-        matDefault = spriteRend.material;
+<<<<<<< HEAD
+=======
+        healthText.text = "" + health;
+        armorText.text = "" + armor;
+        scoreText.text = "" + score;
+        isInvulnerability = false;
+>>>>>>> remotes/origin/Orange
     }
 
     void Start()
     {
-        healthText.text = "" + health;
-        armorText.text = "" + armor;
-        scoreText.text = "" + score;
+        pistolBullet = 34;
     }
 
     void Update()
     {
+        healthText.text = "" + health;
         armorText.text = "" + armor;
         scoreText.text = "" + score;
         Move();
     }
 
-    public void AddToScore(int cost) 
+    public void AddToScore(int cost)
     {
         score += cost;
     }
 
-    private void Move() 
+    private void Move()
     {
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
             Vector2 moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             moveInput.Normalize();
-            //if (moveVelocity != Vector2.zero) // включение и отключение анимации бега в зависимости от того, есть ли в данный момент скорость у персонажа
 
             animCtrl.RunAnimationOn();
 
-            //else
-
-            // animCtrl.RunAnimationOff();
-
-            //transform.position = Vector2.MoveTowards(transform.position, transform.position +(Vector3)moveVelocity, speed * Time.deltaTime);
-            //rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
             rb.velocity = moveInput * speed;
         }
         else
@@ -87,11 +86,28 @@ public class Hero : Unit
 
     public override void TakeDamage(int damage)
     {
-        health -= damage;
-        healthText.text = "" + health;
-        if (health <= 0) 
+        if (!isInvulnerability)
         {
-            Die();
+            if (armor == 0)
+            {
+                health -= damage;
+                healthText.text = "" + health;
+            }
+            else
+            {
+                armor -= damage;
+                if (armor < 0)
+                {
+                    StartCoroutine(invulnerability());
+                    armor = 0;
+                    armorText.text = "" + armor;
+                }
+            }
+
+            if (health <= 0)
+            {
+                Die();
+            }
         }
     }
 
@@ -100,12 +116,42 @@ public class Hero : Unit
         dieCanvas.SetActive(true);
         base.Die();
     }
-
-    /*private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.collider.CompareTag("Enemy")) 
+        Items item = collision.gameObject.GetComponent<Items>();
+        if (item)
         {
-            rb.AddForce(-collision.transform.position, ForceMode2D.Impulse);
+            switch (item.itemType)
+            {
+                case Items.ItemType.MedKit:
+                    if (health != 200)
+                    {
+                        health = item.healing(health);
+                        item.RemoveItem();
+                    }
+                    break;
+                case Items.ItemType.ShieldPack:
+                    if (armor != 100)
+                    {
+                        armor = item.shielding(armor);
+                        item.RemoveItem();
+                    }
+                    break;
+                case Items.ItemType.PistolBulletPack:
+                    if (pistolBullet != 272)
+                    {
+                        pistolBullet = item.getPistolBullet(pistolBullet);
+                        item.RemoveItem();
+                    }
+                    break;
+            }
         }
-    }*/
+    }
+    IEnumerator invulnerability()
+    {
+        isInvulnerability = true;
+        yield return new WaitForSeconds(3);
+        isInvulnerability = false;
+        yield return null;
+    }
 }
