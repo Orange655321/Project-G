@@ -6,14 +6,27 @@ public class ShitSpawner : MonoBehaviour
 {
     public float SpawnDistance;
     public int MobNumber;
+    public int TriggerDistance;
     public GameObject Mob;
     public GameObject Player;
+    public GameObject Trigger;
     void Update()
     {
-        if (MobNumber !=0 && (Vector3.Distance(Player.transform.position, transform.position) <= SpawnDistance))
+        if (Trigger == null)
         {
-            Mob_Placement();
-            --MobNumber;
+            if (MobNumber != 0 && (Vector3.Distance(Player.transform.position, transform.position) <= SpawnDistance))
+            {
+                Mob_Placement();
+                --MobNumber;
+            }
+        }
+        else
+        {
+            if (MobNumber != 0 && (Vector3.Distance(Player.transform.position, Trigger.transform.position) <= TriggerDistance))
+            {
+                Mob_Placement();
+                --MobNumber;
+            }
         }
     }
     public void Mob_Placement()
