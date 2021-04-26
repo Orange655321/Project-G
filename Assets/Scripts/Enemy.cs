@@ -16,14 +16,18 @@ public class Enemy : MonoBehaviour
 
 
     private GameObject player;
+    private GameMaster GM;
     private Rigidbody2D rb;
     private float nextAttackTime;
+    private float dropChance;
 
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
         rb = GetComponent<Rigidbody2D>();
         nextAttackTime = 0f;
+        dropChance = Random.Range(0f, 1f);
     }
  
 
@@ -78,29 +82,11 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         player.GetComponent<Hero>().AddToScore(cost);
+        GameMaster.enemyCount--;
+        if(dropChance > 0)
+        {
+            GM.spawnItems(transform.position);
+        }
         Destroy(gameObject);
-    }
-
-   /* private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Player")) 
-        {
-            isAttack = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if(collision.collider.CompareTag("Player"))
-        {
-            isAttack = false;
-        }
-    }*/
-
-    private IEnumerator CoroutineAttack()
-    {
-        yield return new WaitForSeconds(1);
-        
-        yield break;
     }
 }

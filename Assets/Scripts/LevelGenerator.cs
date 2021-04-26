@@ -20,7 +20,7 @@ public class LevelGenerator : MonoBehaviour
     int maxWalkers = 10;
     float percentToFill = 0.2f;
     public GameObject wallObj, floorObj;
-    void Start()
+    void Awake()
     {
         Setup();
         CreateFloors();
