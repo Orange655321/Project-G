@@ -33,6 +33,9 @@ public class Hero : Unit
     {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
+        spriteRend = GetComponent<SpriteRenderer>();
+        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+        matDefault = spriteRend.material;
     }
 
     void Start()
