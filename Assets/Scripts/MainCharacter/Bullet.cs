@@ -11,7 +11,11 @@ public class Bullet : MonoBehaviour
         if(enemy != null) 
         {
             enemy.TakeDamage(damage);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        if (collider.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

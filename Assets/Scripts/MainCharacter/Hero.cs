@@ -30,6 +30,7 @@ public class Hero : Unit
     private AnimationController animCtrl;
     [SerializeField]
     private GameObject dieCanvas;
+    private bool isInvulnerability;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class Hero : Unit
         healthText.text = "" + health;
         armorText.text = "" + armor;
         scoreText.text = "" + score;
+        isInvulnerability = false;
     }
 
     void Start()
@@ -81,11 +83,28 @@ public class Hero : Unit
 
     public override void TakeDamage(int damage)
     {
-        health -= damage;
-        healthText.text = "" + health;
-        if (health <= 0) 
+        if (!isInvulnerability)
         {
-            Die();
+            if (armor == 0)
+            {
+                health -= damage;
+                healthText.text = "" + health;
+            }
+            else
+            {
+                armor -= damage;
+                if (armor < 0)
+                {
+                    StartCoroutine(invulnerability());
+                    armor = 0;
+                    armorText.text = "" + armor;
+                }
+            }
+
+            if (health <= 0)
+            {
+                Die();
+            }
         }
     }
 
@@ -124,5 +143,12 @@ public class Hero : Unit
                     break;
             }
         }
+    }
+    IEnumerator invulnerability()
+    {
+        isInvulnerability = true;
+        yield return new WaitForSeconds(3);
+        isInvulnerability = false;
+        yield return null;
     }
 }
