@@ -1062,6 +1062,7 @@ MonoBehaviour:
   healthText: {fileID: 362461935}
   armorText: {fileID: 1793876535}
   scoreText: {fileID: 757088991}
+  tst: 8.05
   cam: {fileID: 519420031}
   dieCanvas: {fileID: 71064835}
 --- !u!1 &362461933

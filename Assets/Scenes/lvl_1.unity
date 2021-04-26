@@ -10976,6 +10976,7 @@ MonoBehaviour:
   healthText: {fileID: 1875597257}
   armorText: {fileID: 290364266}
   scoreText: {fileID: 1329182235}
+  tst: 0
   cam: {fileID: 2123315167}
   dieCanvas: {fileID: 393917267}
 --- !u!114 &1105947157
@@ -11229,7 +11230,7 @@ GameObject:
   - component: {fileID: 1151068837}
   m_Layer: 0
   m_Name: Tilemap (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -12,7 +12,7 @@ public class Hero : Unit
     [SerializeField]
     private int armor = 0;
     [SerializeField]
-    private int score= 0;
+    private int score = 0;
     [SerializeField]
     private int pistolBullet = 0;
     [SerializeField]
@@ -55,12 +55,12 @@ public class Hero : Unit
         Move();
     }
 
-    public void AddToScore(int cost) 
+    public void AddToScore(int cost)
     {
         score += cost;
     }
 
-    private void Move() 
+    private void Move()
     {
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
@@ -118,10 +118,10 @@ public class Hero : Unit
         Items item = collision.gameObject.GetComponent<Items>();
         if (item)
         {
-            switch(item.itemType)
+            switch (item.itemType)
             {
                 case Items.ItemType.MedKit:
-                    if(health != 200)
+                    if (health != 200)
                     {
                         health = item.healing(health);
                         item.RemoveItem();
@@ -135,7 +135,7 @@ public class Hero : Unit
                     }
                     break;
                 case Items.ItemType.PistolBulletPack:
-                    if(pistolBullet != 272)
+                    if (pistolBullet != 272)
                     {
                         pistolBullet = item.getPistolBullet(pistolBullet);
                         item.RemoveItem();
