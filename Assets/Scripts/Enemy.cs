@@ -17,8 +17,7 @@ public class Enemy : MonoBehaviour
 
     private GameObject player;
     private GameMaster GM;
-    [SerializeField]
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private float nextAttackTime;
     private float dropChance;
     private List<Vector2> pathToPlayer;
@@ -29,8 +28,7 @@ public class Enemy : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
-        pathFinder = GetComponent<AstarPathFinder>();
-
+		pathFinder = GetComponent<AstarPathFinder>();
         nextAttackTime = 0f;
         dropChance = Random.Range(0f, 1f);
     }
