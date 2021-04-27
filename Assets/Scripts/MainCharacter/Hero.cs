@@ -12,7 +12,7 @@ public class Hero : Unit
     [SerializeField]
     private int armor = 0;
     [SerializeField]
-    private int score = 0;
+    private int score= 0;;
     [SerializeField]
     private int pistolBullet = 0;
     [SerializeField]
@@ -36,11 +36,9 @@ public class Hero : Unit
     {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
-        healthText.text = "" + health;
-        armorText.text = "" + armor;
-        scoreText.text = "" + score;
-        isInvulnerability = false;
-    }
+		spriteRend = GetComponent<SpriteRenderer>();
+        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+        matDefault = spriteRend.material;    }
 
     void Start()
     {
