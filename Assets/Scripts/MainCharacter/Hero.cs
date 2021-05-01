@@ -32,17 +32,22 @@ public class Hero : Unit
     private GameObject dieCanvas;
     private bool isInvulnerability;
 
+    private Material matBlink;
+    private Material matDefault;
+    private SpriteRenderer spriteRend;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
-<<<<<<< HEAD
-=======
         healthText.text = "" + health;
         armorText.text = "" + armor;
         scoreText.text = "" + score;
         isInvulnerability = false;
->>>>>>> remotes/origin/Orange
+
+        spriteRend = GetComponent<SpriteRenderer>();
+        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+        matDefault = spriteRend.material;
     }
 
     void Start()
@@ -99,6 +104,7 @@ public class Hero : Unit
                 if (armor <= 0)
                 {
                     StartCoroutine(Invulnerability());
+                    StartCoroutine(Blinking());
                     armor = 0;
                     armorText.text = "" + armor;
                 }
@@ -149,8 +155,19 @@ public class Hero : Unit
     IEnumerator Invulnerability()
     {
         isInvulnerability = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2.16f);
         isInvulnerability = false;
         yield return null;
+    }
+
+    IEnumerator Blinking()
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            spriteRend.material = matBlink;
+            yield return new WaitForSeconds(0.180f);
+            spriteRend.material = matDefault;
+            yield return new WaitForSeconds(0.180f);
+        }
     }
 }
