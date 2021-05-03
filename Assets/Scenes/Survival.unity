@@ -435,7 +435,7 @@ MonoBehaviour:
     type: 3}
   partSys: {fileID: 689960923}
   cam: {fileID: 519420031}
-  hero: {fileID: 338417344}
+  player: {fileID: 338417344}
   bulletForce: 8
 --- !u!1 &71064835
 GameObject:

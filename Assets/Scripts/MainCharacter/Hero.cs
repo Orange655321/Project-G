@@ -12,7 +12,7 @@ public class Hero : Unit
     [SerializeField]
     private int armor = 0;
     [SerializeField]
-    private int score= 0;;
+    private int score= 0;
     [SerializeField]
     private int pistolBullet = 0;
     [SerializeField]
@@ -31,6 +31,9 @@ public class Hero : Unit
     [SerializeField]
     private GameObject dieCanvas;
     private bool isInvulnerability;
+    private Material matBlink;
+    private Material matDefault;
+    private SpriteRenderer spriteRend;
 
     private void Awake()
     {
@@ -38,7 +41,8 @@ public class Hero : Unit
         animCtrl = GetComponent<AnimationController>();
 		spriteRend = GetComponent<SpriteRenderer>();
         matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
-        matDefault = spriteRend.material;    }
+        matDefault = spriteRend.material;
+    }
 
     void Start()
     {
@@ -94,6 +98,7 @@ public class Hero : Unit
                 if (armor <= 0)
                 {
                     StartCoroutine(Invulnerability());
+                    StartCoroutine(Blinking());
                     armor = 0;
                     armorText.text = "" + armor;
                 }
@@ -141,11 +146,36 @@ public class Hero : Unit
             }
         }
     }
+
+    public bool itsShoot()
+    {
+        if(pistolBullet > 0)
+        {
+
+            --pistolBullet;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
     IEnumerator Invulnerability()
     {
         isInvulnerability = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2.16f);
         isInvulnerability = false;
         yield return null;
+    }
+    IEnumerator Blinking()
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            spriteRend.material = matBlink;
+            yield return new WaitForSeconds(0.180f);
+            spriteRend.material = matDefault;
+            yield return new WaitForSeconds(0.180f);
+        }
     }
 }
