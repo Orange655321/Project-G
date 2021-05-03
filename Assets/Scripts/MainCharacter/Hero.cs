@@ -31,6 +31,7 @@ public class Hero : Unit
     [SerializeField]
     private GameObject dieCanvas;
     private bool isInvulnerability;
+
     private Material matBlink;
     private Material matDefault;
     private SpriteRenderer spriteRend;
@@ -39,8 +40,9 @@ public class Hero : Unit
     {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
-		spriteRend = GetComponent<SpriteRenderer>();
-        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+
+        spriteRend = GetComponent<SpriteRenderer>();
+        isInvulnerability = false;        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
         matDefault = spriteRend.material;
     }
 

@@ -9,6 +9,7 @@ public class Items : MonoBehaviour
         MedKit,
         ShieldPack,
         PistolBulletPack,
+        Pistol
     }
     public ItemType itemType;
 

@@ -49,7 +49,7 @@ public class Shooting : MonoBehaviour
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Vector2 lookDir = (mosPosition - rb.position).normalized;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-        transform.eulerAngles = new Vector3(0, 0, angle);
+        //transform.eulerAngles = new Vector3(0, 0, angle);
         rb.AddForce(transform.up * bulletForce, ForceMode2D.Impulse);//отправляем пулю из ствола на...
     }
 }
