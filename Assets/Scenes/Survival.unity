@@ -1308,7 +1308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -57.184814, y: 452.21997}
+  m_AnchoredPosition: {x: 810, y: 449.83}
   m_SizeDelta: {x: -1805.6404, y: -1030.7024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &455966819
@@ -8454,7 +8454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 101.06, y: 452.17004}
+  m_AnchoredPosition: {x: 810, y: 358.78}
   m_SizeDelta: {x: -1717.8704, y: -1030.6024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1687092599
@@ -9687,7 +9687,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "enemies \nleft"
+  m_Text: enemies
 --- !u!222 &2088056335
 CanvasRenderer:
   m_ObjectHideFlags: 0
