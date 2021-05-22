@@ -16,6 +16,16 @@ public class Hero : Unit
     [SerializeField]
     private int pistolBullet = 0;
     [SerializeField]
+    private float pistolBulletForce = 8f;
+    [SerializeField]
+    private int AKBullet = 0;
+    [SerializeField]
+    private float AKBulletForce = 11f;
+    [SerializeField]
+    private int shotgunBullet = 0;
+    [SerializeField]
+    private float shotgunBulletForce = 7f;
+    [SerializeField]
     private Text healthText;
     [SerializeField]
     private Text armorText;
@@ -23,39 +33,89 @@ public class Hero : Unit
     private Text scoreText;
 
     private Rigidbody2D rb;
-    //private Vector2 moveVelocity;
     private Vector2 mousePosition;
     [SerializeField]
     private Camera cam;
     private AnimationController animCtrl;
     [SerializeField]
     private GameObject dieCanvas;
-    private bool isInvulnerability;
 
+    private bool isInvulnerability;
+    public GameMaster GM;
     private Material matBlink;
     private Material matDefault;
     private SpriteRenderer spriteRend;
+    private bool[] isWeapon;
+    private int isWhatWeapon;// 0-нож, 1 - пистолет, 2 - АК, 3 - дробовик сделай енам
+
+    private Transform firePoint;
+    public GameObject prefabBullet;
+    public ParticleSystem partSys;
+    private PistolSoundController pistolSC;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
-
+        
         spriteRend = GetComponent<SpriteRenderer>();
         isInvulnerability = false;        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
         matDefault = spriteRend.material;
+        pistolSC = GetComponent<PistolSoundController>();
+        firePoint = GetComponentInChildren<Transform>();
     }
 
     void Start()
     {
+        isWeapon = new bool[]{ true, true, false, false }; // 0-нож, 1- пистолет, 2- АК, 3- дробовик
         pistolBullet = 34;
+        AKBullet = 30;
+        shotgunBullet = 15;
+        isWhatWeapon = 1;
     }
 
     void Update()
     {
+        if (isWhatWeapon != 0 && Input.GetKeyUp(KeyCode.Alpha1) && isWeapon[0])
+        {
+            Score.insertScore("XYZ", 3);//Анимация
+            isWhatWeapon = 0;
+
+        }
+        else if (isWhatWeapon != 1 && Input.GetKeyUp(KeyCode.Alpha2) && isWeapon[1])
+        {
+            isWhatWeapon = 1;
+        }
+        else if (isWhatWeapon != 2 && Input.GetKeyUp(KeyCode.Alpha3) && isWeapon[2])
+        {
+            isWhatWeapon = 2;
+        }
+        else if (isWhatWeapon != 3 && Input.GetKeyUp(KeyCode.Alpha4) && isWeapon[3])
+        {
+            isWhatWeapon = 3;
+        }
+        /*if (Input.GetButtonUp("Fire1") ) 
+        {
+            switch (isWhatWeapon)
+            {
+                case 0:
+                    knifeAttack();
+                    break;
+                case 1:
+                    shootPistol();
+                    break;
+                case 2:
+                    shootAK();
+                    break;
+                case 3:
+                    shootShotgun();
+                    break;
+            }
+        }*/
         healthText.text = "" + health;
         armorText.text = "" + armor;
         scoreText.text = "" + score;
+
         Move();
     }
 
@@ -115,6 +175,7 @@ public class Hero : Unit
     public override void Die()
     {
         dieCanvas.SetActive(true);
+        Score.insertScore(PlayerDataHolder.nickname, score);
         base.Die();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -145,6 +206,39 @@ public class Hero : Unit
                         item.RemoveItem();
                     }
                     break;
+                case Items.ItemType.Pistol:
+                    if (isWeapon[1])
+                    {
+                        pistolBullet = item.getPistolBullet(pistolBullet + 7);
+                    }
+                    else
+                    {
+                        isWeapon[1] = true;
+                    }
+                    item.RemoveItem();
+                    break;
+                case Items.ItemType.AK:
+                    if (isWeapon[2])
+                    {
+                        AKBullet = item.getAKBullet(AKBullet + 15);
+                    }
+                    else
+                    {
+                        isWeapon[2] = true;
+                    }
+                    item.RemoveItem();
+                    break;
+                case Items.ItemType.Shotgun:
+                    if (isWeapon[3])
+                    {
+                        shotgunBullet = item.getsShotgunBullet(shotgunBullet + 2);
+                    }
+                    else
+                    {
+                        isWeapon[3] = true;
+                    }
+                    item.RemoveItem();
+                    break;
             }
         }
     }
@@ -162,6 +256,32 @@ public class Hero : Unit
             return false;
         }
 
+    }
+
+    private void knifeAttack()
+    {
+
+    }
+
+    private void shootPistol()
+    {
+        GameObject bullet = Instantiate(prefabBullet, firePoint.position, firePoint.rotation);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.AddForce(transform.up * pistolBulletForce, ForceMode2D.Impulse);
+    }
+
+    private void shootAK()
+    {
+        
+    }
+
+    private void shootShotgun()
+    {
+        GameObject[] bullets = null;
+        for(int i = 0; i > 5; ++i)
+        {
+            bullets[i] = Instantiate(prefabBullet, firePoint.position, firePoint.rotation);
+        }
     }
     IEnumerator Invulnerability()
     {

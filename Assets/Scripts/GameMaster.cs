@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameMaster : MonoBehaviour
 {
@@ -19,16 +20,37 @@ public class GameMaster : MonoBehaviour
     [SerializeField]
     private GameObject prefabPistolBulletPack;
     [SerializeField]
+    private GameObject prefabPistol;
+    [SerializeField]
+    private GameObject prefabAK;
+    [SerializeField]
+    private GameObject prefabShotgun;
+    [SerializeField]
     private GameObject prefabEnemy;
 
     private GameObject[] respawnPlace;
+    [SerializeField]
+    private Text timeText;
+    [SerializeField]
+    private Text waveText;
+    [SerializeField]
+    private Text ememiesText;
 
+    private int finalScore;
+    private int hours;
+    private int minutes;
+    private int seconds;
+    private float timeGame;
     private void Awake()
     {
     }
     void Start()
     {
         respawnPlace = GameObject.FindGameObjectsWithTag("Grass");
+        waveText.text = "" + 1;
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
     }
 
     void Update()
@@ -37,6 +59,25 @@ public class GameMaster : MonoBehaviour
         {
             spawnEnemy();
         }
+        timeGame += Time.deltaTime;
+        if(timeGame > 1)
+        {
+            seconds++;
+            timeGame = 0;
+        }
+        if(seconds > 59)
+        {
+            seconds = 0;
+            minutes++; 
+        }
+        if(minutes > 59)
+        {
+            seconds = 0;
+            minutes = 0;
+            hours++;
+        }
+        timeText.text = hours + ":" + minutes + ":" + seconds;
+
     }
 
     private void spawnEnemy()
@@ -56,9 +97,14 @@ public class GameMaster : MonoBehaviour
         enemyCount++;
     }
 
+    public void setScore(int heroScore)
+    {
+        finalScore = heroScore;
+        PlayerDataHolder.score = finalScore;
+    }
     public void spawnItems(Vector3 pos)
     {
-        Items.ItemType item = (Items.ItemType)Random.Range(0, 3);
+        Items.ItemType item = (Items.ItemType)Random.Range(3, 6);
         switch (item)
         {
             case Items.ItemType.MedKit:
@@ -70,6 +116,16 @@ public class GameMaster : MonoBehaviour
             case Items.ItemType.PistolBulletPack:
                 Instantiate(prefabPistolBulletPack, pos, prefabPistolBulletPack.transform.rotation);              
                 break;
+            case Items.ItemType.Pistol:
+                Instantiate(prefabPistol, pos, prefabPistol.transform.rotation);
+                break;
+            case Items.ItemType.AK:
+                Instantiate(prefabAK, pos, prefabAK.transform.rotation);
+                break;
+            case Items.ItemType.Shotgun:
+                Instantiate(prefabShotgun, pos, prefabShotgun.transform.rotation);
+                break;
+
         }
     }
 }

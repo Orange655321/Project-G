@@ -9,7 +9,9 @@ public class Items : MonoBehaviour
         MedKit,
         ShieldPack,
         PistolBulletPack,
-        Pistol
+        Pistol,
+        AK,
+        Shotgun
     }
     public ItemType itemType;
 
@@ -22,11 +24,11 @@ public class Items : MonoBehaviour
     {
         if (health <= 175)
         {
-           return health += 25;
+            return health += 25;
         }
-        else 
+        else
         {
-           return 200;
+            return 200;
         }
 
     }
@@ -45,6 +47,7 @@ public class Items : MonoBehaviour
     {
         if (pistolBullet <= 262)
         {
+
             return pistolBullet += 10;
         }
         else
@@ -52,4 +55,31 @@ public class Items : MonoBehaviour
             return 272;
         }
     }
+
+    public int getAKBullet(int AKBullet)
+    {
+        if (AKBullet <= 105)
+        {
+
+            return AKBullet += 15;
+        }
+        else
+        {
+            return 120;
+        }
+    }
+
+    public int getsShotgunBullet(int shotgunBullet)
+    {
+        if (shotgunBullet <= 57)
+        {
+
+            return shotgunBullet += 3;
+        }
+        else
+        {
+            return 60;
+        }
+    }
+
 }

@@ -25,7 +25,7 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))//жмакай ЛКМ
+        if (Input.GetButtonUp("Fire1"))//жмакай ЛКМ
         {
             if (hero.itsShoot())
             {

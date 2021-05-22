@@ -435,7 +435,7 @@ MonoBehaviour:
     type: 3}
   partSys: {fileID: 689960923}
   cam: {fileID: 519420031}
-  hero: {fileID: 338417344}
+  player: {fileID: 338417344}
   bulletForce: 8
 --- !u!1 &71064835
 GameObject:
@@ -1059,11 +1059,20 @@ MonoBehaviour:
   armor: 0
   score: 0
   pistolBullet: 0
+  pistolBulletForce: 8
+  AKBullet: 0
+  AKBulletForce: 11
+  shotgunBullet: 0
+  shotgunBulletForce: 7
   healthText: {fileID: 362461935}
   armorText: {fileID: 1793876535}
   scoreText: {fileID: 757088991}
   cam: {fileID: 519420031}
   dieCanvas: {fileID: 71064835}
+  GM: {fileID: 436471869}
+  prefabBullet: {fileID: 4236449361567314506, guid: 465e1adfeb69c634591782464f4ea875,
+    type: 3}
+  partSys: {fileID: 0}
 --- !u!1 &362461933
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,8 +1281,17 @@ MonoBehaviour:
     type: 3}
   prefabPistolBulletPack: {fileID: 8047226753664783679, guid: 897f2618ff4cc9b47acd617e836343f9,
     type: 3}
+  prefabPistol: {fileID: 5513097518683075973, guid: 6685fe5f536c9634989eb112b4b14405,
+    type: 3}
+  prefabAK: {fileID: 8894489090122304018, guid: 4efb8fc5d7b49fc43b52bb555d27bd44,
+    type: 3}
+  prefabShotgun: {fileID: 7655048576782187308, guid: 7d83ba5843b1f6c448a77e5ab42f9840,
+    type: 3}
   prefabEnemy: {fileID: 9078221761693117838, guid: 0b8068d9a3b74264b8ac9616502077a1,
     type: 3}
+  timeText: {fileID: 1687092599}
+  waveText: {fileID: 2072458019}
+  ememiesText: {fileID: 415469897}
 --- !u!1 &455966817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,7 +1361,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'TIME:'
+  m_Text: TIME
 --- !u!222 &455966820
 CanvasRenderer:
   m_ObjectHideFlags: 0

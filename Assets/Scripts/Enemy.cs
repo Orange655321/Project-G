@@ -20,15 +20,15 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D rb;
     private float nextAttackTime;
     private float dropChance;
-    private List<Vector2> pathToPlayer;
-    private AstarPathFinder pathFinder;
+   // private List<Vector2> pathToPlayer;
+   // private AstarPathFinder pathFinder;
     private bool isMoving;
 
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
-		pathFinder = GetComponent<AstarPathFinder>();
+		//pathFinder = GetComponent<AstarPathFinder>();
         nextAttackTime = 0f;
         dropChance = Random.Range(0f, 1f);
     }
@@ -71,8 +71,8 @@ public class Enemy : MonoBehaviour
         Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
         transform.eulerAngles = new Vector3(0, 0, angle);
-       // rb.velocity = lookDir.normalized * speed;
-        if (isMoving)
+        rb.velocity = lookDir.normalized * speed;
+       /* if (isMoving)
         {
             if (Vector2.Distance(transform.position, pathToPlayer[pathToPlayer.Count - 1]) > 0.1f)
             {
@@ -87,7 +87,7 @@ public class Enemy : MonoBehaviour
         {
             pathToPlayer = pathFinder.GetPath(player.transform.position);
             isMoving = true;
-        }
+        }*/
     }
 
     public void TakeDamage(int damage)
