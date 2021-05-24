@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDist: 3
   numberEnemy: 30
-  enemySpawned: 15
+  enemySpawned: 10
   prefabMedKid: {fileID: 1821436993421853319, guid: 004ab57e1670d12408361a9d254f67aa,
     type: 3}
   prefabShieldPack: {fileID: 1334400096408491219, guid: 08242b97f4fc43c469fce8dadabfa565,
@@ -1586,7 +1586,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.5377358, g: 0.43477428, b: 0.26125845, a: 0}
+  m_BackGroundColor: {r: 0.040494833, g: 0.7594684, b: 0.8584906, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
