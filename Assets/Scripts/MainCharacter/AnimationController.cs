@@ -24,4 +24,8 @@ public class AnimationController : MonoBehaviour
     {
         animator.SetTrigger("shoot");
     }
+    public void DeathAnimationPlay()
+    {
+        animator.SetTrigger("death");
+    }
 }

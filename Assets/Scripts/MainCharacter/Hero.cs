@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Hero : Unit
 {
@@ -32,11 +33,11 @@ public class Hero : Unit
     private GameObject dieCanvas;
     private bool isInvulnerability;
 
-    private Material matBlink;
+private Material matBlink;
     private Material matDefault;
     private SpriteRenderer spriteRend;
-
-    private void Awake()
+    public GameObject FirePoint;
+    private bool DeathFlag = false;    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
@@ -60,7 +61,13 @@ public class Hero : Unit
         healthText.text = "" + health;
         armorText.text = "" + armor;
         scoreText.text = "" + score;
+        if(!DeathFlag)
         Move();
+        if (Input.GetKey("space") && DeathFlag)  // если нажата клавиша Esc (Escape)
+        {
+            base.Die();
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     public void AddToScore(int cost)
@@ -118,8 +125,21 @@ public class Hero : Unit
     }
     public override void Die()
     {
+        animCtrl.DeathAnimationPlay();
+        StartCoroutine(DeathTimer());
+        
+    }
+    IEnumerator DeathTimer()
+    {
+        isInvulnerability = true;
+        //gameObject.GetComponent<Collider2D>().enabled = false;
+        gameObject.GetComponent<Collider2D>().isTrigger = true;
+        FirePoint.SetActive(false);
+        DeathFlag = true;
+        yield return new WaitForSeconds(1.2f);
         dieCanvas.SetActive(true);
-        base.Die();
+
+        yield return 0;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
