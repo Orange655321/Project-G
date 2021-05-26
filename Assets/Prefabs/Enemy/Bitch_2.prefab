@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3051664836718618673}
   - component: {fileID: -3415126601913254064}
   - component: {fileID: 5038046636963089005}
+  - component: {fileID: -7604996175132603882}
   m_Layer: 0
   m_Name: Bitch_2
   m_TagString: Untagged
@@ -164,3 +165,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   rb: {fileID: -3051664836718618673}
+--- !u!95 &-7604996175132603882
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6088196559191051145}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e42dbc3954ade3c42a45b7c644f9c71b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
