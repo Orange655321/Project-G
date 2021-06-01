@@ -1064,6 +1064,7 @@ MonoBehaviour:
   scoreText: {fileID: 757088991}
   cam: {fileID: 519420031}
   dieCanvas: {fileID: 71064835}
+  FirePoint: {fileID: 0}
 --- !u!1 &362461933
 GameObject:
   m_ObjectHideFlags: 0
