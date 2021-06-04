@@ -104,7 +104,7 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         player.GetComponent<Hero>().AddToScore(cost);
-        //GameMaster.enemyCount--;
+        GameMasterLvl1.EnemyCount--;
         /*if(dropChance > 0.5)
         {
             GM.spawnItems(transform.position);
