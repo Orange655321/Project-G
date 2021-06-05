@@ -32,11 +32,13 @@ public class Hero : Unit
     [SerializeField]
     private GameObject dieCanvas;
     private bool isInvulnerability;
+    public bool Claws_flag = false;
 
 private Material matBlink;
     private Material matDefault;
     private SpriteRenderer spriteRend;
     public GameObject FirePoint;
+    public GameMasterLvl1 GameMasterLvl1;
     private bool DeathFlag = false;    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -169,7 +171,19 @@ private Material matBlink;
                         item.RemoveItem();
                     }
                     break;
+                case Items.ItemType.Claws:
+                    Claws_flag = true;
+                    item.RemoveItem();
+                    break;
             }
+        }
+        
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (Input.GetKey(KeyCode.E) && Claws_flag && collision.CompareTag("Gate"))
+        {
+            GameMasterLvl1.Opening();
         }
     }
     IEnumerator Invulnerability()

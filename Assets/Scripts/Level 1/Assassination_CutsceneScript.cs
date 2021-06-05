@@ -7,7 +7,7 @@ public class Assassination_CutsceneScript : MonoBehaviour
 {
     public PlayableDirector playabledirector;
     public GameObject Player;
-    private bool once = true;
+    public static bool once = true;
 
     // Update is called once per frame
     void Update()

@@ -8,6 +8,7 @@ TagManager:
   - Grass
   - GameManager
   - Wall
+  - Gate
   layers:
   - Default
   - TransparentFX
