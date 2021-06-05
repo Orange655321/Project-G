@@ -6,6 +6,8 @@ public class GameMasterLvl1 : MonoBehaviour
 {
     public static int EnemyCount;
     public static bool EnemyKilled = true;
+    public List<GameObject> Gate;
+    public List<GameObject> Opened_Gate;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,14 @@ public class GameMasterLvl1 : MonoBehaviour
         {
             EnemyKilled = false;
         }
-        Debug.Log(EnemyCount);
+        //Debug.Log(EnemyCount);
+    }
+
+    public void Opening()
+    {
+        Destroy(Gate[0]);
+        Destroy(Gate[1]);
+        Opened_Gate[0].SetActive(true);
+        Opened_Gate[1].SetActive(true);
     }
 }

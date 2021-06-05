@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3488434960427277316}
   - component: {fileID: 4522302679541000157}
   - component: {fileID: 6308437911650092626}
+  - component: {fileID: -8267177947916804343}
+  - component: {fileID: -1816698003658920635}
   m_Layer: 0
   m_Name: SWAT
   m_TagString: Untagged
@@ -101,3 +103,57 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &-8267177947916804343
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6366149469702341634}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 100
+  m_LinearDrag: 100
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: 9a0aa2f8d025318498a9541084b58006, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!60 &-1816698003658920635
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6366149469702341634}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.25, y: 1.25}
+    newSize: {x: 1.25, y: 1.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.28125, y: 0.59375}
+      - {x: 0.1875, y: 0.59375}
+      - {x: -0.375, y: 0.0625}
+      - {x: -0.375, y: -0.34375}
+      - {x: -0.15625, y: -0.4375}
+      - {x: 0.28125, y: -0.4375}
+      - {x: 0.4375, y: -0.21875}
+      - {x: 0.4375, y: 0.375}
