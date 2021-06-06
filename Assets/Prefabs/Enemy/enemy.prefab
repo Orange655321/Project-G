@@ -160,6 +160,8 @@ MonoBehaviour:
   layerHero:
     serializedVersion: 2
     m_Bits: 512
+  player: {fileID: 0}
+  GM: {fileID: 0}
   rb: {fileID: 4597941727714800377}
 --- !u!60 &5385168152772986858
 PolygonCollider2D:

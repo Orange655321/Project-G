@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     public GameObject pointAttack;//сделай по уму, с без геймобжекта
     public LayerMask layerHero;
 
-
+    private bool isDead;
     private GameObject player;
     private GameMaster GM;
     public Rigidbody2D rb;
@@ -31,6 +31,7 @@ public class Enemy : MonoBehaviour
 		//pathFinder = GetComponent<AstarPathFinder>();
         nextAttackTime = 0f;
         dropChance = Random.Range(0f, 1f);
+        isDead = false;
     }
  
 
@@ -93,8 +94,9 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if(health <= 0) 
+        if(health <= 0 && !isDead)
         {
+            isDead = true; 
             Die();
         }
     }

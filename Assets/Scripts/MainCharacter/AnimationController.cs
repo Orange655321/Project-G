@@ -24,4 +24,34 @@ public class AnimationController : MonoBehaviour
     {
         animator.SetTrigger("shoot");
     }
+
+    public void KnifeAnimationOn()
+    {
+        animator.SetTrigger("knifeOn");
+    }
+
+    public void KnifeAnimationOff()
+    {
+        animator.SetTrigger("knifeOff");
+    }
+
+    public void Switcher()
+    {
+        animator.SetTrigger("switch");
+    }
+
+    public void SwitchToPistol()
+    {
+        animator.SetTrigger("pistol");
+    }
+
+    public void SwitchToShotgun()
+    {
+        animator.SetTrigger("shotgun");
+    }
+
+    public void SwitchToAK47()
+    {
+        animator.SetTrigger("ak-47");
+    }
 }

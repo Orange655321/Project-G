@@ -300,7 +300,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54367528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.125, y: 0.498, z: -0.06573486}
+  m_LocalPosition: {x: 0.14, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 689960924}
@@ -426,7 +426,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 54367528}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d79cd49e3d6062b46a4ea9c111819724, type: 3}
   m_Name: 
@@ -984,7 +984,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1782547861
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 03d08def61d6e364a904991d7b7e5b78, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1061,18 +1061,28 @@ MonoBehaviour:
   pistolBullet: 0
   pistolBulletForce: 8
   AKBullet: 0
-  AKBulletForce: 11
+  AKBulletForce: 5
   shotgunBullet: 0
   shotgunBulletForce: 7
+  attackRange: 0.25
+  attackDamage: 200
   healthText: {fileID: 362461935}
   armorText: {fileID: 1793876535}
   scoreText: {fileID: 757088991}
   cam: {fileID: 519420031}
   dieCanvas: {fileID: 71064835}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 256
   GM: {fileID: 436471869}
-  prefabBullet: {fileID: 4236449361567314506, guid: 465e1adfeb69c634591782464f4ea875,
+  firePoint: {fileID: 54367529}
+  prefabPistolBullet: {fileID: 4236449361567314506, guid: 465e1adfeb69c634591782464f4ea875,
     type: 3}
-  partSys: {fileID: 0}
+  prefabAKBullet: {fileID: 4258112528853497413, guid: fbc3674926dcefd47a9cf516b8db0c34,
+    type: 3}
+  prefabShootgunBullet: {fileID: 4208371342346929037, guid: 5bf477b11f6d50e45bc84bc2f228581a,
+    type: 3}
+  partSys: {fileID: 689960923}
 --- !u!1 &362461933
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,7 +1283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDist: 3
-  numberEnemy: 30
+  numberEnemy: 10
   enemySpawned: 15
   prefabMedKid: {fileID: 1821436993421853319, guid: 004ab57e1670d12408361a9d254f67aa,
     type: 3}
@@ -2508,7 +2518,7 @@ ParticleSystem:
     startRotationX:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 3.1415927
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2561,7 +2571,7 @@ ParticleSystem:
     startRotationY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 3.1415927
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2614,7 +2624,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 3.1415927
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -2629,8 +2639,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: 0
+          time: 0.9808655
+          value: 0.70270157
           inSlope: 0
           outSlope: 0
           tangentMode: 0

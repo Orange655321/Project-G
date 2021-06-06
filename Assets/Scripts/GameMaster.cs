@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO.Pipes;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -100,7 +102,32 @@ public class GameMaster : MonoBehaviour
     public void setScore(int heroScore)
     {
         finalScore = heroScore;
-        PlayerDataHolder.score = finalScore;
+        using (NamedPipeClientStream pipeClient =
+            new NamedPipeClientStream(".", "testpipe", PipeDirection.Out))
+        {
+            pipeClient.Connect();
+            // Connect to the pipe or wait until the pipe is available.
+
+            try
+            {
+                //  send score to the server process.
+                using (StreamWriter sw = new StreamWriter(pipeClient))
+                {
+                    sw.AutoFlush = true;
+
+                    sw.WriteLine(finalScore);
+
+                }
+            }
+            // Catch the IOException that is raised if the pipe is broken
+            // or disconnected.
+            catch (IOException e)
+            {
+                Debug.Log("ERROR:" + e.Message);
+            }
+
+        }
+
     }
     public void spawnItems(Vector3 pos)
     {
