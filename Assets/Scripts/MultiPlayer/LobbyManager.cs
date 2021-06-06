@@ -25,10 +25,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.JoinRandomRoom();
     }
-    public override void OnConnected()
+    public override void OnJoinedRoom()
     {
         Log("Joined the room");
-        PhotonNetwork.LoadLevel("Coop");
+        PhotonNetwork.LoadLevel("CoopPlay");
     }
 
     private void Log(string message)
