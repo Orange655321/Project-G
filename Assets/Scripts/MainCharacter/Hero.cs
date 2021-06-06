@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Hero : Unit
 {
@@ -31,7 +32,14 @@ public class Hero : Unit
     [SerializeField]
     private GameObject dieCanvas;
     private bool isInvulnerability;
+    public bool Claws_flag = false;
 
+private Material matBlink;
+    private Material matDefault;
+    private SpriteRenderer spriteRend;
+    public GameObject FirePoint;
+    public GameMasterLvl1 GameMasterLvl1;
+    private bool DeathFlag = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -40,6 +48,10 @@ public class Hero : Unit
         armorText.text = "" + armor;
         scoreText.text = "" + score;
         isInvulnerability = false;
+
+        spriteRend = GetComponent<SpriteRenderer>();
+        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+        matDefault = spriteRend.material;
     }
 
     void Start()
@@ -52,7 +64,13 @@ public class Hero : Unit
         healthText.text = "" + health;
         armorText.text = "" + armor;
         scoreText.text = "" + score;
+        if (!DeathFlag)
         Move();
+        if (Input.GetKey("space") && DeathFlag)  // если нажата клавиша Esc (Escape)
+        {
+            base.Die();
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     public void AddToScore(int cost)
@@ -96,6 +114,7 @@ public class Hero : Unit
                 if (armor <= 0)
                 {
                     StartCoroutine(Invulnerability());
+                    StartCoroutine(Blinking());
                     armor = 0;
                     armorText.text = "" + armor;
                 }
@@ -109,8 +128,21 @@ public class Hero : Unit
     }
     public override void Die()
     {
+        animCtrl.DeathAnimationPlay();
+        StartCoroutine(DeathTimer());
+
+    }
+    IEnumerator DeathTimer()
+    {
+        isInvulnerability = true;
+        //gameObject.GetComponent<Collider2D>().enabled = false;
+        gameObject.GetComponent<Collider2D>().isTrigger = true;
+        FirePoint.SetActive(false);
+        DeathFlag = true;
+        yield return new WaitForSeconds(1.2f);
         dieCanvas.SetActive(true);
-        base.Die();
+
+        yield return 0;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -140,14 +172,37 @@ public class Hero : Unit
                         item.RemoveItem();
                     }
                     break;
+                case Items.ItemType.Claws:
+                    Claws_flag = true;
+                    item.RemoveItem();
+                    break;
             }
+        }
+        
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (Input.GetKey(KeyCode.E) && Claws_flag && collision.CompareTag("Gate"))
+        {
+            GameMasterLvl1.Opening();
         }
     }
     IEnumerator Invulnerability()
     {
         isInvulnerability = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2.16f);
         isInvulnerability = false;
         yield return null;
+    }
+
+    IEnumerator Blinking()
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            spriteRend.material = matBlink;
+            yield return new WaitForSeconds(0.180f);
+            spriteRend.material = matDefault;
+            yield return new WaitForSeconds(0.180f);
+        }
     }
 }

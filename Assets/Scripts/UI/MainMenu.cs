@@ -26,13 +26,25 @@ public class MainMenu : MonoBehaviour
     }
     public void PlaySurvival() //
     {
-        StartCoroutine(StartTimer());       
+        int flag = 2;
+        StartCoroutine(StartTimer(flag));       
     }
 
-    IEnumerator StartTimer() //
+    public void PlaySingleplayer()
+    {
+        int flag = 1;
+        StartCoroutine(StartTimer(flag));
+    }
+
+    IEnumerator StartTimer(int flag) //
     {
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("Survival");
+        switch(flag)
+        {
+            case 1: SceneManager.LoadScene("lvl_1"); break;
+            case 2: SceneManager.LoadScene("Survival"); break;
+        }
+        
     }
 
     public void ExitGame()
