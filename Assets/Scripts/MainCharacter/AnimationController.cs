@@ -24,8 +24,7 @@ public class AnimationController : MonoBehaviour
     {
         animator.SetTrigger("shoot");
     }
-
-    public void KnifeAnimationOn()
+  public void KnifeAnimationOn()
     {
         animator.SetTrigger("knifeOn");
     }
@@ -54,4 +53,7 @@ public class AnimationController : MonoBehaviour
     {
         animator.SetTrigger("ak-47");
     }
-}
+ public void DeathAnimationPlay()
+    {
+        animator.SetTrigger("death");
+    }}

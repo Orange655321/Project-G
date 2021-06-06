@@ -20,14 +20,16 @@ public class Enemy : MonoBehaviour
     public Rigidbody2D rb;
     private float nextAttackTime;
     private float dropChance;
-   // private List<Vector2> pathToPlayer;
+    private List<Vector2> pathToPlayer;
+    AstarPathFinder pathFinder;
    // private AstarPathFinder pathFinder;
     private bool isMoving;
-
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
+        //GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
+        rb = GetComponent<Rigidbody2D>();
+        pathFinder = GetComponent<AstarPathFinder>();
 		//pathFinder = GetComponent<AstarPathFinder>();
         nextAttackTime = 0f;
         dropChance = Random.Range(0f, 1f);
@@ -73,7 +75,7 @@ public class Enemy : MonoBehaviour
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
         transform.eulerAngles = new Vector3(0, 0, angle);
         rb.velocity = lookDir.normalized * speed;
-       /* if (isMoving)
+/* if (isMoving)
         {
             if (Vector2.Distance(transform.position, pathToPlayer[pathToPlayer.Count - 1]) > 0.1f)
             {
@@ -88,8 +90,7 @@ public class Enemy : MonoBehaviour
         {
             pathToPlayer = pathFinder.GetPath(player.transform.position);
             isMoving = true;
-        }*/
-    }
+        }*/    }
 
     public void TakeDamage(int damage)
     {
@@ -103,11 +104,11 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         player.GetComponent<Hero>().AddToScore(cost);
-        GameMaster.enemyCount--;
-        if(dropChance > 0.5)
+        GameMasterLvl1.EnemyCount--;
+        /*if(dropChance > 0.5)
         {
             GM.spawnItems(transform.position);
-        }
+        }*/
         Destroy(gameObject);
     }
 }

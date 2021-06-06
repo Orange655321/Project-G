@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Hero : Unit
 {
@@ -53,10 +54,16 @@ public class Hero : Unit
 
     private bool isInvulnerability;
     public GameMaster GM;
+    public bool Claws_flag = false;
     private Material matBlink;
     private Material matDefault;
     private SpriteRenderer spriteRend;
-    private bool[] isWeapon;
+    public GameMasterLvl1 GameMasterLvl1;
+    private bool DeathFlag = false;
+
+
+	public Transform firePoint;
+ 	private bool[] isWeapon;
     private Weapon isWhatWeapon;// 0 - пистолет, 1 - АК, 2 - дробовик сделай енам
     private float rateOfFireAK = 0.1f;
     private float rateOfFirePistol = 0.6f;
@@ -72,7 +79,6 @@ public class Hero : Unit
 
 
     [SerializeField]
-    private Transform firePoint;
     public GameObject prefabPistolBullet;
     public GameObject prefabAKBullet;
     public GameObject prefabShootgunBullet;
@@ -86,15 +92,14 @@ public class Hero : Unit
         Shotgun,
         SniperRifle
     }
-    private void Awake()
-    {
+    private void Awake()    {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
 
         spriteRend = GetComponent<SpriteRenderer>();
         isInvulnerability = false; matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
         matDefault = spriteRend.material;
-        pistolSC = firePoint.GetComponent<PistolSoundController>();
+        pistolSC = GetComponent<PistolSoundController>();
     }
 
     void Start()
@@ -193,8 +198,13 @@ public class Hero : Unit
         healthText.text = "" + health;
         armorText.text = "" + armor;
         scoreText.text = "" + score;
-
+        if(!DeathFlag)
         Move();
+        if (Input.GetKey("space") && DeathFlag)  // если нажата клавиша Esc (Escape)
+        {
+            base.Die();
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
     IEnumerator Delay()
@@ -272,10 +282,22 @@ public class Hero : Unit
     }
     public override void Die()
     {
-        dieCanvas.SetActive(true);
+        animCtrl.DeathAnimationPlay();
+        StartCoroutine(DeathTimer());
         GM.setScore(score);
         base.Die();
     }
+    IEnumerator DeathTimer()
+    {
+        isInvulnerability = true;
+        //gameObject.GetComponent<Collider2D>().enabled = false;
+        gameObject.GetComponent<Collider2D>().isTrigger = true;
+        DeathFlag = true;
+        yield return new WaitForSeconds(1.2f);
+        dieCanvas.SetActive(true);
+        yield return 0;
+
+}
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Items item = collision.gameObject.GetComponent<Items>();
@@ -337,12 +359,20 @@ public class Hero : Unit
                     }
                     item.RemoveItem();
                     break;
-            }
+                case Items.ItemType.Claws:
+                    Claws_flag = true;
+                    item.RemoveItem();
+                    break;            
         }
+        }
+        
     }
-
     public bool itsShoot()
     {
+        if (DeathFlag)
+        {
+            return false;
+        }
         switch (isWhatWeapon)
         {
             case Weapon.Pistol:
@@ -447,6 +477,15 @@ public class Hero : Unit
         pistolSC.shootSound();
         partSys.Play();
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (Input.GetKey(KeyCode.E) && Claws_flag && collision.CompareTag("Gate"))
+        {
+            GameMasterLvl1.Opening();
+        }
+    }   
+
     IEnumerator Invulnerability()
     {
         isInvulnerability = true;

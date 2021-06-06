@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
             enemy.TakeDamage(damage);
             Destroy(gameObject);
         }
-        if (collider.CompareTag("Wall"))
+        if (collider.CompareTag("Wall") || collider.CompareTag("Gate"))
         {
             Destroy(gameObject);
         }
