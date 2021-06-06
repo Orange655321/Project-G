@@ -1,0 +1,78 @@
+<!--
+***********************************************************************************************
+Microsoft.NET.Sdk.Functions.targets
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+***********************************************************************************************
+-->
+<Project ToolsVersion="14.0" InitialTargets="_InitializeFunctionsSdk"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <_FunctionsTaskFramework Condition=" '$(MSBuildRuntimeType)' == 'Core'">netcoreapp2.1</_FunctionsTaskFramework>
+    <_FunctionsTaskFramework Condition=" '$(_FunctionsTaskFramework)' == ''">net46</_FunctionsTaskFramework>
+    <_FunctionsTasksDir Condition=" '$(_FunctionsTasksDir)'=='' ">$(MSBuildThisFileDirectory)..\tools\$(_FunctionsTaskFramework)\</_FunctionsTasksDir>
+    <_FunctionsTaskAssemblyFullPath Condition=" '$(_FunctionsTaskAssemblyFullPath)'=='' ">$(_FunctionsTasksDir)\Microsoft.NET.Sdk.Functions.MSBuild.dll</_FunctionsTaskAssemblyFullPath>
+    <DebugSymbols Condition="'$(DebugSymbols)' == ''">true</DebugSymbols>
+    <DebugType Condition="'$(DebugType)' == ''">pdbonly</DebugType>
+    <IsPackable>false</IsPackable>
+    <IsZipDeploySupported>true</IsZipDeploySupported>
+  </PropertyGroup>
+
+  <UsingTask TaskName="GenerateFunctions"
+             AssemblyFile="$(_FunctionsTaskAssemblyFullPath)"/>
+
+  <UsingTask TaskName="CreateZipFileTask"
+           AssemblyFile="$(_FunctionsTaskAssemblyFullPath)"/>
+  
+  <UsingTask TaskName="ZipDeployTask"
+            AssemblyFile="$(_FunctionsTaskAssemblyFullPath)"/>
+
+  <ItemGroup>
+    <ProjectCapability Include="AzureFunctions"/>
+  </ItemGroup>
+
+  <!--
+  ***********************************************************************************************
+  Import the Build target
+  ***********************************************************************************************
+ -->
+  <Import Project="$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Build.targets"
+          Condition="Exists('$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Build.targets')" />
+  
+  <!--
+  ***********************************************************************************************
+  Import the Publish target
+  ***********************************************************************************************
+ -->
+  <Import Project="$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Publish.targets"
+          Condition="Exists('$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Publish.targets')" />
+
+  <!--
+  ***********************************************************************************************
+  Import the ExtensionsMetadataGenerator targets, but only if it has not already been imported.
+  This must be imported after the Functions Build and Publish targets.
+  ***********************************************************************************************
+ -->
+  <PropertyGroup>
+    <_ExtensionsMetadataGeneratorTargetsPath>$(_NuGetPackageRoot)microsoft.azure.webjobs.script.extensionsmetadatagenerator\$(ExtensionsMetadataGeneratorVersion)\build\Microsoft.Azure.WebJobs.Script.ExtensionsMetadataGenerator.targets</_ExtensionsMetadataGeneratorTargetsPath>
+  </PropertyGroup>
+  
+  <Import Project="$(_ExtensionsMetadataGeneratorTargetsPath)"
+          Condition="'$(_ExtensionsMetadataGeneratorTargetsImported)' == '' And Exists('$(_ExtensionsMetadataGeneratorTargetsPath)')" />
+
+  <!--
+  ***********************************************************************************************
+  Ensure that ExtensionsMetadataGenerator is imported. The ExtensionsMetadataGenerator package
+  runs its initialization after this target, so do not change the name.
+  ***********************************************************************************************
+ -->
+  <Target Name="_InitializeFunctionsSdk">
+    <Warning Text="The ExtensionsMetadataGenerator package was not imported correctly. Are you missing '$(_ExtensionsMetadataGeneratorTargetsPath)' or '$(_ExtensionsMetadataGeneratorPropsPath)'?"
+             Condition="!$(AzureFunctionsVersion.StartsWith('v1')) And ('$(_ExtensionsMetadataGeneratorTargetsImported)' == '' Or '$(_ExtensionsMetadataGeneratorPropsImported)' == '')" />
+  </Target>
+
+</Project>

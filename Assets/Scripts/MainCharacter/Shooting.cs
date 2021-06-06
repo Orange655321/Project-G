@@ -10,25 +10,35 @@ public class Shooting : MonoBehaviour
     private AnimationController animCtrl;
     private Vector2 mosPosition;
     public Camera cam;
-    public GameObject hero;
+    public GameObject player;
+    private Hero hero;
 
     public float bulletForce = 8f;
 
     void Start()
     {
-        animCtrl = hero.GetComponent<AnimationController>();
+        animCtrl = player.GetComponent<AnimationController>();
         pistolSC = GetComponent<PistolSoundController>();
+        hero = player.GetComponent<Hero>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))//жмакай ЛКМ
+        if (Input.GetButtonUp("Fire1"))//жмакай ЛКМ
         {
-            shoot();
-            animCtrl.ShootAnimationPlay();
-            pistolSC.shootSound();
-            partSys.Play();
+            if (hero.itsShoot())
+            {
+                shoot();
+                animCtrl.ShootAnimationPlay();
+                pistolSC.shootSound();
+                partSys.Play();
+            }
+            else
+            {
+                Debug.Log("No bullet");
+            }
+
         }
     }
     void shoot()

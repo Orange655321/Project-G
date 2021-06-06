@@ -14,25 +14,25 @@ public class Enemy : MonoBehaviour
     public GameObject pointAttack;//сделай по уму, с без геймобжекта
     public LayerMask layerHero;
 
-
+    private bool isDead;
     private GameObject player;
     private GameMaster GM;
-    [SerializeField]
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private float nextAttackTime;
     private float dropChance;
     private List<Vector2> pathToPlayer;
-    private AstarPathFinder pathFinder;
+    AstarPathFinder pathFinder;
+   // private AstarPathFinder pathFinder;
     private bool isMoving;
-
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         //GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
         rb = GetComponent<Rigidbody2D>();
-        pathFinder = GetComponent<AstarPathFinder>();
+		//pathFinder = GetComponent<AstarPathFinder>();
         nextAttackTime = 0f;
         dropChance = Random.Range(0f, 1f);
+        isDead = false;
     }
  
 
@@ -70,12 +70,11 @@ public class Enemy : MonoBehaviour
     }
     private void Angry() 
     {
-        //transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.fixedDeltaTime);
         Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
         transform.eulerAngles = new Vector3(0, 0, angle);
-        rb.velocity = lookDir.normalized * speed;
-        /*if (isMoving)
+        //rb.velocity = lookDir.normalized * speed;
+/* if (isMoving)
         {
             if (Vector2.Distance(transform.position, pathToPlayer[pathToPlayer.Count - 1]) > 0.1f)
             {
@@ -90,14 +89,14 @@ public class Enemy : MonoBehaviour
         {
             pathToPlayer = pathFinder.GetPath(player.transform.position);
             isMoving = true;
-        }*/
-    }
+        }*/    }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if(health <= 0) 
+        if(health <= 0 && !isDead)
         {
+            isDead = true; 
             Die();
         }
     }

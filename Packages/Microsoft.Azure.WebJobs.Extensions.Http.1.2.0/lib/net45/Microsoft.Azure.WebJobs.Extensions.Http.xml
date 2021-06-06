@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.WebJobs.Extensions.Http</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel">
+            <summary>
+            Enum used to specify the authorization level for http functions.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel.Anonymous">
+            <summary>
+            Allow access to anonymous requests.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel.User">
+            <summary>
+            Allow access to requests that include a valid authentication token
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel.Function">
+            <summary>
+            Allow access to requests that include a function key
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel.System">
+            <summary>
+            Allows access to requests that include a system key
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel.Admin">
+            <summary>
+            Allow access to requests that include the master key
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration">
+            <summary>
+            Defines the configuration options for the Http binding.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration.#ctor">
+            <summary>
+            Constructs a new instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration.RoutePrefix">
+            <summary>
+            Gets or sets the default route prefix that will be applied to
+            function routes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration.MaxOutstandingRequests">
+            <summary>
+            Gets or sets the maximum number of outstanding requests that
+            will be held at any given time. This limit includes requests
+            that have started executing, as well as requests that have
+            not yet started executing.
+            If this limit is exceeded, new requests will be rejected with a 429 status code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration.MaxConcurrentRequests">
+            <summary>
+            Gets or sets the maximum number of http functions that will
+            be allowed to execute in parallel.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration.DynamicThrottlesEnabled">
+            <summary>
+            Gets or sets a value indicating whether dynamic host counter
+            checks should be enabled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration.SetResponse">
+            <summary>
+            Hook to enable a host to receive the response
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration.Initialize(Microsoft.Azure.WebJobs.Host.Config.ExtensionConfigContext)">
+            <summary>
+            Initializes the extension.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.Azure.WebJobs.Host.Config.ExtensionConfigContext"/>.</param>
+        </member>
+        <member name="T:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConstants">
+            <summary>
+            Constants used by the http extension.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConstants.DefaultRoutePrefix">
+            <summary>
+            The default route prefix used by <see cref="T:Microsoft.Azure.WebJobs.Extensions.Http.HttpRouteFactory"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConstants.AzureWebJobsHttpRouteDataKey">
+            <summary>
+            Key used for storing route data in <see cref="P:System.Net.Http.HttpRequestMessage.Properties"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConstants.AzureWebJobsWebHookDataKey">
+            <summary>
+            Key used for storing WebHook payload data in <see cref="P:System.Net.Http.HttpRequestMessage.Properties"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager">
+            <summary>
+            Provides http request buffering/throttling capabilities.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.#ctor(Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration,Microsoft.Azure.WebJobs.Host.TraceWriter)">
+            <summary>
+            Constructs a new instance.
+            </summary>
+            <param name="httpConfiguration">The <see cref="T:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration"/>.</param>
+            <param name="traceWriter">The <see cref="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.TraceWriter"/> to use.</param>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.Config">
+            <summary>
+            Gets the <see cref="T:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.TraceWriter">
+            <summary>
+            Gets the <see cref="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.TraceWriter"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.ProcessRequestAsync(System.Net.Http.HttpRequestMessage,System.Func{System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.Http.HttpResponseMessage}},System.Threading.CancellationToken)">
+            <summary>
+            Processes the specified request.
+            </summary>
+            <param name="request"></param>
+            <param name="processRequestHandler"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.RejectRequest(System.Net.Http.HttpRequestMessage)">
+            <summary>
+            For a request that will be rejected due to load, max queue length
+            exceeded, etc. this method will be called, allowing the
+            status code, headers, etc. for the request to be configured.
+            </summary>
+            <param name="request">The request to reject.</param>
+            <returns>The response to return.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.RejectAllRequests">
+            <summary>
+            Returns a value indicating whether all incoming requests
+            should be rejected, for example due to host overload, etc.
+            </summary>
+            <returns>True if requests should be rejected.</returns>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.HttpRequestItem.Request">
+            <summary>
+            Gets or sets the request to process.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.HttpRequestItem.ProcessRequestHandler">
+            <summary>
+            Gets or sets the process method for the request.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.HttpRequestItem.CancellationToken">
+            <summary>
+            Gets or sets the cancellation token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.HttpRequestManager.HttpRequestItem.CompletionSource">
+            <summary>
+            Gets or sets the completion source to use.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.WebJobs.Extensions.Http.HttpRouteFactory">
+            <summary>
+            Used to create http routes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpRouteFactory.#ctor(System.String)">
+            <summary>
+            Constructs a new instance.
+            </summary>
+            <param name="prefix">The route prefix to apply to all routes.</param>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpRouteFactory.CreateRouteBuilder(System.String)">
+            <summary>
+            Create an <see cref="T:System.Web.Http.Routing.IDirectRouteBuilder"/> for the specified route template.
+            </summary>
+            <param name="routeTemplate">The route template.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpRouteFactory.TryAddRoute(System.String,System.String,System.Collections.Generic.IEnumerable{System.Net.Http.HttpMethod},System.Collections.Generic.IDictionary{System.String,System.Object},System.Web.Http.HttpRouteCollection,System.Web.Http.Routing.IHttpRoute@)">
+            <summary>
+            Try to add the specified route to the route collection.
+            </summary>
+            <param name="routeName">The name of the route.</param>
+            <param name="routeTemplate">The route template.</param>
+            <param name="methods">The optional http methods to allow for the route.</param>
+            <param name="dataTokens">The optional collection of data tokens to apply.</param>
+            <param name="routes">The routes collection to add to.</param>
+            <param name="route">The route that was added.</param>
+            <returns>True if the route was added successfully, false otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpRouteFactory.GetRouteParameters(System.String)">
+            <summary>
+            Gets the route parameter defined in the specified template.
+            </summary>
+            <param name="routeTemplate">The route template.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.HttpTriggerAttributeBindingProvider.HttpTriggerBinding.GetBindingDataContract(Microsoft.Azure.WebJobs.HttpTriggerAttribute,System.Reflection.ParameterInfo)">
+            <summary>
+            Gets the static strongly typed binding data contract
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.WebJobs.Extensions.Http.HttpTriggerAttributeBindingProvider.HttpTriggerBinding.HttpRequestValueBinder">
+            <summary>
+            ValueBinder for all our built in supported Types
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Initializes a fast <see cref="T:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper"/>.
+            This constructor does not cache the helper. For caching, use <see cref="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.GetProperties(System.Object)"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.Property">
+            <summary>
+            Gets the backing <see cref="T:System.Reflection.PropertyInfo"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.Name">
+            <summary>
+            Gets (or sets in derived types) the property name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.ValueGetter">
+            <summary>
+            Gets the property value getter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.ValueSetter">
+            <summary>
+            Gets the property value setter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.GetValue(System.Object)">
+            <summary>
+            Returns the property value for the specified <paramref name="instance"/>.
+            </summary>
+            <param name="instance">The object whose property value will be returned.</param>
+            <returns>The property value.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the property value for the specified <paramref name="instance" />.
+            </summary>
+            <param name="instance">The object whose property value will be set.</param>
+            <param name="value">The property value.</param>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.GetProperties(System.Object)">
+            <summary>
+            Creates and caches fast property helpers that expose getters for every public get property on the
+            underlying type.
+            </summary>
+            <param name="instance">the instance to extract property accessors for.</param>
+            <returns>a cached array of all public property getters from the underlying type of target instance.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.GetProperties(System.Type)">
+            <summary>
+            Creates and caches fast property helpers that expose getters for every public get property on the
+            specified type.
+            </summary>
+            <param name="type">the type to extract property accessors for.</param>
+            <returns>a cached array of all public property getters from the type of target instance.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.GetVisibleProperties(System.Object)">
+            <summary>
+            <para>
+            Creates and caches fast property helpers that expose getters for every non-hidden get property
+            on the specified type.
+            </para>
+            <para>
+            <see cref="M:GetVisibleProperties"/> excludes properties defined on base types that have been
+            hidden by definitions using the <c>new</c> keyword.
+            </para>
+            </summary>
+            <param name="instance">The instance to extract property accessors for.</param>
+            <returns>
+            A cached array of all public property getters from the instance's type.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.GetVisibleProperties(System.Type)">
+            <summary>
+            <para>
+            Creates and caches fast property helpers that expose getters for every non-hidden get property
+            on the specified type.
+            </para>
+            <para>
+            <see cref="M:GetVisibleProperties"/> excludes properties defined on base types that have been
+            hidden by definitions using the <c>new</c> keyword.
+            </para>
+            </summary>
+            <param name="type">The type to extract property accessors for.</param>
+            <returns>
+            A cached array of all public property getters from the type.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.MakeFastPropertyGetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property getter. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the getter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.MakeNullSafeFastPropertyGetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property getter which is safe for a null input object. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the getter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.MakeFastPropertySetter(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a single fast property setter for reference types. The result is not cached.
+            </summary>
+            <param name="propertyInfo">propertyInfo to extract the setter for.</param>
+            <returns>a fast getter.</returns>
+            <remarks>
+            This method is more memory efficient than a dynamically compiled lambda, and about the
+            same speed. This only works for reference types.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.PropertyHelper.ObjectToDictionary(System.Object)">
+            <summary>
+            Given an object, adds each instance property with a public get method as a key and its
+            associated value to a dictionary.
+            If the object is already an <see cref="T:System.Collections.Generic.IDictionary`2"/> instance, then a copy
+            is returned.
+            </summary>
+            <remarks>
+            The implementation of PropertyHelper will cache the property accessors per-type. This is
+            faster when the the same type is used multiple times with ObjectToDictionary.
+            </remarks>
+            <param name="value">The input object.</param>
+            <returns>The dictionary representation of the object.</returns>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.Extensions.Http.Utility.ApplyBindingData(System.Object,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Applies any additional binding data from the input value to the specified binding data.
+            This binding data then becomes available to the binding process (in the case of late bound bindings)
+            </summary>
+        </member>
+        <member name="T:Microsoft.Azure.WebJobs.HttpJobHostConfigurationExtensions">
+            <summary>
+            Extension methods for Http integration
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.HttpJobHostConfigurationExtensions.UseHttp(Microsoft.Azure.WebJobs.JobHostConfiguration,Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration)">
+            <summary>
+            Enables use of Http extensions
+            </summary>
+            <param name="config">The <see cref="T:Microsoft.Azure.WebJobs.JobHostConfiguration"/> to configure.</param>
+            <param name="httpConfig">The <see cref="T:Microsoft.Azure.WebJobs.Extensions.Http.HttpExtensionConfiguration"/> to use.</param>
+        </member>
+        <member name="T:Microsoft.Azure.WebJobs.HttpTriggerAttribute">
+            <summary>
+            Attribute used for http triggered functions.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.HttpTriggerAttribute.#ctor">
+            <summary>
+            Constructs a new instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.HttpTriggerAttribute.#ctor(System.String[])">
+            <summary>
+            Constructs a new instance.
+            </summary>        
+            <param name="methods">The http methods to allow.</param>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.HttpTriggerAttribute.#ctor(Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel)">
+            <summary>
+            Constructs a new instance.
+            </summary>
+            <param name="authLevel">The <see cref="T:Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel"/> to apply.</param>
+        </member>
+        <member name="M:Microsoft.Azure.WebJobs.HttpTriggerAttribute.#ctor(Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel,System.String[])">
+            <summary>
+            Constructs a new instance.
+            </summary>
+            <param name="authLevel">The <see cref="T:Microsoft.Azure.WebJobs.Extensions.Http.AuthorizationLevel"/> to apply.</param>
+            <param name="methods">The http methods to allow.</param>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.HttpTriggerAttribute.Route">
+            <summary>
+            Gets or sets the route template for the function. Can include
+            route parameters using WebApi supported syntax. If not specified,
+            will default to the function name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.HttpTriggerAttribute.Methods">
+            <summary>
+            Gets the http methods that are supported for the function.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.HttpTriggerAttribute.AuthLevel">
+            <summary>
+            Gets the authorization level for the function.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Azure.WebJobs.HttpTriggerAttribute.WebHookType">
+            <summary>
+            Gets or sets the WebHook type, if this function represents a WebHook.
+            </summary>
+        </member>
+    </members>
+</doc>
