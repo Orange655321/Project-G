@@ -1,0 +1,57 @@
+﻿<!--
+***********************************************************************************************
+Microsoft.NET.Sdk.Functions.props
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+***********************************************************************************************
+-->
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <_NuGetPackageRoot>$([MSBuild]::EnsureTrailingSlash('$(NuGetPackageRoot)'))</_NuGetPackageRoot>
+  </PropertyGroup>
+  
+  <!--
+  ***********************************************************************************************
+  Import the Version Props
+  ***********************************************************************************************
+  -->
+  <Import Project="$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Version.props" Condition="Exists('$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Version.props')" />
+
+  <!--
+  ***********************************************************************************************
+  Import the Build Props
+  ***********************************************************************************************
+ -->
+  <Import Project="$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Build.props" Condition="Exists('$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Build.props')" />
+
+  <!--
+  ***********************************************************************************************
+  Import the Publish Props
+  ***********************************************************************************************
+ -->
+  <Import Project="$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Publish.props" Condition="Exists('$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Publish.props')" />
+
+  <ItemGroup>
+    <None Update="host.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+    <None Update="local.settings.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+  <!--
+  ***********************************************************************************************
+  Import the ExtensionsMetadataGenerator Props, but only if it has not already been imported.  
+  ***********************************************************************************************
+ -->
+  <Import Project="$(MSBuildThisFileDirectory)ExtensionsMetadataGeneratorVersion.props"
+          Condition="Exists('$(MSBuildThisFileDirectory)ExtensionsMetadataGeneratorVersion.props')" />
+
+  <PropertyGroup>
+    <_ExtensionsMetadataGeneratorPropsPath>$(_NuGetPackageRoot)microsoft.azure.webjobs.script.extensionsmetadatagenerator\$(ExtensionsMetadataGeneratorVersion)\build\Microsoft.Azure.WebJobs.Script.ExtensionsMetadataGenerator.props</_ExtensionsMetadataGeneratorPropsPath>
+  </PropertyGroup>
+
+  <Import Project="$(_ExtensionsMetadataGeneratorPropsPath)"
+          Condition="'$(_ExtensionsMetadataGeneratorPropsImported)' == '' And Exists('$(_ExtensionsMetadataGeneratorPropsPath)')" />
+</Project>

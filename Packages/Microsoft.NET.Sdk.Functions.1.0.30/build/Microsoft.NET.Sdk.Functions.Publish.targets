@@ -1,0 +1,191 @@
+<!--
+***********************************************************************************************
+Microsoft.NET.Sdk.Functions.Publish.targets
+
+WARNING:  DO NOT MODIFY this file unless you are knowledgeable about MSBuild and have
+          created a backup copy.  Incorrect changes to this file will make it
+          impossible to load or build your projects from the command-line or the IDE.
+
+***********************************************************************************************
+-->
+<Project ToolsVersion="14.0"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Sdk="Microsoft.NET.Sdk.Publish"
+          Project="Sdk.targets" />
+
+  <Import Project="$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Publish.$(PublishProtocol).targets"  
+          Condition="Exists('$(MSBuildThisFileDirectory)Microsoft.NET.Sdk.Functions.Publish.$(PublishProtocol).targets')"/>
+
+  <!--
+    ============================================================
+                  _OverrideFunctionsPack
+
+    This target gets called during folder publish from VS since 
+    Function project is a class library project rather than
+    a console project. IsPackable property for the functions projects
+    is set to false, so, pack target wont pack the project. This target
+    invokes the publish target to do the actual publish.
+    ============================================================
+    -->
+  <Target Name="_OverrideFunctionsPack"
+          AfterTargets="Pack"
+          Condition="'$(DisablePublishDuringPack)' != 'true'"
+          DependsOnTargets="Publish" />
+
+  <!--
+    ============================================================
+                  _InitializeDotNetPublishProperties
+
+    Initializes the publish propeties for 'dotnet publish'
+    ============================================================
+    -->
+  <Target Name="_InitializeDotNetPublishProperties"
+          BeforeTargets="PrepareForPublish"
+          Condition="'$(DeployOnBuild)' != 'true'">
+
+    <ConvertToAbsolutePath Paths="$(PublishDir)">
+      <Output TaskParameter="AbsolutePaths"
+              PropertyName="FunctionsDir"/>
+    </ConvertToAbsolutePath>
+    
+    <PropertyGroup>
+      <PublishDir>$(FunctionsDir)</PublishDir>
+      <PublishDir Condition="!HasTrailingSlash('$(PublishDir)')">$(PublishDir)\</PublishDir>
+      <FunctionsTargetPath>$(PublishDir)bin\$(TargetFileName)</FunctionsTargetPath>
+      <FunctionsOutputPath>$(FunctionsDir)</FunctionsOutputPath>
+    </PropertyGroup>
+    
+  </Target>
+
+  <!--
+    ============================================================
+                  _InitializeDeployOnBuildProperties
+
+    Initializes the publish propeties.
+    ============================================================
+    -->
+
+  <Target Name="_InitializeDeployOnBuildProperties" >
+
+    <ConvertToAbsolutePath Paths="$(PublishIntermediateOutputPath)">
+      <Output TaskParameter="AbsolutePaths"
+              PropertyName="PublishIntermediateOutputPath"/>
+    </ConvertToAbsolutePath>
+    
+    <PropertyGroup>
+      <PublishDir>$(PublishIntermediateOutputPath)</PublishDir>
+      <PublishDir Condition="!HasTrailingSlash('$(PublishDir)')">$(PublishDir)\</PublishDir>
+      <FunctionsTargetPath>$(PublishDir)bin\$(TargetFileName)</FunctionsTargetPath>
+      <FunctionsOutputPath>$(PublishIntermediateOutputPath)</FunctionsOutputPath>
+    </PropertyGroup>
+
+    <!-- Remove all the files from the temp directory first-->
+    <ItemGroup>
+      <_PublishTempFiles Include="$(PublishIntermediateOutputPath)**\*.*" />
+    </ItemGroup>
+
+    <Delete Files="@(_PublishTempFiles)"
+            ContinueOnError="true" />
+
+    <RemoveDir Directories="$(PublishIntermediateOutputPath)"
+               ContinueOnError="true"
+               Condition="Exists('$(PublishIntermediateOutputPath)')" />
+
+    <MakeDir Directories="$(PublishIntermediateOutputPath)"
+             Condition="!Exists('$(PublishIntermediateOutputPath)')"/>
+
+  </Target>
+
+  <!--
+    ============================================================
+                  _FunctionsPostPublish
+                  
+     Generates the function.json after publish
+    ============================================================
+    -->
+  <Target Name="_FunctionsPostPublish"
+          AfterTargets="Publish"
+          DependsOnTargets="_GenerateFunctionsAndCopyContentFiles"
+          >
+  </Target>
+
+  <!--
+    ============================================================
+        _FunctionsPublishDepsCopy
+
+    Copies the deps file to the Functions bin folder
+    ============================================================
+    -->
+  <Target Name="_FunctionsPublishDepsCopy" BeforeTargets="Publish" Condition="'$(SkipFunctionsDepsCopy)' != 'true'">
+    <Copy SourceFiles="$(PublishDir)$(ProjectName).deps.json" DestinationFiles="$(PublishDir)bin\function.deps.json" Condition="Exists('$(PublishDir)$(ProjectName).deps.json')"/>
+  </Target>
+
+
+  <!--
+    ============================================================
+
+    This targets gets called when publish is invoked with DeployOnBuild
+    set. This target is responsible for overriding the publish targets
+    from Publish SDK and generating function.json during publish.
+    
+    ============================================================
+    -->
+  <PropertyGroup>
+    <CorePublishDependsOn>
+      _InitializeDeployOnBuildProperties;
+      Publish;
+      $(_DotNetPublishFiles);
+    </CorePublishDependsOn>
+  </PropertyGroup>
+
+
+  <!--
+    ============================================================
+                  _GenerateFunctionsAndCopyContentFiles
+
+    Generates the function.json for all the functions in the project.
+    ============================================================
+    -->
+  <Target Name="_GenerateFunctionsAndCopyContentFiles">
+
+    <ItemGroup>
+      <FunctionsPublishAssemblies Include="$(PublishDir)*.dll;
+                                           $(PublishDir)*.pdb" />
+    </ItemGroup>
+    
+    <!-- Copy the additional assemblies to the bin folder-->
+    <Move SourceFiles="@(FunctionsPublishAssemblies)"
+      DestinationFiles="$(PublishDir)bin\%(Filename)%(Extension)"
+      OverwriteReadOnlyFiles="true" />
+    
+    <GenerateFunctions
+      TargetPath="$(FunctionsTargetPath)"
+      OutputPath="$(FunctionsOutputPath)"
+      UseNETCoreGenerator="$(UseNETCoreGenerator)"
+      UseNETFrameworkGenerator="$(UseNETFrameworkGenerator)"
+      UserProvidedFunctionJsonFiles="@(UserProvidedFunctionJsonFiles)"
+      FunctionsInDependencies="$(FunctionsInDependencies)" />
+  </Target>
+
+  <!--
+    ============================================================
+                  _ResolveCopyLocalAssetsForPublishFunctions
+
+    Moves all CopyLocal assemblies to bin folder. This will only run 
+    on builds that are using .NET Core 3 SDK.
+    ============================================================
+    -->
+  <Target
+   Name="_ResolveCopyLocalAssetsForPublishFunctions"
+   AfterTargets="_ResolveCopyLocalAssetsForPublish">
+
+    <ItemGroup>
+      <_ResolvedCopyLocalPublishAssets>
+        <DestinationSubDirectory>bin\%(_ResolvedCopyLocalPublishAssets.DestinationSubDirectory)</DestinationSubDirectory>
+      </_ResolvedCopyLocalPublishAssets>
+    </ItemGroup>
+
+  </Target>
+
+</Project>

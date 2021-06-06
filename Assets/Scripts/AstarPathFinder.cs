@@ -117,6 +117,7 @@ public class AstarPathFinder : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if(CheckNodes != null)
         foreach (var item in CheckNodes)
         {
             Gizmos.color = Color.blue;
