@@ -51,7 +51,7 @@ public class HeroCoop : Unit
     
     private Camera cam;
     private AnimationController animCtrl;
-    [SerializeField]
+  
     private GameObject dieCanvas;
     [SerializeField]
     private LayerMask enemyLayers;
@@ -101,8 +101,8 @@ public class HeroCoop : Unit
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
         GM = GameObject.Find("GameManager").GetComponent<GameMasterCoop>();
-        //dieCanvas = GameObject.Find("DieCanvas");
-       // dieCanvas.SetActive(false);
+        dieCanvas = GameObject.Find("DieCanvas");
+        dieCanvas.SetActive(false);
         healthText = GameObject.Find("Health").GetComponent<Text>();
         Debug.Log(healthText == null);
         armorText = GameObject.Find("Shield").GetComponent<Text>();

@@ -5089,7 +5089,6 @@ MonoBehaviour:
   sniperBulletDamage: 75
   attackRange: 0.25
   attackDamage: 200
-  dieCanvas: {fileID: 0}
   enemyLayers:
     serializedVersion: 2
     m_Bits: 256
