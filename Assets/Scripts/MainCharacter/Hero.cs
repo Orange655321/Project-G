@@ -498,7 +498,18 @@ public class Hero : Unit
         {
             GameMasterLvl2.Door_explosion();
         }
-    }   
+        if (collision.CompareTag("Roof"))
+        {
+            GameMasterLvl2.Building_inside();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Roof"))
+        {
+            GameMasterLvl2.Building_outside();
+        }
+    }
 
     IEnumerator Invulnerability()
     {

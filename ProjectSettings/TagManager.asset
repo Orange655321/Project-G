@@ -9,6 +9,10 @@ TagManager:
   - GameManager
   - Wall
   - Gate
+  - Bullet
+  - fasfasf
+  - Roof
+  - Door
   layers:
   - Default
   - TransparentFX
