@@ -53,7 +53,8 @@ public class AnimationController : MonoBehaviour
     {
         animator.SetTrigger("ak-47");
     }
- public void DeathAnimationPlay()
+    public void DeathAnimationPlay()
     {
         animator.SetTrigger("death");
-    }}
+    }
+}
