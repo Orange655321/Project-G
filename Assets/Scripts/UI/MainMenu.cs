@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     public GameObject LeaderboardMenu;
     public GameObject mMenu;
     public GameObject playMenu;
+    public GameObject mpMenu;
 
     public GameObject mSlider;
     public GameObject sSlider;
@@ -132,5 +133,29 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         mMenu.SetActive(true);
         playMenu.SetActive(false);
+    }
+
+    public void OpenMultiplayer()
+    {
+        StartCoroutine(OpenMultiplayerTimer());
+    }
+
+    IEnumerator OpenMultiplayerTimer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        mpMenu.SetActive(true);
+        playMenu.SetActive(false);
+    }
+
+    public void ExitMultiplayer()
+    {
+        StartCoroutine(ExitMultiplayerTimer());
+    }
+
+    IEnumerator ExitMultiplayerTimer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        playMenu.SetActive(true);
+        mpMenu.SetActive(false);     
     }
 }
