@@ -12,7 +12,8 @@ public class Items : MonoBehaviour
         Pistol,
         AK,
         Shotgun,
-        Claws
+        Claws,
+        C4,
     }
     public ItemType itemType;
 
