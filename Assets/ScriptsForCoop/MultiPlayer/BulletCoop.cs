@@ -11,11 +11,11 @@ public class BulletCoop : MonoBehaviourPunCallbacks
         if(enemy != null) 
         {
             enemy.TakeDamage(damage);
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
         if (collider.CompareTag("Wall") || collider.CompareTag("Gate"))
         {
-            Destroy(gameObject);
+            PhotonNetwork.Destroy(gameObject);
         }
     }
 }

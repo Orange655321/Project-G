@@ -17,7 +17,7 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
 
     private bool isDead;
     private GameObject player;
-    private GameMaster GM;
+    private GameMasterCoop GM;
     public Rigidbody2D rb;
     private float nextAttackTime;
     private float dropChance;
@@ -28,7 +28,7 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        //GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMasterCoop>();
         rb = GetComponent<Rigidbody2D>();
         pathFinder = GetComponent<AstarPathFinder>();
         //pathFinder = GetComponent<AstarPathFinder>();
@@ -106,10 +106,10 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
     void Die()
     {
         player.GetComponent<HeroCoop>().AddToScore(cost);
-        /*if(dropChance > 0.5)
+        if(dropChance > 0.5)
         {
             GM.spawnItems(transform.position);
-        }*/
+        }
         Destroy(gameObject);
     }
 }
