@@ -65,10 +65,12 @@ public class Hero : Unit
     private bool isInvulnerability;
     public GameMaster GM;
     public bool Claws_flag = false;
+    public bool C4_flag = false;
     private Material matBlink;
     private Material matDefault;
     private SpriteRenderer spriteRend;
     public GameMasterLvl1 GameMasterLvl1;
+    public GameMaster_lvl2 GameMasterLvl2;
     private bool DeathFlag = false;
 
 
@@ -133,6 +135,10 @@ public class Hero : Unit
 
     void Update()
     {
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
         if (Input.GetKeyUp(KeyCode.Space) && Time.time > nextAttackTime)
         {
             nextAttackTime = Time.time + rateOfAttack;
@@ -392,8 +398,12 @@ public class Hero : Unit
                 case Items.ItemType.Claws:
                     Claws_flag = true;
                     item.RemoveItem();
-                    break;            
-        }
+                    break;
+                case Items.ItemType.C4:
+                    C4_flag = true;
+                    item.RemoveItem();
+                    break;
+            }
         }
         
     }
@@ -570,6 +580,10 @@ public class Hero : Unit
         if (Input.GetKey(KeyCode.E) && Claws_flag && collision.CompareTag("Gate"))
         {
             GameMasterLvl1.Opening();
+        }
+        if (Input.GetKey(KeyCode.E) && C4_flag && collision.CompareTag("Door"))
+        {
+            GameMasterLvl2.Door_explosion();
         }
     }   
 
