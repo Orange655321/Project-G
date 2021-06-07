@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class EnemyCoop : MonoBehaviourPunCallbacks
 {
+    private PhotonView photonView;
     public int health;
     public int armor;
     public int RateOfFire;
@@ -27,6 +28,8 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
     private bool isMoving;
     public void Start()
     {
+        photonView = GetComponent<PhotonView>();
+
         player = GameObject.FindGameObjectWithTag("Player");
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMasterCoop>();
         rb = GetComponent<Rigidbody2D>();
@@ -40,6 +43,12 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if (!photonView.IsMine) return;
+        if (health <= 0)
+        {
+            isDead = true;
+            Die();
+        }
         if (player != null)
         {
 
@@ -76,40 +85,22 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
         transform.eulerAngles = new Vector3(0, 0, angle);
         rb.velocity = lookDir.normalized * speed;
-        /* if (isMoving)
-                {
-                    if (Vector2.Distance(transform.position, pathToPlayer[pathToPlayer.Count - 1]) > 0.1f)
-                    {
-                        transform.position = Vector2.MoveTowards(transform.position, pathToPlayer[pathToPlayer.Count - 1], speed * Time.fixedDeltaTime);
-                    }
-                    else
-                    {
-                        isMoving = false;
-                    }
-                }
-                else
-                {
-                    pathToPlayer = pathFinder.GetPath(player.transform.position);
-                    isMoving = true;
-                }*/
+      
     }
 
     public void TakeDamage(int damage)
     {
+        Debug.Log("notDMG");
         health -= damage;
-        if (health <= 0 && !isDead)
-        {
-            isDead = true;
-            Die();
-        }
+       
     }
     void Die()
-    {
+    {   
         player.GetComponent<HeroCoop>().AddToScore(cost);
         if(dropChance > 0.5)
         {
             GM.spawnItems(transform.position);
         }
-        Destroy(gameObject);
+        PhotonNetwork.Destroy(gameObject);
     }
 }

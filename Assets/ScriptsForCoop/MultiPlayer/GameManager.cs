@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        
     }
     
     // Update is called once per frame
@@ -27,15 +28,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
    
 
-    public void leave()
+    public static void leave()
     {
+        //убираем героя  с карты 
+        //PhotonNetwork.Destroy(heroPrefab);
         PhotonNetwork.LeaveRoom(); 
     }
 
     public override void OnLeftRoom()
     {
         //когда текущий игрок покинул покидает комнату
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainMenu");
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {

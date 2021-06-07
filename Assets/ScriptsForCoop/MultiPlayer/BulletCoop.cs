@@ -5,8 +5,11 @@ using Photon.Pun;
 public class BulletCoop : MonoBehaviourPunCallbacks
 {
     public int damage;
+    //private PhotonView photonView;
+
     private void OnTriggerEnter2D (Collider2D collider)
-    {    
+    {
+        PhotonView photonView = collider.GetComponent<PhotonView>();
         EnemyCoop enemy = collider.GetComponent<EnemyCoop>();
         if(enemy != null) 
         {

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 424444602831904460}
   - component: {fileID: 5609820264797019372}
-  - component: {fileID: 1371927507083373215}
   - component: {fileID: 1775442534388119696}
   - component: {fileID: 6130955606193248532}
   - component: {fileID: 2057869164062923412}
+  - component: {fileID: -6873918716936592415}
   m_Layer: 0
   m_Name: PistolDrop
   m_TagString: Untagged
@@ -85,19 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1371927507083373215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5513097518683075973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a278444537bbbac438050b3a5ae84eaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemType: 3
 --- !u!61 &1775442534388119696
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,3 +150,16 @@ MonoBehaviour:
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-6873918716936592415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513097518683075973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ef3e614f82c4de18cbb8dffa534689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 3

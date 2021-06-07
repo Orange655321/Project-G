@@ -308,7 +308,12 @@ public class HeroCoop : Unit
     {
         animCtrl.DeathAnimationPlay();
         StartCoroutine(DeathTimer());
-        //GM.setScore(score);
+        destrHero();
+    }
+    //костыль для использования статчного метода 
+    public static void destrHero()
+    {
+        GameManager.leave();
     }
     IEnumerator DeathTimer()
     {
@@ -325,33 +330,34 @@ public class HeroCoop : Unit
 }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Items item = collision.gameObject.GetComponent<Items>();
+        ItemsCoop item = collision.gameObject.GetComponent<ItemsCoop>();
         if (item)
         {
             switch (item.itemType)
             {
-                case Items.ItemType.MedKit:
+                case ItemsCoop.ItemType.MedKit:
                     if (health != 200)
                     {
                         health = item.healing(health);
+                        
                         item.RemoveItem();
                     }
                     break;
-                case Items.ItemType.ShieldPack:
+                case ItemsCoop.ItemType.ShieldPack:
                     if (armor != 100)
                     {
                         armor = item.shielding(armor);
                         item.RemoveItem();
                     }
                     break;
-                case Items.ItemType.PistolBulletPack:
+                case ItemsCoop.ItemType.PistolBulletPack:
                     if (pistolBullet != 272)
                     {
                         pistolBullet = item.getPistolBullet(pistolBullet);
                         item.RemoveItem();
                     }
                     break;
-                case Items.ItemType.Pistol:
+                case ItemsCoop.ItemType.Pistol:
                     if (isWeapon[0])
                     {
                         pistolBullet = item.getPistolBullet(pistolBullet + 7);
@@ -362,7 +368,7 @@ public class HeroCoop : Unit
                     }
                     item.RemoveItem();
                     break;
-                case Items.ItemType.AK:
+                case ItemsCoop.ItemType.AK:
                     if (isWeapon[1])
                     {
                         AKBullet = item.getAKBullet(AKBullet + 15);
@@ -373,7 +379,7 @@ public class HeroCoop : Unit
                     }
                     item.RemoveItem();
                     break;
-                case Items.ItemType.Shotgun:
+                case ItemsCoop.ItemType.Shotgun:
                     if (isWeapon[2])
                     {
                         shotgunBullet = item.getsShotgunBullet(shotgunBullet + 2);
@@ -384,7 +390,7 @@ public class HeroCoop : Unit
                     }
                     item.RemoveItem();
                     break;
-                case Items.ItemType.Claws:
+                case ItemsCoop.ItemType.Claws:
                     Claws_flag = true;
                     item.RemoveItem();
                     break;            

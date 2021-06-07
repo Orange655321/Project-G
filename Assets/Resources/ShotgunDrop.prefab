@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3510009878133485197}
   - component: {fileID: 2550529771162217803}
-  - component: {fileID: 5180124572815198189}
   - component: {fileID: 8604912885729879550}
   - component: {fileID: -4217378786054462472}
   - component: {fileID: -5885415969096728693}
+  - component: {fileID: -288681309528077455}
   m_Layer: 0
   m_Name: ShotgunDrop
   m_TagString: Untagged
@@ -85,19 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5180124572815198189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7655048576782187308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a278444537bbbac438050b3a5ae84eaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemType: 5
 --- !u!61 &8604912885729879550
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,3 +150,16 @@ MonoBehaviour:
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-288681309528077455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655048576782187308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ef3e614f82c4de18cbb8dffa534689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 5

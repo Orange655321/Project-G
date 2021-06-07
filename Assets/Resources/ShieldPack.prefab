@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7693961762077587323}
   - component: {fileID: 7444417874471790827}
   - component: {fileID: 306273265785023422}
-  - component: {fileID: 2458916150379829163}
+  - component: {fileID: 3566801682440523334}
   m_Layer: 0
   m_Name: ShieldPack
   m_TagString: Untagged
@@ -109,7 +109,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.25, y: 0.31}
   m_EdgeRadius: 0
---- !u!114 &2458916150379829163
+--- !u!114 &3566801682440523334
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334400096408491219}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a278444537bbbac438050b3a5ae84eaf, type: 3}
+  m_Script: {fileID: 11500000, guid: 29ef3e614f82c4de18cbb8dffa534689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 1

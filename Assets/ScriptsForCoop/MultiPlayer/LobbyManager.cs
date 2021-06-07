@@ -36,7 +36,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public void JoinRoom()
     {
-        
         PhotonNetwork.JoinRandomRoom();
         keyOfMap = (int) PhotonNetwork.CurrentRoom.CustomProperties[MAP_PROP_KEY];
     }

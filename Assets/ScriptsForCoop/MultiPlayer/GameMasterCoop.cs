@@ -79,25 +79,25 @@ public class GameMasterCoop : MonoBehaviourPunCallbacks
     
     public void spawnItems(Vector3 pos)
     {
-        Items.ItemType item = (Items.ItemType)Random.Range(3, 6);
+        ItemsCoop.ItemType item = (ItemsCoop.ItemType)Random.Range(3, 6);
         switch (item)
         {
-            case Items.ItemType.MedKit:
+            case ItemsCoop.ItemType.MedKit:
                 PhotonNetwork.Instantiate(prefabMedKid.name, pos, prefabMedKid.transform.rotation);
                 break;
-            case Items.ItemType.ShieldPack:
+            case ItemsCoop.ItemType.ShieldPack:
                 PhotonNetwork.Instantiate(prefabShieldPack.name, pos, prefabShieldPack.transform.rotation);
                 break;
-            case Items.ItemType.PistolBulletPack:
+            case ItemsCoop.ItemType.PistolBulletPack:
                 PhotonNetwork.Instantiate(prefabPistolBulletPack.name, pos, prefabPistolBulletPack.transform.rotation);              
                 break;
-            case Items.ItemType.Pistol:
+            case ItemsCoop.ItemType.Pistol:
                 PhotonNetwork.Instantiate(prefabPistol.name, pos, prefabPistol.transform.rotation);
                 break;
-            case Items.ItemType.AK:
+            case ItemsCoop.ItemType.AK:
                 PhotonNetwork.Instantiate(prefabAK.name, pos, prefabAK.transform.rotation);
                 break;
-            case Items.ItemType.Shotgun:
+            case ItemsCoop.ItemType.Shotgun:
                 PhotonNetwork.Instantiate(prefabShotgun.name, pos, prefabShotgun.transform.rotation);
                 break;
 

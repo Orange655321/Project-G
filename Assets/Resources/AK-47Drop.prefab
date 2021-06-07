@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8343558126670614966}
   - component: {fileID: 8681672272541722792}
-  - component: {fileID: 1473186029076838138}
   - component: {fileID: 8943858543269966006}
   - component: {fileID: -1866734108223400470}
   - component: {fileID: 5918491095456036088}
+  - component: {fileID: -7794569888468808470}
   m_Layer: 0
   m_Name: AK-47Drop
   m_TagString: Untagged
@@ -85,19 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1473186029076838138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8894489090122304018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a278444537bbbac438050b3a5ae84eaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemType: 4
 --- !u!61 &8943858543269966006
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,3 +150,16 @@ MonoBehaviour:
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-7794569888468808470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8894489090122304018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ef3e614f82c4de18cbb8dffa534689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 4
