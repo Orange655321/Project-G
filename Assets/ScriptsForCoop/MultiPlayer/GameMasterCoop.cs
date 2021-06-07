@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 public class GameMasterCoop : MonoBehaviourPunCallbacks
 {
+    private PhotonView photonView;
     [SerializeField]
     private float minDist;
     [SerializeField]
@@ -42,15 +43,14 @@ public class GameMasterCoop : MonoBehaviourPunCallbacks
     }
     void Start()
     {
+        photonView = GetComponent<PhotonView>();
 
     }
-    public GameObject positionSpawnHero()
-    {
-        int place = Random.Range(0, respawnPlace.Length);
-        return respawnPlace[place];
-    }
+
     void Update()
     {
+        //враги спавняться только в мастерклиенте 
+        if (!PhotonNetwork.IsMasterClient) return;
         if(enemySpawned > enemyCount && numberEnemy > 0)
         {
             spawnEnemy();
@@ -76,36 +76,7 @@ public class GameMasterCoop : MonoBehaviourPunCallbacks
         enemyCount++;
     }
 
-    public void setScore(int heroScore)
-    {
-        finalScore = heroScore;
-        using (NamedPipeClientStream pipeClient =
-            new NamedPipeClientStream(".", "testpipe", PipeDirection.Out))
-        {
-            pipeClient.Connect();
-            // Connect to the pipe or wait until the pipe is available.
-
-            try
-            {
-                //  send score to the server process.
-                using (StreamWriter sw = new StreamWriter(pipeClient))
-                {
-                    sw.AutoFlush = true;
-
-                    sw.WriteLine(finalScore);
-
-                }
-            }
-            // Catch the IOException that is raised if the pipe is broken
-            // or disconnected.
-            catch (IOException e)
-            {
-                Debug.Log("ERROR:" + e.Message);
-            }
-
-        }
-
-    }
+    
     public void spawnItems(Vector3 pos)
     {
         Items.ItemType item = (Items.ItemType)Random.Range(3, 6);
