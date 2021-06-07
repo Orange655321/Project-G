@@ -1,0 +1,135 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.IO.Pipes;
+using System.IO;
+using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
+public class GameMasterCoop : MonoBehaviourPunCallbacks
+{
+    [SerializeField]
+    private float minDist;
+    [SerializeField]
+    private int numberEnemy;
+    public static int enemyCount;
+    [SerializeField]
+    private int enemySpawned;
+
+    [SerializeField]
+    private GameObject prefabMedKid;
+    [SerializeField]
+    private GameObject prefabShieldPack;
+    [SerializeField]
+    private GameObject prefabPistolBulletPack;
+    [SerializeField]
+    private GameObject prefabPistol;
+    [SerializeField]
+    private GameObject prefabAK;
+    [SerializeField]
+    private GameObject prefabShotgun;
+    [SerializeField]
+    private GameObject prefabEnemy;
+
+    private GameObject[] respawnPlace;
+
+
+    private int finalScore;
+ 
+    private void Awake()
+    {
+        respawnPlace = GameObject.FindGameObjectsWithTag("Grass");
+
+    }
+    void Start()
+    {
+
+    }
+    public GameObject positionSpawnHero()
+    {
+        int place = Random.Range(0, respawnPlace.Length);
+        return respawnPlace[place];
+    }
+    void Update()
+    {
+        if(enemySpawned > enemyCount && numberEnemy > 0)
+        {
+            spawnEnemy();
+        }
+
+
+    }
+
+    private void spawnEnemy()
+    {
+        float x;
+        float y;
+        int respawnNumber;
+        do
+        {
+            respawnNumber = Random.Range(0, respawnPlace.Length);
+            x = respawnPlace[respawnNumber].transform.position.x;
+            y = respawnPlace[respawnNumber].transform.position.y;
+        }// выйдем только при false - когда вокруг не будет ни одного префаба
+        while (Physics2D.OverlapCircle(new Vector2(x, y), minDist, prefabEnemy.layer) != null);
+        numberEnemy--;
+        PhotonNetwork.Instantiate(prefabEnemy.name, new Vector3(x, y, transform.position.z), transform.rotation);// собственно, ставим сам префаб
+        enemyCount++;
+    }
+
+    public void setScore(int heroScore)
+    {
+        finalScore = heroScore;
+        using (NamedPipeClientStream pipeClient =
+            new NamedPipeClientStream(".", "testpipe", PipeDirection.Out))
+        {
+            pipeClient.Connect();
+            // Connect to the pipe or wait until the pipe is available.
+
+            try
+            {
+                //  send score to the server process.
+                using (StreamWriter sw = new StreamWriter(pipeClient))
+                {
+                    sw.AutoFlush = true;
+
+                    sw.WriteLine(finalScore);
+
+                }
+            }
+            // Catch the IOException that is raised if the pipe is broken
+            // or disconnected.
+            catch (IOException e)
+            {
+                Debug.Log("ERROR:" + e.Message);
+            }
+
+        }
+
+    }
+    public void spawnItems(Vector3 pos)
+    {
+        Items.ItemType item = (Items.ItemType)Random.Range(3, 6);
+        switch (item)
+        {
+            case Items.ItemType.MedKit:
+                PhotonNetwork.Instantiate(prefabMedKid.name, pos, prefabMedKid.transform.rotation);
+                break;
+            case Items.ItemType.ShieldPack:
+                PhotonNetwork.Instantiate(prefabShieldPack.name, pos, prefabShieldPack.transform.rotation);
+                break;
+            case Items.ItemType.PistolBulletPack:
+                PhotonNetwork.Instantiate(prefabPistolBulletPack.name, pos, prefabPistolBulletPack.transform.rotation);              
+                break;
+            case Items.ItemType.Pistol:
+                PhotonNetwork.Instantiate(prefabPistol.name, pos, prefabPistol.transform.rotation);
+                break;
+            case Items.ItemType.AK:
+                PhotonNetwork.Instantiate(prefabAK.name, pos, prefabAK.transform.rotation);
+                break;
+            case Items.ItemType.Shotgun:
+                PhotonNetwork.Instantiate(prefabShotgun.name, pos, prefabShotgun.transform.rotation);
+                break;
+
+        }
+    }
+}
