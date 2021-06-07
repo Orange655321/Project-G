@@ -2,36 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Police : MonoBehaviour
+public class B : MonoBehaviour
 {
     public int health;
-    public int armor;
     public int RateOfFire;
     public int speed;
     public int cost;
-    public int damage;
+    public int BDamage;
     public float attackRange;
     public GameObject pointAttack;
     public LayerMask layerHero;
 
     private bool isDead;
     private GameObject player;
+    private GameMaster GM;
     public Rigidbody2D rb;
-    public GameObject prefabPistolBullet;
-    [SerializeField]
-    private float pistolBulletForce = 8f;
     private float nextAttackTime;
     private float dropChance;
-    public ParticleSystem partSys;
-    private PistolSoundController pistolSC;
-    private AnimatorControlerEnemy animCtrl;
+    private bool isMoving;
     private Hero hero;
-    // Start is called before the first frame update
-    void Start()
+    private AnimatorControlerEnemy animCtrl;
+    public void Start()
     {
-        animCtrl = GetComponent<AnimatorControlerEnemy>();
         player = GameObject.FindGameObjectWithTag("Player");
-        pistolSC = GetComponent<PistolSoundController>();
+        animCtrl = GetComponent<AnimatorControlerEnemy>();
+        //GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
         rb = GetComponent<Rigidbody2D>();
         nextAttackTime = 0f;
         dropChance = Random.Range(0f, 1f);
@@ -39,25 +34,37 @@ public class Police : MonoBehaviour
         hero = player.GetComponent<Hero>();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void Update()
     {
         if (hero.isDie())
         {
-            Angry();
-            if (Vector2.Distance(player.transform.position, transform.position) < attackRange)
+
+            if (Vector2.Distance(player.transform.position, transform.position) > attackRange)
             {
-                animCtrl.RunAnimationOff();
-                if (Time.time >= nextAttackTime)
-                {
-                    nextAttackTime = Time.time + 1f / RateOfFire;
-                    Attack();
-                }
+                animCtrl.GetKnifeOff();
+                animCtrl.RunAnimationOn();
+                Angry();
             }
             else
             {
-                animCtrl.RunAnimationOn();
+                if (Time.time >= nextAttackTime)
+                {
+                    animCtrl.RunAnimationOff();
+                    Attack();
+                    nextAttackTime = Time.time + 1f / RateOfFire;
+                }
             }
+        }
+    }
+
+    private void Attack()
+    {
+        Collider2D colInfo = Physics2D.OverlapCircle(pointAttack.transform.position, attackRange / 3, layerHero);
+        if (colInfo != null)
+        {
+            animCtrl.GetKnifeOn();
+            player.GetComponent<Hero>().TakeDamage(BDamage);
         }
     }
     private void Angry()
@@ -67,17 +74,6 @@ public class Police : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
-
-    private void Attack()
-    {
-        GameObject bullet = Instantiate(prefabPistolBullet, pointAttack.transform.position, pointAttack.transform.rotation);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        bullet.GetComponent<Bullet>().isEnemy = true;
-        rb.AddForce(transform.up * pistolBulletForce, ForceMode2D.Impulse);
-        animCtrl.PlayAnimationShoot();
-        pistolSC.shootSound();
-        partSys.Play();
-    }
     public void TakeDamage(int damage)
     {
         health -= damage;

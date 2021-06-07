@@ -5,7 +5,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int health;
-    public int armor;
     public int RateOfFire;
     public int speed;
     public int cost;
@@ -22,9 +21,11 @@ public class Enemy : MonoBehaviour
     private float dropChance;
     private bool isMoving;
     private Hero hero;
+    private AnimatorControlerEnemy animCtrl;
     public void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        animCtrl = GetComponent<AnimatorControlerEnemy>();
         //GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
         rb = GetComponent<Rigidbody2D>();
         nextAttackTime = 0f;
@@ -41,6 +42,7 @@ public class Enemy : MonoBehaviour
    
             if (Vector2.Distance(player.transform.position, transform.position) > attackRange)
             {
+                animCtrl.AttackAnimationOff();
                 Angry();
             }
             else
@@ -53,16 +55,13 @@ public class Enemy : MonoBehaviour
             }
         }
     }
-    private void FixedUpdate()
-    {
-  
-    }
 
     private void Attack() 
     {
         Collider2D colInfo = Physics2D.OverlapCircle(pointAttack.transform.position, attackRange/3, layerHero);
         if (colInfo != null)
         {
+            animCtrl.AttackAnimationOn();
             player.GetComponent<Hero>().TakeDamage(zombieDamage);
         }
     }
@@ -71,23 +70,7 @@ public class Enemy : MonoBehaviour
         Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
         transform.eulerAngles = new Vector3(0, 0, angle);
-        //rb.velocity = lookDir.normalized * speed;
-        /* if (isMoving)
-        {
-            if (Vector2.Distance(transform.position, pathToPlayer[pathToPlayer.Count - 1]) > 0.1f)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, pathToPlayer[pathToPlayer.Count - 1], speed * Time.fixedDeltaTime);
-            }
-            else
-            {
-                isMoving = false;
-            }
-        }
-        else
-        {
-            pathToPlayer = pathFinder.GetPath(player.transform.position);
-            isMoving = true;
-        }*/    }
+    }
 
     public void TakeDamage(int damage)
     {

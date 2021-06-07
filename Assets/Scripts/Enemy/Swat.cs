@@ -24,13 +24,21 @@ public class Swat : MonoBehaviour
     private float dropChance;
     public ParticleSystem partSys;
     private PistolSoundController pistolSC;
-    private AnimationController animCtrl;
     private Hero hero;
+    private bool isInvulnerability;
+    private Material matBlink;
+    private Material matDefault;
+    private SpriteRenderer spriteRend;
+    private AnimatorControlerEnemy animCtrl;
     // Start is called before the first frame update
     void Start()
     {
+        animCtrl = GetComponent<AnimatorControlerEnemy>();
+        isInvulnerability = false;
+        spriteRend = GetComponent<SpriteRenderer>();
+        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+        matDefault = spriteRend.material;
         player = GameObject.FindGameObjectWithTag("Player");
-        animCtrl = GetComponent<AnimationController>();
         pistolSC = GetComponent<PistolSoundController>();
         rb = GetComponent<Rigidbody2D>();
         nextAttackTime = 0f;
@@ -47,11 +55,16 @@ public class Swat : MonoBehaviour
             Angry();
             if (Vector2.Distance(player.transform.position, transform.position) < attackRange)
             {
+                animCtrl.RunAnimationOff();
                 if (Time.time >= nextAttackTime)
                 {
                     nextAttackTime = Time.time + 1f / RateOfFire;
                     Attack();
                 }
+            }
+            else
+            {
+                animCtrl.RunAnimationOn();
             }
         }
     }
@@ -67,18 +80,40 @@ public class Swat : MonoBehaviour
     {
         GameObject bullet = Instantiate(prefabAKBullet, pointAttack.transform.position, pointAttack.transform.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        bullet.GetComponent<Bullet>().isEnemy = true;
         rb.AddForce(transform.up * AKBulletForce, ForceMode2D.Impulse);
-        animCtrl.ShootAnimationPlay();
+        animCtrl.PlayAnimationShoot();
         pistolSC.shootSound();
         partSys.Play();
     }
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0 && !isDead)
+        if (!isInvulnerability)
         {
-            isDead = true;
-            Die();
+            if (armor == 0)
+            {
+                health -= damage;
+                if (health < 0)
+                {
+                    health = 0;
+                }
+            }
+            else
+            {
+                armor -= damage;
+                if (armor <= 0)
+                {
+                    StartCoroutine(Invulnerability());
+                    StartCoroutine(Blinking());
+                    armor = 0;
+                }
+            }
+
+            if (health <= 0 && !isDead)
+            {
+                isDead = true;
+                Die();
+            }
         }
     }
     void Die()
@@ -90,5 +125,22 @@ public class Swat : MonoBehaviour
             GM.spawnItems(transform.position);
         }*/
         Destroy(gameObject);
+    }
+    IEnumerator Invulnerability()
+    {
+        isInvulnerability = true;
+        yield return new WaitForSeconds(1.56f);
+        isInvulnerability = false;
+        yield return null;
+    }
+    IEnumerator Blinking()
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            spriteRend.material = matBlink;
+            yield return new WaitForSeconds(0.130f);
+            spriteRend.material = matDefault;
+            yield return new WaitForSeconds(0.130f);
+        }
     }
 }

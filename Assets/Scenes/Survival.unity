@@ -273,12 +273,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 35132190}
   m_CullTransparentMesh: 0
---- !u!1 &54367528 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 944672526625999092, guid: 593b42191727ab2428367435aca9d16f,
-    type: 3}
-  m_PrefabInstance: {fileID: 944672526609456604}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &71064835
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,7 +932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDist: 3
-  numberEnemy: 0
+  numberEnemy: 1
   enemySpawned: 10
   prefabMedKid: {fileID: 1821436993421853319, guid: 004ab57e1670d12408361a9d254f67aa,
     type: 3}
@@ -1736,7 +1730,6 @@ MonoBehaviour:
   SettingsMenu: {fileID: 926619612}
   mSlider: {fileID: 656450318}
   sSlider: {fileID: 1440405268}
-  FirePoint: {fileID: 54367528}
 --- !u!1 &656450318
 GameObject:
   m_ObjectHideFlags: 0

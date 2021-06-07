@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject heroPrefab;
     void Start()
     {
-        Vector3 pos = new Vector3(Random.RandomRange(-5f, 5f), Random.RandomRange(-5f, 5f));
+        Vector3 pos = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
 
         PhotonNetwork.Instantiate(heroPrefab.name, pos, Quaternion.identity);
     }

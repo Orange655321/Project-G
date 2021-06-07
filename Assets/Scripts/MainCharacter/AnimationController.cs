@@ -48,7 +48,10 @@ public class AnimationController : MonoBehaviour
     {
         animator.SetTrigger("shotgun");
     }
-
+    public void SwitchToSniper()
+    {
+        animator.SetTrigger("sniperRifle");
+    }
     public void SwitchToAK47()
     {
         animator.SetTrigger("ak-47");

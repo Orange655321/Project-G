@@ -94,7 +94,7 @@ public class Hero : Unit
     public GameObject prefabShootgunBullet;
     public ParticleSystem partSys;
     private PistolSoundController pistolSC;
-    public GameObject[] spriteChoiceWeapon; 
+    public GameObject[] spriteChoiceWeapon;
     enum Weapon
     {
         Pistol,
@@ -105,16 +105,16 @@ public class Hero : Unit
     private void Awake()    {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
-
         spriteRend = GetComponent<SpriteRenderer>();
-        isInvulnerability = false; matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+        isInvulnerability = false; 
+        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
         matDefault = spriteRend.material;
         pistolSC = GetComponent<PistolSoundController>();
     }
 
     void Start()
     {
-        isWeapon = new bool[] { true, true, true, false }; // 0- пистолет, 1- АК, 2- дробовик, 3 - винтовка снайперсая
+        isWeapon = new bool[] { true, true, true, true }; // 0- пистолет, 1- АК, 2- дробовик, 3 - винтовка снайперсая
         pistolBulletInClip = 17;
         pistolBullet = 34 - pistolBulletInClip;
         AKBulletInClip = 30;
@@ -179,6 +179,8 @@ public class Hero : Unit
         }
         else if (isWhatWeapon != Weapon.SniperRifle && Input.GetKeyUp(KeyCode.Alpha4) && isWeapon[3]) 
         {
+            animCtrl.Switcher();
+            animCtrl.SwitchToSniper();
             spriteChoiceWeapon[(int)isWhatWeapon].SetActive(false);
             isWhatWeapon = Weapon.SniperRifle;
             firePoint.localPosition = new Vector3(0.2f, 0.5f);
@@ -542,6 +544,7 @@ public class Hero : Unit
     {
         GameObject bullet = Instantiate(prefabPistolBullet, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        bullet.GetComponent<Bullet>().isEnemy = false;
         rb.AddForce(transform.up * pistolBulletForce, ForceMode2D.Impulse);
         animCtrl.ShootAnimationPlay();
         pistolSC.shootSound();
@@ -552,6 +555,7 @@ public class Hero : Unit
     {
         GameObject bullet = Instantiate(prefabAKBullet, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        bullet.GetComponent<Bullet>().isEnemy = false;
         rb.AddForce(transform.up * AKBulletForce, ForceMode2D.Impulse);
         animCtrl.ShootAnimationPlay();
         pistolSC.shootSound();
@@ -567,6 +571,7 @@ public class Hero : Unit
             firePoint.transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 10f + 5f * (float)i);
             bullet = Instantiate(prefabShootgunBullet, firePoint.position, firePoint.rotation);
             rb = bullet.GetComponent<Rigidbody2D>();
+            bullet.GetComponent<Bullet>().isEnemy = false;
             rb.AddForce(firePoint.transform.up * shotgunBulletForce/2, ForceMode2D.Impulse);
         }
         firePoint.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles);
