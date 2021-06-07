@@ -121,6 +121,10 @@ public class Hero : Unit
 
     void Update()
     {
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
         if (Input.GetKeyUp(KeyCode.Space) && Time.time > nextAttackTime)
         {
             nextAttackTime = Time.time + rateOfAttack;
