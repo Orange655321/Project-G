@@ -7,7 +7,7 @@ public class LevelGenerator : MonoBehaviour
     enum gridSpace { empty, floor, wall };
     gridSpace[,] grid;
     int roomHeight, roomWidth;
-    Vector2 roomSizeWorldUnits = new Vector2(64, 64);
+    Vector2 roomSizeWorldUnits = new Vector2(38, 38);
     float worldUnitsInOneGridCell = 1;
     struct walker
     {
@@ -17,9 +17,10 @@ public class LevelGenerator : MonoBehaviour
     List<walker> walkers;
     float chanceWalkerChangeDir = 0.5f, chanceWalkerSpawn = 0.05f;
     float chanceWalkerDestoy = 0.05f;
-    int maxWalkers = 10;
+    int maxWalkers = 20;
     float percentToFill = 0.2f;
-    public GameObject wallObj, floorObj;
+    public GameObject wallObj;
+    public GameObject[] floorObj;
     void Awake()
     {
         Setup();
@@ -28,11 +29,17 @@ public class LevelGenerator : MonoBehaviour
         RemoveSingleWalls();
         SpawnLevel();
     }
+    private void Start()
+    {
+        Debug.Log(roomHeight);
+        Debug.Log(roomWidth);
+    }
     void Setup()
     {
         //find grid size
         roomHeight = Mathf.RoundToInt(roomSizeWorldUnits.x / worldUnitsInOneGridCell);
         roomWidth = Mathf.RoundToInt(roomSizeWorldUnits.y / worldUnitsInOneGridCell);
+
         //create grid
         grid = new gridSpace[roomWidth, roomHeight];
         //set grid's default state
@@ -124,7 +131,7 @@ public class LevelGenerator : MonoBehaviour
                 break;
             }
             iterations++;
-        } while (iterations < 100000);
+        } while (iterations < 1000);
     }
     void CreateWalls()
     {
@@ -201,6 +208,7 @@ public class LevelGenerator : MonoBehaviour
     }
     void SpawnLevel()
     {
+        int selectionGrass;
         for (int x = 0; x < roomWidth; x++)
         {
             for (int y = 0; y < roomHeight; y++)
@@ -210,7 +218,8 @@ public class LevelGenerator : MonoBehaviour
                     case gridSpace.empty:
                         break;
                     case gridSpace.floor:
-                        Spawn(x, y, floorObj);
+                        selectionGrass = Random.Range(0, floorObj.Length);
+                        Spawn(x, y, floorObj[selectionGrass]);
                         break;
                     case gridSpace.wall:
                         Spawn(x, y, wallObj);

@@ -839,18 +839,22 @@ public class AstarPath : VersionedMonoBehaviour {
 		}
 	}
 
-	/// <summary>
-	/// Checks if any work items need to be executed
-	/// then runs pathfinding for a while (if not using multithreading because
-	/// then the calculation happens in other threads)
-	/// and then returns any calculated paths to the
-	/// scripts that requested them.
-	///
-	/// See: PerformBlockingActions
-	/// See: PathProcessor.TickNonMultithreaded
-	/// See: PathReturnQueue.ReturnPaths
-	/// </summary>
-	private void Update () {
+    /// <summary>
+    /// Checks if any work items need to be executed
+    /// then runs pathfinding for a while (if not using multithreading because
+    /// then the calculation happens in other threads)
+    /// and then returns any calculated paths to the
+    /// scripts that requested them.
+    ///
+    /// See: PerformBlockingActions
+    /// See: PathProcessor.TickNonMultithreaded
+    /// See: PathReturnQueue.ReturnPaths
+    /// </summary>
+    private void Start()
+    {
+		AstarPath.active.Scan();
+    }
+    private void Update () {
 		// This class uses the [ExecuteInEditMode] attribute
 		// So Update is called even when not playing
 		// Don't do anything when not in play mode
