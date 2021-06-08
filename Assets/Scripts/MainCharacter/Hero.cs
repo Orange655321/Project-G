@@ -118,9 +118,9 @@ public class Hero : Unit
         pistolBulletInClip = 17;
         pistolBullet = 34 - pistolBulletInClip;
         AKBulletInClip = 30;
-        AKBullet = 30 - AKBulletInClip;
+        AKBullet = 60 - AKBulletInClip;
         shotgunBulletInClip = 5;
-        shotgunBullet = 15 - shotgunBulletInClip;
+        shotgunBullet = 20 - shotgunBulletInClip;
         sniperBulletInClip = 1;
         sniperBullet = 10 - sniperBulletInClip;
         isWhatWeapon = 0;

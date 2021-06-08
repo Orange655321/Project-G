@@ -6,6 +6,7 @@ using UnityEngine.Playables;
 public class CutScene3Start : MonoBehaviour
 {
     public PlayableDirector playableDirector;
+    public List<GameObject> Blocks;
     public Hero hero;
     private bool cut_flag = true;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,6 +16,8 @@ public class CutScene3Start : MonoBehaviour
         {
             cut_flag = false;
             playableDirector.Play();
+            Blocks[0].SetActive(false);
+            Blocks[1].SetActive(false);
         }
     }
 }

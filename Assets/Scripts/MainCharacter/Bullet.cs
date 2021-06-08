@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
             Enemy enemy = collider.GetComponent<Enemy>();
             Swat swat = collider.GetComponent<Swat>();
             Police police = collider.GetComponent<Police>();
+            B b = collider.GetComponent<B>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
@@ -26,6 +27,11 @@ public class Bullet : MonoBehaviour
             else if (police != null)
             {
                 police.TakeDamage(damage);
+                Destroy(gameObject);
+            }
+            else if (b != null)
+            {
+                b.TakeDamage(damage);
                 Destroy(gameObject);
             }
         }
