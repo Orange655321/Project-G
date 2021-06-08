@@ -4764,7 +4764,6 @@ GameObject:
   - component: {fileID: 5789553372575706890}
   - component: {fileID: 8234001182046040167}
   - component: {fileID: 873383600148133260}
-  - component: {fileID: 3013074901613301279}
   m_Layer: 0
   m_Name: BTS_1
   m_TagString: Untagged
@@ -4863,29 +4862,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6234161, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3013074901613301279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4498828591551303129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5221d16387d99a54681faccd52cf3979, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  damage: 0
-  cost: 0
-  pointAttack: {fileID: 6962508225979229250}
-  prefabAKBullet: {fileID: 4258112528853497413, guid: fbc3674926dcefd47a9cf516b8db0c34,
-    type: 3}
-  prefabBobs: {fileID: 0}
-  partSys: {fileID: 1487945824831215296}
-  player: {fileID: 0}
-  RateOfFire: 0
-  attackRange: 0
 --- !u!1 &6962508225979229250
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Police : MonoBehaviour
+public class Police : AllEnemy
 {
     public int health;
     public int armor;
@@ -60,7 +60,7 @@ public class Police : MonoBehaviour
             }
         }
     }
-    private void Angry()
+    public override void Angry()
     {
         Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
@@ -68,7 +68,7 @@ public class Police : MonoBehaviour
     }
 
 
-    private void Attack()
+    public override void Attack()
     {
         GameObject bullet = Instantiate(prefabPistolBullet, pointAttack.transform.position, pointAttack.transform.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -78,7 +78,7 @@ public class Police : MonoBehaviour
         pistolSC.shootSound();
         partSys.Play();
     }
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0 && !isDead)
@@ -87,7 +87,7 @@ public class Police : MonoBehaviour
             Die();
         }
     }
-    void Die()
+    public override void Die()
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMasterLvl1.EnemyCount--;

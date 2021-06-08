@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Swat : MonoBehaviour
+public class Swat : AllEnemy
 {
     public int health;
     public int armor;
@@ -68,7 +68,7 @@ public class Swat : MonoBehaviour
             }
         }
     }
-    private void Angry()
+    public override void Angry()
     {
         Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
@@ -76,7 +76,7 @@ public class Swat : MonoBehaviour
     }
 
 
-    private void Attack()
+    public override void Attack()
     {
         GameObject bullet = Instantiate(prefabAKBullet, pointAttack.transform.position, pointAttack.transform.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
@@ -86,7 +86,7 @@ public class Swat : MonoBehaviour
         pistolSC.shootSound();
         partSys.Play();
     }
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         if (!isInvulnerability)
         {
@@ -116,7 +116,7 @@ public class Swat : MonoBehaviour
             }
         }
     }
-    void Die()
+    public override void Die()
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMasterLvl1.EnemyCount--;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : AllEnemy
 {
     public int health;
     public int RateOfFire;
@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void Attack() 
+    public override void Attack() 
     {
         Collider2D colInfo = Physics2D.OverlapCircle(pointAttack.transform.position, attackRange/3, layerHero);
         if (colInfo != null)
@@ -65,14 +65,14 @@ public class Enemy : MonoBehaviour
             player.GetComponent<Hero>().TakeDamage(zombieDamage);
         }
     }
-    private void Angry() 
+    public override void Angry() 
     {
         Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
         transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         health -= damage;
         if(health <= 0 && !isDead)
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
             Die();
         }
     }
-    void Die()
+    public override void Die()
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMasterLvl1.EnemyCount--;

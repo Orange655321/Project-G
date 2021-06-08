@@ -241,10 +241,11 @@ public class Hero : Unit
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(0.35f);
+        animCtrl.KnifeAnimationOff();
         switch (isWhatWeapon)
         {
             case Weapon.Pistol:
-                animCtrl.KnifeAnimationOff();
+                animCtrl.Switcher();
                 animCtrl.SwitchToPistol();
                 break;
             case Weapon.AK:
@@ -254,6 +255,10 @@ public class Hero : Unit
             case Weapon.Shotgun:
                 animCtrl.Switcher();
                 animCtrl.SwitchToShotgun();
+                break;
+            case Weapon.SniperRifle:
+                animCtrl.Switcher();
+                animCtrl.SwitchToSniper();
                 break;
         }
 
@@ -528,17 +533,19 @@ public class Hero : Unit
 
         foreach(Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            enemy.GetComponent<AllEnemy>().TakeDamage(attackDamage);
         }
     }
     private void shootSniperRifle()
     {
+
         //Ray2D ray = new Ray2D(transform.position, mousePosition);
-        RaycastHit2D[] raycasts = Physics2D.RaycastAll(transform.position, mousePosition, distanceSniperRifle, enemyLayers);
+        RaycastHit2D[] raycasts = Physics2D.RaycastAll(firePoint.position, mousePosition, distanceSniperRifle, enemyLayers);
         foreach(RaycastHit2D enemy in raycasts) 
         {
-            enemy.collider.GetComponent<Enemy>().TakeDamage(sniperBulletDamage);
+            enemy.collider.GetComponent<AllEnemy>().TakeDamage(sniperBulletDamage);
         }
+        
     }
     private void shootPistol()
     {
