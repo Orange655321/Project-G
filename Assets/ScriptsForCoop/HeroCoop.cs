@@ -8,6 +8,8 @@ using Photon.Pun;
 public class HeroCoop : Unit
 {
     private PhotonView photonView;
+    private Vector3 offset;
+
     [SerializeField]
     private int speed = 5;
     [SerializeField]
@@ -37,25 +39,25 @@ public class HeroCoop : Unit
     [SerializeField]
     private int attackDamage = 200;
 
-    [SerializeField]
+  
     private Text healthText;
-    [SerializeField]
+
     private Text armorText;
-    [SerializeField]
+
     private Text scoreText;
 
     private Rigidbody2D rb;
     private Vector2 mousePosition;
-    [SerializeField]
+    
     private Camera cam;
     private AnimationController animCtrl;
-    [SerializeField]
+  
     private GameObject dieCanvas;
     [SerializeField]
     private LayerMask enemyLayers;
 
     private bool isInvulnerability;
-    public GameMaster GM;
+    private GameMasterCoop GM;
     public bool Claws_flag = false;
     private Material matBlink;
     private Material matDefault;
@@ -95,17 +97,28 @@ public class HeroCoop : Unit
         SniperRifle
     }
     private void Awake()    {
+       // if (!photonView.IsMine) return;
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
-
+        GM = GameObject.Find("GameManager").GetComponent<GameMasterCoop>();
+        dieCanvas = GameObject.Find("DieCanvas");
+        dieCanvas.SetActive(false);
+        healthText = GameObject.Find("Health").GetComponent<Text>();
+        Debug.Log(healthText == null);
+        armorText = GameObject.Find("Shield").GetComponent<Text>();
+        scoreText = GameObject.Find("Score").GetComponent<Text>();
+        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         spriteRend = GetComponent<SpriteRenderer>();
-        isInvulnerability = false; matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+        isInvulnerability = false;
+        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
         matDefault = spriteRend.material;
         pistolSC = GetComponent<PistolSoundController>();
     }
 
     void Start()
     {
+        cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
+        offset = cam.transform.position - transform.position;
         photonView = GetComponent<PhotonView>(); 
         isWeapon = new bool[] { true, true, true, false }; // 0- пистолет, 1- АК, 2- дробовик, 3 - винтовка снайперсая
         pistolBullet = 34;
@@ -119,13 +132,17 @@ public class HeroCoop : Unit
         nextFireShotgunTime = Time.time;
         nextFireSniperTime = Time.time;
     }
+    void LateUpdate()
+    {
+        //if (!photonView.IsMine) return;
 
+        cam.transform.position = transform.position + offset;
+        
+    }
     void Update()
     {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
+        //if (!photonView.IsMine) return;
+
         if (Input.GetKeyUp(KeyCode.Space) && Time.time > nextAttackTime)
         {
             nextAttackTime = Time.time + rateOfAttack;
@@ -291,8 +308,12 @@ public class HeroCoop : Unit
     {
         animCtrl.DeathAnimationPlay();
         StartCoroutine(DeathTimer());
-        GM.setScore(score);
-        base.Die();
+        destrHero();
+    }
+    //костыль для использования статчного метода 
+    public static void destrHero()
+    {
+        GameManager.leave();
     }
     IEnumerator DeathTimer()
     {
@@ -302,38 +323,41 @@ public class HeroCoop : Unit
         DeathFlag = true;
         yield return new WaitForSeconds(1.2f);
         dieCanvas.SetActive(true);
+        base.Die();
+
         yield return 0;
 
 }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Items item = collision.gameObject.GetComponent<Items>();
+        ItemsCoop item = collision.gameObject.GetComponent<ItemsCoop>();
         if (item)
         {
             switch (item.itemType)
             {
-                case Items.ItemType.MedKit:
+                case ItemsCoop.ItemType.MedKit:
                     if (health != 200)
                     {
                         health = item.healing(health);
+                        
                         item.RemoveItem();
                     }
                     break;
-                case Items.ItemType.ShieldPack:
+                case ItemsCoop.ItemType.ShieldPack:
                     if (armor != 100)
                     {
                         armor = item.shielding(armor);
                         item.RemoveItem();
                     }
                     break;
-                case Items.ItemType.PistolBulletPack:
+                case ItemsCoop.ItemType.PistolBulletPack:
                     if (pistolBullet != 272)
                     {
                         pistolBullet = item.getPistolBullet(pistolBullet);
                         item.RemoveItem();
                     }
                     break;
-                case Items.ItemType.Pistol:
+                case ItemsCoop.ItemType.Pistol:
                     if (isWeapon[0])
                     {
                         pistolBullet = item.getPistolBullet(pistolBullet + 7);
@@ -344,7 +368,7 @@ public class HeroCoop : Unit
                     }
                     item.RemoveItem();
                     break;
-                case Items.ItemType.AK:
+                case ItemsCoop.ItemType.AK:
                     if (isWeapon[1])
                     {
                         AKBullet = item.getAKBullet(AKBullet + 15);
@@ -355,7 +379,7 @@ public class HeroCoop : Unit
                     }
                     item.RemoveItem();
                     break;
-                case Items.ItemType.Shotgun:
+                case ItemsCoop.ItemType.Shotgun:
                     if (isWeapon[2])
                     {
                         shotgunBullet = item.getsShotgunBullet(shotgunBullet + 2);
@@ -366,7 +390,7 @@ public class HeroCoop : Unit
                     }
                     item.RemoveItem();
                     break;
-                case Items.ItemType.Claws:
+                case ItemsCoop.ItemType.Claws:
                     Claws_flag = true;
                     item.RemoveItem();
                     break;            
@@ -450,7 +474,7 @@ public class HeroCoop : Unit
     }
     private void shootPistol()
     {
-        GameObject bullet = Instantiate(prefabPistolBullet, firePoint.position, firePoint.rotation);
+        GameObject bullet = PhotonNetwork.Instantiate(prefabPistolBullet.name, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(transform.up * pistolBulletForce, ForceMode2D.Impulse);
         animCtrl.ShootAnimationPlay();
@@ -460,7 +484,7 @@ public class HeroCoop : Unit
 
     private void shootAK()
     {
-        GameObject bullet = Instantiate(prefabAKBullet, firePoint.position, firePoint.rotation);
+        GameObject bullet = PhotonNetwork.Instantiate(prefabAKBullet.name, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(transform.up * AKBulletForce, ForceMode2D.Impulse);
         animCtrl.ShootAnimationPlay();
@@ -475,7 +499,7 @@ public class HeroCoop : Unit
         for (int i = 0; i < 5; ++i)
         {
             firePoint.transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 10f + 5f * (float)i);
-            bullet = Instantiate(prefabShootgunBullet, firePoint.position, firePoint.rotation);
+            bullet = PhotonNetwork.Instantiate(prefabShootgunBullet.name, firePoint.position, firePoint.rotation);
             rb = bullet.GetComponent<Rigidbody2D>();
             rb.AddForce(firePoint.transform.up * shotgunBulletForce/2, ForceMode2D.Impulse);
         }
