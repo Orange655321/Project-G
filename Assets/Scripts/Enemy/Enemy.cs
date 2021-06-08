@@ -26,7 +26,7 @@ public class Enemy : AllEnemy
     {
         player = GameObject.FindGameObjectWithTag("Player");
         animCtrl = GetComponent<AnimatorControlerEnemy>();
-        //GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
         rb = GetComponent<Rigidbody2D>();
         nextAttackTime = 0f;
         dropChance = Random.Range(0f, 1f);
@@ -85,10 +85,10 @@ public class Enemy : AllEnemy
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMasterLvl1.EnemyCount--;
-        /*if(dropChance > 0.5)
+        if(dropChance > 0.5)
         {
             GM.spawnItems(transform.position);
-        }*/
+        }
         Destroy(gameObject);
     }
 }

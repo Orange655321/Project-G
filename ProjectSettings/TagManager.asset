@@ -13,6 +13,7 @@ TagManager:
   - fasfasf
   - Roof
   - Door
+  - EndLVL
   layers:
   - Default
   - TransparentFX
