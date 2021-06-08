@@ -13,7 +13,7 @@ public class GameMasterLvl1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EnemyCount = 13;
+        EnemyCount = 18;
     }
 
     // Update is called once per frame

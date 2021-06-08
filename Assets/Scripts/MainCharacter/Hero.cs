@@ -118,9 +118,9 @@ public class Hero : Unit
         pistolBulletInClip = 17;
         pistolBullet = 34 - pistolBulletInClip;
         AKBulletInClip = 30;
-        AKBullet = 30 - AKBulletInClip;
+        AKBullet = 60 - AKBulletInClip;
         shotgunBulletInClip = 5;
-        shotgunBullet = 15 - shotgunBulletInClip;
+        shotgunBullet = 20 - shotgunBulletInClip;
         sniperBulletInClip = 1;
         sniperBullet = 10 - sniperBulletInClip;
         isWhatWeapon = 0;
@@ -597,7 +597,18 @@ public class Hero : Unit
         {
             GameMasterLvl2.Door_explosion();
         }
-    }   
+        if (collision.CompareTag("Roof"))
+        {
+            GameMasterLvl2.Building_inside();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Roof"))
+        {
+            GameMasterLvl2.Building_outside();
+        }
+    }
 
     IEnumerator Invulnerability()
     {

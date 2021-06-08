@@ -34,7 +34,11 @@ public class BTS : MonoBehaviour
                 nextAttackTime = Time.time + RateOfFire;
                 Attack();
             }
+            Vector2 lookDir = player.transform.position - pointAttack.transform.position;
+            float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
+            pointAttack.transform.eulerAngles = new Vector3(0, 0, angle);
         }
+
     }
 
     private void Attack()
@@ -42,7 +46,7 @@ public class BTS : MonoBehaviour
         GameObject bullet = Instantiate(prefabAKBullet, pointAttack.transform.position, pointAttack.transform.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         bullet.GetComponent<Bullet>().isEnemy = true;
-        rb.AddForce(transform.up * AKBulletForce, ForceMode2D.Impulse);
+        rb.AddForce(-1*transform.right * AKBulletForce, ForceMode2D.Impulse);
         pistolSC.shootSound();
         partSys.Play();
     }
