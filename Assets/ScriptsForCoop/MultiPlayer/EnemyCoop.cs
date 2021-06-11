@@ -46,7 +46,7 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
         if (!photonView.IsMine) return;
         if (health <= 0)
         {
-            isDead = true;
+            isDead = true; 
             Die();
         }
         if (player != null)
