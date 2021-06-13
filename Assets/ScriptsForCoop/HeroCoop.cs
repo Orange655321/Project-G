@@ -46,6 +46,8 @@ public class HeroCoop : Unit
 
     private Text scoreText;
 
+    private Text ammoText;
+
     private Rigidbody2D rb;
     private Vector2 mousePosition;
     
@@ -97,7 +99,6 @@ public class HeroCoop : Unit
         SniperRifle
     }
     private void Awake()    {
-       // if (!photonView.IsMine) return;
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
         GM = GameObject.Find("GameManager").GetComponent<GameMasterCoop>();
@@ -107,6 +108,8 @@ public class HeroCoop : Unit
         Debug.Log(healthText == null);
         armorText = GameObject.Find("Shield").GetComponent<Text>();
         scoreText = GameObject.Find("Score").GetComponent<Text>();
+        ammoText = GameObject.Find("ammo").GetComponent<Text>();
+
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         spriteRend = GetComponent<SpriteRenderer>();
         isInvulnerability = false;
@@ -331,6 +334,7 @@ public class HeroCoop : Unit
     private void OnTriggerEnter2D(Collider2D collision)
     {
         ItemsCoop item = collision.gameObject.GetComponent<ItemsCoop>();
+        PhotonView pi = item.photonView;
         if (item)
         {
             switch (item.itemType)
@@ -339,22 +343,24 @@ public class HeroCoop : Unit
                     if (health != 200)
                     {
                         health = item.healing(health);
-                        
-                        item.RemoveItem();
+                        if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                        else item.RemoveItem();
                     }
                     break;
                 case ItemsCoop.ItemType.ShieldPack:
                     if (armor != 100)
                     {
                         armor = item.shielding(armor);
-                        item.RemoveItem();
+                        if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                        else item.RemoveItem();
                     }
                     break;
                 case ItemsCoop.ItemType.PistolBulletPack:
                     if (pistolBullet != 272)
                     {
                         pistolBullet = item.getPistolBullet(pistolBullet);
-                        item.RemoveItem();
+                        if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                        else item.RemoveItem();
                     }
                     break;
                 case ItemsCoop.ItemType.Pistol:
@@ -366,7 +372,8 @@ public class HeroCoop : Unit
                     {
                         isWeapon[0] = true;
                     }
-                    item.RemoveItem();
+                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                    else item.RemoveItem();
                     break;
                 case ItemsCoop.ItemType.AK:
                     if (isWeapon[1])
@@ -377,7 +384,8 @@ public class HeroCoop : Unit
                     {
                         isWeapon[1] = true;
                     }
-                    item.RemoveItem();
+                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                    else item.RemoveItem();
                     break;
                 case ItemsCoop.ItemType.Shotgun:
                     if (isWeapon[2])
@@ -388,13 +396,15 @@ public class HeroCoop : Unit
                     {
                         isWeapon[2] = true;
                     }
-                    item.RemoveItem();
+                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                    else item.RemoveItem();
                     break;
                 case ItemsCoop.ItemType.Claws:
                     Claws_flag = true;
-                    item.RemoveItem();
+                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                    else item.RemoveItem();
                     break;            
-        }
+            }
         }
         
     }

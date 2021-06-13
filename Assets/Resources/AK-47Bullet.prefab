@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 502131109006308048}
   - component: {fileID: 964647672889451713}
   - component: {fileID: 3087613843729086231}
-  - component: {fileID: 150277440932320678}
   - component: {fileID: -4997703409549545784}
   - component: {fileID: -183253146237105809}
+  - component: {fileID: 1322101817657045085}
   m_Layer: 0
   m_Name: AK-47Bullet
   m_TagString: Untagged
@@ -133,19 +133,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &150277440932320678
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4258112528853497413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 490ed230b5308994ba0e4a150004975d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 20
 --- !u!114 &-4997703409549545784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,3 +172,16 @@ MonoBehaviour:
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &1322101817657045085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4258112528853497413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a5d80a527b2c42daab552d2537a5b32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20

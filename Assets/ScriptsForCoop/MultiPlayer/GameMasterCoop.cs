@@ -71,7 +71,7 @@ public class GameMasterCoop : MonoBehaviourPunCallbacks
             y = respawnPlace[respawnNumber].transform.position.y;
         }// выйдем только при false - когда вокруг не будет ни одного префаба
         while (Physics2D.OverlapCircle(new Vector2(x, y), minDist, prefabEnemy.layer) != null);
-        numberEnemy--;
+        numberEnemy--; 
         PhotonNetwork.Instantiate(prefabEnemy.name, new Vector3(x, y, transform.position.z), transform.rotation);// собственно, ставим сам префаб
         enemyCount++;
     }

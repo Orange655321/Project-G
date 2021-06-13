@@ -969,7 +969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDist: 3
   numberEnemy: 20
-  enemySpawned: 10
+  enemySpawned: 2
   prefabMedKid: {fileID: 1821436993421853319, guid: 462b20f0db3e945f3bd716b785ca480f,
     type: 3}
   prefabShieldPack: {fileID: 1334400096408491219, guid: 7a5834886f23b423cb8e5d522312d4dd,
@@ -1571,7 +1571,6 @@ MonoBehaviour:
   SettingsMenu: {fileID: 926619612}
   mSlider: {fileID: 656450318}
   sSlider: {fileID: 1440405268}
-  FirePoint: {fileID: 0}
 --- !u!1 &656450318
 GameObject:
   m_ObjectHideFlags: 0

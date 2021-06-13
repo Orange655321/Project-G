@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class EnemyCoop : MonoBehaviourPunCallbacks
+public class EnemyCoop : MonoBehaviourPunCallbacks, IPunObservable
 {
-    private PhotonView photonView;
+    public PhotonView photonView;
     public int health;
     public int armor;
     public int RateOfFire;
@@ -87,11 +87,12 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
         rb.velocity = lookDir.normalized * speed;
       
     }
-
+    [PunRPC]
     public void TakeDamage(int damage)
     {
         Debug.Log("notDMG");
         health -= damage;
+        
        
     }
     void Die()
@@ -102,5 +103,14 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
             GM.spawnItems(transform.position);
         }
         PhotonNetwork.Destroy(gameObject);
+    }
+    
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {   
+        if (stream.IsWriting)
+        { stream.SendNext(health); }
+        else{ health = (int)stream.ReceiveNext(); }
+
+
     }
 }
