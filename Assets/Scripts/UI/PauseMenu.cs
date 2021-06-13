@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject mSlider;
     public GameObject sSlider;
 
-    public GameObject FirePoint;
+   // public GameObject FirePoint;
     //private Shooting script;
 
     private void Start()
@@ -39,21 +39,23 @@ public class PauseMenu : MonoBehaviour
             }
         }
     }
-
-    public void Resume()
+    IEnumerator ResumeDelay()
     {
-        // script.enabled = true;
-        FirePoint.SetActive(true);
-        psMenu.SetActive(false);
+        yield return new WaitForSecondsRealtime(0.1f);
         SettingsMenu.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
+        psMenu.SetActive(false);
+    }
+    public void Resume()
+    {
+        StartCoroutine(ResumeDelay());
     }
 
     void Pause()
     {
         // script.enabled = false;
-        FirePoint.SetActive(false);
+        //FirePoint.SetActive(false);
         psMenu.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;       

@@ -17,17 +17,25 @@ public class Hero : Unit
     [SerializeField]
     private int pistolBullet = 0;
     [SerializeField]
+    private int pistolBulletInClip = 0;
+    [SerializeField]
     private float pistolBulletForce = 8f;
     [SerializeField]
     private int AKBullet = 0;
+    [SerializeField]
+    private int AKBulletInClip = 0;
     [SerializeField]
     private float AKBulletForce = 9f;
     [SerializeField]
     private int shotgunBullet = 0;
     [SerializeField]
+    private int shotgunBulletInClip = 0;
+    [SerializeField]
     private float shotgunBulletForce = 7f;
     [SerializeField]
     private int sniperBullet = 0;
+    [SerializeField]
+    private int sniperBulletInClip = 0;
     [SerializeField]
     private int sniperBulletDamage = 75;
     [SerializeField]
@@ -41,6 +49,8 @@ public class Hero : Unit
     private Text armorText;
     [SerializeField]
     private Text scoreText;
+    [SerializeField]
+    private Text ammoText;
 
     private Rigidbody2D rb;
     private Vector2 mousePosition;
@@ -55,10 +65,12 @@ public class Hero : Unit
     private bool isInvulnerability;
     public GameMaster GM;
     public bool Claws_flag = false;
+    public bool C4_flag = false;
     private Material matBlink;
     private Material matDefault;
     private SpriteRenderer spriteRend;
     public GameMasterLvl1 GameMasterLvl1;
+    public GameMaster_lvl2 GameMasterLvl2;
     private bool DeathFlag = false;
 
 
@@ -66,7 +78,7 @@ public class Hero : Unit
  	private bool[] isWeapon;
     private Weapon isWhatWeapon;// 0 - пистолет, 1 - АК, 2 - дробовик сделай енам
     private float rateOfFireAK = 0.1f;
-    private float rateOfFirePistol = 0.6f;
+    private float rateOfFirePistol = 0.4f;
     private float rateOfFireShotgun = 1.3f;
     private float rateOfFireSniper = 2f;
     private float rateOfAttack = 5f;
@@ -77,14 +89,12 @@ public class Hero : Unit
     private float nextFireSniperTime;
     private float distanceSniperRifle = 50f;
 
-
-    [SerializeField]
     public GameObject prefabPistolBullet;
     public GameObject prefabAKBullet;
     public GameObject prefabShootgunBullet;
     public ParticleSystem partSys;
     private PistolSoundController pistolSC;
-
+    public GameObject[] spriteChoiceWeapon;
     enum Weapon
     {
         Pistol,
@@ -95,30 +105,40 @@ public class Hero : Unit
     private void Awake()    {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
-
         spriteRend = GetComponent<SpriteRenderer>();
-        isInvulnerability = false; matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+        isInvulnerability = false; 
+        matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
         matDefault = spriteRend.material;
         pistolSC = GetComponent<PistolSoundController>();
     }
 
     void Start()
     {
-        isWeapon = new bool[] { true, true, true, false }; // 0- пистолет, 1- АК, 2- дробовик, 3 - винтовка снайперсая
-        pistolBullet = 34;
-        AKBullet = 30;
-        shotgunBullet = 15;
-        sniperBullet = 10;
+        isWeapon = new bool[] { true, true, true, true }; // 0- пистолет, 1- АК, 2- дробовик, 3 - винтовка снайперсая
+        pistolBulletInClip = 17;
+        pistolBullet = 34 - pistolBulletInClip;
+        AKBulletInClip = 30;
+        AKBullet = 60 - AKBulletInClip;
+        shotgunBulletInClip = 5;
+        shotgunBullet = 20 - shotgunBulletInClip;
+        sniperBulletInClip = 1;
+        sniperBullet = 10 - sniperBulletInClip;
         isWhatWeapon = 0;
+        spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         nextFireAKTime = Time.time;
         nextAttackTime = Time.time;
         nextFirePistolTime = Time.time;
         nextFireShotgunTime = Time.time;
         nextFireSniperTime = Time.time;
+        ammoText.text = pistolBulletInClip + " / " + pistolBullet;
     }
 
     void Update()
     {
+        if (Time.timeScale == 0f)
+        {
+            return;
+        }
         if (Input.GetKeyUp(KeyCode.Space) && Time.time > nextAttackTime)
         {
             nextAttackTime = Time.time + rateOfAttack;
@@ -131,27 +151,41 @@ public class Hero : Unit
         {
             animCtrl.Switcher();
             animCtrl.SwitchToPistol();
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(false);
             isWhatWeapon = Weapon.Pistol;
             firePoint.localPosition = new Vector3(0.14f, 0.5f);
+            ammoText.text = pistolBulletInClip + " / " + pistolBullet;
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         }
         else if (isWhatWeapon != Weapon.AK && Input.GetKeyUp(KeyCode.Alpha2) && isWeapon[1])
         {
             animCtrl.Switcher();
             animCtrl.SwitchToAK47();
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(false);
             isWhatWeapon = Weapon.AK;
             firePoint.localPosition = new Vector3(0.2f, 0.5f);
+            ammoText.text = AKBulletInClip + " / " + AKBullet;
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         }
         else if (isWhatWeapon != Weapon.Shotgun && Input.GetKeyUp(KeyCode.Alpha3) && isWeapon[2])
         {
             animCtrl.Switcher();
             animCtrl.SwitchToShotgun();
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(false);
             isWhatWeapon = Weapon.Shotgun;
             firePoint.localPosition = new Vector3(0.2f, 0.5f);
+            ammoText.text = shotgunBulletInClip + " / " + shotgunBullet;
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         }
         else if (isWhatWeapon != Weapon.SniperRifle && Input.GetKeyUp(KeyCode.Alpha4) && isWeapon[3]) 
         {
+            animCtrl.Switcher();
+            animCtrl.SwitchToSniper();
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(false);
             isWhatWeapon = Weapon.SniperRifle;
             firePoint.localPosition = new Vector3(0.2f, 0.5f);
+            ammoText.text = sniperBulletInClip + " / " + sniperBullet;
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         }
         if (Input.GetButton("Fire1") && isWhatWeapon == Weapon.AK && Time.time > nextFireAKTime)
         {
@@ -159,6 +193,7 @@ public class Hero : Unit
             {
                 nextFireAKTime = Time.time + rateOfFireAK;
                 shootAK();
+                rateOfFireAK = 0.1f;
             }
         }
         else if (Input.GetButtonUp("Fire1")) 
@@ -170,19 +205,15 @@ public class Hero : Unit
                     {
                         nextFirePistolTime = Time.time + rateOfFirePistol;
                         shootPistol();
+                        rateOfFirePistol = 0.4f;
                     }
                     break;
-                /*case 1:
-                    if (itsShoot())
-                    {
-                        shootAK();
-                    }
-                    break;*/
                 case Weapon.Shotgun:
                     if (Time.time > nextFireShotgunTime && itsShoot())
                     {
                         nextFireShotgunTime = Time.time + rateOfFireShotgun;
                         shootShotgun();
+                        rateOfFireShotgun = 1.3f;
                     }
                     break;
                 case Weapon.SniperRifle:
@@ -210,10 +241,11 @@ public class Hero : Unit
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(0.35f);
+        animCtrl.KnifeAnimationOff();
         switch (isWhatWeapon)
         {
             case Weapon.Pistol:
-                animCtrl.KnifeAnimationOff();
+                animCtrl.Switcher();
                 animCtrl.SwitchToPistol();
                 break;
             case Weapon.AK:
@@ -223,6 +255,10 @@ public class Hero : Unit
             case Weapon.Shotgun:
                 animCtrl.Switcher();
                 animCtrl.SwitchToShotgun();
+                break;
+            case Weapon.SniperRifle:
+                animCtrl.Switcher();
+                animCtrl.SwitchToSniper();
                 break;
         }
 
@@ -260,6 +296,10 @@ public class Hero : Unit
             if (armor == 0)
             {
                 health -= damage;
+                if(health < 0)
+                {
+                    health = 0;
+                }
                 healthText.text = "" + health;
             }
             else
@@ -282,6 +322,7 @@ public class Hero : Unit
     }
     public override void Die()
     {
+        DeathFlag = true;
         animCtrl.DeathAnimationPlay();
         StartCoroutine(DeathTimer());
         GM.setScore(score);
@@ -292,12 +333,14 @@ public class Hero : Unit
         isInvulnerability = true;
         //gameObject.GetComponent<Collider2D>().enabled = false;
         gameObject.GetComponent<Collider2D>().isTrigger = true;
-        DeathFlag = true;
         yield return new WaitForSeconds(1.2f);
         dieCanvas.SetActive(true);
         yield return 0;
-
-}
+    }
+    public bool isDie()
+    {
+        return !DeathFlag;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Items item = collision.gameObject.GetComponent<Items>();
@@ -362,8 +405,12 @@ public class Hero : Unit
                 case Items.ItemType.Claws:
                     Claws_flag = true;
                     item.RemoveItem();
-                    break;            
-        }
+                    break;
+                case Items.ItemType.C4:
+                    C4_flag = true;
+                    item.RemoveItem();
+                    break;
+            }
         }
         
     }
@@ -376,9 +423,24 @@ public class Hero : Unit
         switch (isWhatWeapon)
         {
             case Weapon.Pistol:
-                if (pistolBullet > 0)
+                if (pistolBullet > 0 || pistolBulletInClip > 0)
                 {
-                    --pistolBullet;
+                    --pistolBulletInClip;
+
+                    if (pistolBulletInClip == 0)
+                    {
+                        rateOfFirePistol *= 2;
+                        if (pistolBullet > 17)
+                        {
+                            pistolBulletInClip = 17;
+                        }
+                        else
+                        {
+                            pistolBulletInClip = pistolBullet;
+                        }
+                        pistolBullet -= pistolBulletInClip;
+                    }
+                    ammoText.text = pistolBulletInClip + " / " + pistolBullet;
                     return true;
                 }
                 else
@@ -387,20 +449,49 @@ public class Hero : Unit
                     return false;
                 }
             case Weapon.AK:
-                if (AKBullet > 0)
+                if (AKBulletInClip > 0 || AKBullet > 0)
                 {
-                    --AKBullet;
+                    --AKBulletInClip;
+                    if(AKBulletInClip == 0)
+                    {
+                        rateOfFireAK *= 10f;
+                        if (AKBullet > 30)
+                        {
+                            AKBulletInClip = 30;
+                        }
+                        else
+                        {
+                            AKBulletInClip = AKBullet;
+                        }
+                        AKBullet -= AKBulletInClip;
+                    }
+                    ammoText.text = AKBulletInClip + " / " + AKBullet;
                     return true;
                 }
+
                 else
                 {
                     Debug.Log("No bullet AK");
                     return false;
                 }
             case Weapon.Shotgun:
-                if (shotgunBullet > 0)
+                if (shotgunBulletInClip > 0 || shotgunBullet > 0)
                 {
-                    --shotgunBullet;
+                    --shotgunBulletInClip;
+                    if(shotgunBulletInClip == 0)
+                    {
+                        rateOfFireShotgun *= 1.5f;
+                        if (shotgunBullet > 5)
+                        {
+                            shotgunBulletInClip = 5;
+                        }
+                        else
+                        {
+                            shotgunBulletInClip = shotgunBullet;
+                        }
+                        shotgunBullet -= shotgunBulletInClip;
+                    }
+                    ammoText.text = shotgunBulletInClip + " / " + shotgunBullet;
                     return true;
                 }
                 else
@@ -409,9 +500,22 @@ public class Hero : Unit
                     return false;
                 }
             case Weapon.SniperRifle:
-                if (sniperBullet > 0)
+                if (sniperBulletInClip > 0 || sniperBullet > 0)
                 {
-                    --sniperBullet;
+                    --sniperBulletInClip;
+                    if(sniperBulletInClip == 0)
+                    {
+                        if (sniperBullet > 1)
+                        {
+                            sniperBulletInClip = 1;
+                        }
+                        else
+                        {
+                            sniperBulletInClip = sniperBullet;
+                        }
+                        sniperBullet -= sniperBulletInClip;
+                    }
+                    ammoText.text = sniperBulletInClip + " / " + sniperBullet;
                     return true;
                 }
                 else
@@ -429,22 +533,25 @@ public class Hero : Unit
 
         foreach(Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            enemy.GetComponent<AllEnemy>().TakeDamage(attackDamage);
         }
     }
     private void shootSniperRifle()
     {
+
         //Ray2D ray = new Ray2D(transform.position, mousePosition);
-        RaycastHit2D[] raycasts = Physics2D.RaycastAll(transform.position, mousePosition, distanceSniperRifle, enemyLayers);
+        RaycastHit2D[] raycasts = Physics2D.RaycastAll(firePoint.position, mousePosition, distanceSniperRifle, enemyLayers);
         foreach(RaycastHit2D enemy in raycasts) 
         {
-            enemy.collider.GetComponent<Enemy>().TakeDamage(sniperBulletDamage);
+            enemy.collider.GetComponent<AllEnemy>().TakeDamage(sniperBulletDamage);
         }
+        
     }
     private void shootPistol()
     {
         GameObject bullet = Instantiate(prefabPistolBullet, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        bullet.GetComponent<Bullet>().isEnemy = false;
         rb.AddForce(transform.up * pistolBulletForce, ForceMode2D.Impulse);
         animCtrl.ShootAnimationPlay();
         pistolSC.shootSound();
@@ -455,6 +562,7 @@ public class Hero : Unit
     {
         GameObject bullet = Instantiate(prefabAKBullet, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        bullet.GetComponent<Bullet>().isEnemy = false;
         rb.AddForce(transform.up * AKBulletForce, ForceMode2D.Impulse);
         animCtrl.ShootAnimationPlay();
         pistolSC.shootSound();
@@ -470,6 +578,7 @@ public class Hero : Unit
             firePoint.transform.rotation = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z - 10f + 5f * (float)i);
             bullet = Instantiate(prefabShootgunBullet, firePoint.position, firePoint.rotation);
             rb = bullet.GetComponent<Rigidbody2D>();
+            bullet.GetComponent<Bullet>().isEnemy = false;
             rb.AddForce(firePoint.transform.up * shotgunBulletForce/2, ForceMode2D.Impulse);
         }
         firePoint.transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles);
@@ -484,7 +593,22 @@ public class Hero : Unit
         {
             GameMasterLvl1.Opening();
         }
-    }   
+        if (Input.GetKey(KeyCode.E) && C4_flag && collision.CompareTag("Door"))
+        {
+            GameMasterLvl2.Door_explosion();
+        }
+        if (collision.CompareTag("Roof"))
+        {
+            GameMasterLvl2.Building_inside();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Roof"))
+        {
+            GameMasterLvl2.Building_outside();
+        }
+    }
 
     IEnumerator Invulnerability()
     {

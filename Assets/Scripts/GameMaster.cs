@@ -28,7 +28,7 @@ public class GameMaster : MonoBehaviour
     [SerializeField]
     private GameObject prefabShotgun;
     [SerializeField]
-    private GameObject prefabEnemy;
+    private GameObject[] prefabEnemys;
 
     private GameObject[] respawnPlace;
     [SerializeField]
@@ -84,6 +84,7 @@ public class GameMaster : MonoBehaviour
 
     private void spawnEnemy()
     {
+        int random = Random.Range(0, 3);
         float x;
         float y;
         int respawnNumber;
@@ -93,9 +94,9 @@ public class GameMaster : MonoBehaviour
             x = respawnPlace[respawnNumber].transform.position.x;
             y = respawnPlace[respawnNumber].transform.position.y;
         }// выйдем только при false - когда вокруг не будет ни одного префаба
-        while (Physics2D.OverlapCircle(new Vector2(x, y), minDist, prefabEnemy.layer) != null);
+        while (Physics2D.OverlapCircle(new Vector2(x, y), minDist, prefabEnemys[random].layer) != null);
         numberEnemy--;
-        Instantiate(prefabEnemy, new Vector3(x, y, transform.position.z), transform.rotation);// собственно, ставим сам префаб
+        Instantiate(prefabEnemys[random], new Vector3(x, y, transform.position.z), transform.rotation);// собственно, ставим сам префаб
         enemyCount++;
     }
 
@@ -131,7 +132,7 @@ public class GameMaster : MonoBehaviour
     }
     public void spawnItems(Vector3 pos)
     {
-        Items.ItemType item = (Items.ItemType)Random.Range(3, 6);
+        Items.ItemType item = (Items.ItemType)Random.Range(0, 6);
         switch (item)
         {
             case Items.ItemType.MedKit:

@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: SharpWallHorizontal_1
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+  m_Sprite: {fileID: 21300000, guid: b0ea6bb1e14a38c42bacb048f468e21d, type: 3}
+=======
   m_Sprite: {fileID: 21300000, guid: 84dfb1f53f160784d9288438bda60217, type: 3}
+>>>>>>> 85621ec3009b18f7631e62b5854a656fdba1cc3e
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1

@@ -6,7 +6,7 @@ public class TaxiDead : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Enemy enemy = collision.collider.GetComponent<Enemy>();
+        B enemy = collision.collider.GetComponent<B>();
         if (enemy != null)
         {
             enemy.TakeDamage(1337);

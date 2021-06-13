@@ -237,7 +237,7 @@ public class HeroCoop : Unit
         switch (isWhatWeapon)
         {
             case Weapon.Pistol:
-                animCtrl.KnifeAnimationOff();
+                //animCtrl.KnifeAnimationOff();
                 animCtrl.SwitchToPistol();
                 break;
             case Weapon.AK:
