@@ -20,18 +20,22 @@ public class HeroCoop : Unit
     private int score = 0;
     [SerializeField]
     private int pistolBullet = 0;
+    private int pistolBulletInClip = 0;
     [SerializeField]
     private float pistolBulletForce = 8f;
     [SerializeField]
     private int AKBullet = 0;
+    private int AKBulletInClip = 0;
     [SerializeField]
     private float AKBulletForce = 9f;
     [SerializeField]
     private int shotgunBullet = 0;
+    private int shotgunBulletInClip = 0;
     [SerializeField]
     private float shotgunBulletForce = 7f;
     [SerializeField]
     private int sniperBullet = 0;
+    private int sniperBulletInClip = 0;
     [SerializeField]
     private int sniperBulletDamage = 75;
     [SerializeField]
@@ -39,7 +43,7 @@ public class HeroCoop : Unit
     [SerializeField]
     private int attackDamage = 200;
 
-  
+
     private Text healthText;
 
     private Text armorText;
@@ -50,10 +54,10 @@ public class HeroCoop : Unit
 
     private Rigidbody2D rb;
     private Vector2 mousePosition;
-    
+
     private Camera cam;
     private AnimationController animCtrl;
-  
+
     private GameObject dieCanvas;
     [SerializeField]
     private LayerMask enemyLayers;
@@ -68,8 +72,8 @@ public class HeroCoop : Unit
     private bool DeathFlag = false;
 
 
-	public Transform firePoint;
- 	private bool[] isWeapon;
+    public Transform firePoint;
+    private bool[] isWeapon;
     private Weapon isWhatWeapon;// 0 - пистолет, 1 - АК, 2 - дробовик сделай енам
     private float rateOfFireAK = 0.1f;
     private float rateOfFirePistol = 0.6f;
@@ -90,6 +94,8 @@ public class HeroCoop : Unit
     public GameObject prefabShootgunBullet;
     public ParticleSystem partSys;
     private PistolSoundController pistolSC;
+    public GameObject[] spriteChoiceWeapon;
+
 
     enum Weapon
     {
@@ -98,7 +104,7 @@ public class HeroCoop : Unit
         Shotgun,
         SniperRifle
     }
-    private void Awake()    {
+    private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         animCtrl = GetComponent<AnimationController>();
         GM = GameObject.Find("GameManager").GetComponent<GameMasterCoop>();
@@ -109,7 +115,14 @@ public class HeroCoop : Unit
         armorText = GameObject.Find("Shield").GetComponent<Text>();
         scoreText = GameObject.Find("Score").GetComponent<Text>();
         ammoText = GameObject.Find("ammo").GetComponent<Text>();
-
+        spriteChoiceWeapon[0] = GameObject.Find("PistolSelected");
+        spriteChoiceWeapon[1] = GameObject.Find("AKSelected");
+        spriteChoiceWeapon[2] = GameObject.Find("ShotgunSelected");
+        spriteChoiceWeapon[3] = GameObject.Find("SniperRifleSelected");
+        for (int i = 0; i < spriteChoiceWeapon.Length; ++i)
+        {
+            spriteChoiceWeapon[i].SetActive(false);
+        }
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         spriteRend = GetComponent<SpriteRenderer>();
         isInvulnerability = false;
@@ -124,16 +137,23 @@ public class HeroCoop : Unit
         offset = cam.transform.position - transform.position;
         photonView = GetComponent<PhotonView>(); 
         isWeapon = new bool[] { true, true, true, false }; // 0- пистолет, 1- АК, 2- дробовик, 3 - винтовка снайперсая
-        pistolBullet = 34;
-        AKBullet = 30;
-        shotgunBullet = 15;
-        sniperBullet = 10;
+        pistolBulletInClip = 17;
+        pistolBullet = 34 - pistolBulletInClip;
+        AKBulletInClip = 30;
+        AKBullet = 60 - AKBulletInClip;
+        shotgunBulletInClip = 5;
+        shotgunBullet = 20 - shotgunBulletInClip;
+        sniperBulletInClip = 1;
+        sniperBullet = 10 - sniperBulletInClip;
         isWhatWeapon = 0;
+        spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         nextFireAKTime = Time.time;
         nextAttackTime = Time.time;
         nextFirePistolTime = Time.time;
         nextFireShotgunTime = Time.time;
         nextFireSniperTime = Time.time;
+        ammoText.text = pistolBulletInClip + " / " + pistolBullet;
+
     }
     void LateUpdate()
     {
@@ -158,27 +178,41 @@ public class HeroCoop : Unit
         {
             animCtrl.Switcher();
             animCtrl.SwitchToPistol();
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(false);
             isWhatWeapon = Weapon.Pistol;
             firePoint.localPosition = new Vector3(0.14f, 0.5f);
+            ammoText.text = pistolBulletInClip + " / " + pistolBullet;
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         }
         else if (isWhatWeapon != Weapon.AK && Input.GetKeyUp(KeyCode.Alpha2) && isWeapon[1])
         {
             animCtrl.Switcher();
             animCtrl.SwitchToAK47();
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(false);
             isWhatWeapon = Weapon.AK;
             firePoint.localPosition = new Vector3(0.2f, 0.5f);
+            ammoText.text = AKBulletInClip + " / " + AKBullet;
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         }
         else if (isWhatWeapon != Weapon.Shotgun && Input.GetKeyUp(KeyCode.Alpha3) && isWeapon[2])
         {
             animCtrl.Switcher();
             animCtrl.SwitchToShotgun();
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(false);
             isWhatWeapon = Weapon.Shotgun;
             firePoint.localPosition = new Vector3(0.2f, 0.5f);
+            ammoText.text = shotgunBulletInClip + " / " + shotgunBullet;
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         }
-        else if (isWhatWeapon != Weapon.SniperRifle && Input.GetKeyUp(KeyCode.Alpha4) && isWeapon[3]) 
+        else if (isWhatWeapon != Weapon.SniperRifle && Input.GetKeyUp(KeyCode.Alpha4) && isWeapon[3])
         {
+            animCtrl.Switcher();
+            animCtrl.SwitchToSniper();
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(false);
             isWhatWeapon = Weapon.SniperRifle;
             firePoint.localPosition = new Vector3(0.2f, 0.5f);
+            ammoText.text = sniperBulletInClip + " / " + sniperBullet;
+            spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         }
         if (Input.GetButton("Fire1") && isWhatWeapon == Weapon.AK && Time.time > nextFireAKTime)
         {
@@ -186,9 +220,10 @@ public class HeroCoop : Unit
             {
                 nextFireAKTime = Time.time + rateOfFireAK;
                 shootAK();
+                rateOfFireAK = 0.1f;
             }
         }
-        else if (Input.GetButtonUp("Fire1")) 
+        else if (Input.GetButtonUp("Fire1"))
         {
             switch (isWhatWeapon)
             {
@@ -197,19 +232,15 @@ public class HeroCoop : Unit
                     {
                         nextFirePistolTime = Time.time + rateOfFirePistol;
                         shootPistol();
+                        rateOfFirePistol = 0.4f;
                     }
                     break;
-                /*case 1:
-                    if (itsShoot())
-                    {
-                        shootAK();
-                    }
-                    break;*/
                 case Weapon.Shotgun:
                     if (Time.time > nextFireShotgunTime && itsShoot())
                     {
                         nextFireShotgunTime = Time.time + rateOfFireShotgun;
                         shootShotgun();
+                        rateOfFireShotgun = 1.3f;
                     }
                     break;
                 case Weapon.SniperRifle:
@@ -417,9 +448,24 @@ public class HeroCoop : Unit
         switch (isWhatWeapon)
         {
             case Weapon.Pistol:
-                if (pistolBullet > 0)
+                if (pistolBullet > 0 || pistolBulletInClip > 0)
                 {
-                    --pistolBullet;
+                    --pistolBulletInClip;
+
+                    if (pistolBulletInClip == 0)
+                    {
+                        rateOfFirePistol *= 2;
+                        if (pistolBullet > 17)
+                        {
+                            pistolBulletInClip = 17;
+                        }
+                        else
+                        {
+                            pistolBulletInClip = pistolBullet;
+                        }
+                        pistolBullet -= pistolBulletInClip;
+                    }
+                    ammoText.text = pistolBulletInClip + " / " + pistolBullet;
                     return true;
                 }
                 else
@@ -428,20 +474,49 @@ public class HeroCoop : Unit
                     return false;
                 }
             case Weapon.AK:
-                if (AKBullet > 0)
+                if (AKBulletInClip > 0 || AKBullet > 0)
                 {
-                    --AKBullet;
+                    --AKBulletInClip;
+                    if (AKBulletInClip == 0)
+                    {
+                        rateOfFireAK *= 10f;
+                        if (AKBullet > 30)
+                        {
+                            AKBulletInClip = 30;
+                        }
+                        else
+                        {
+                            AKBulletInClip = AKBullet;
+                        }
+                        AKBullet -= AKBulletInClip;
+                    }
+                    ammoText.text = AKBulletInClip + " / " + AKBullet;
                     return true;
                 }
+
                 else
                 {
                     Debug.Log("No bullet AK");
                     return false;
                 }
             case Weapon.Shotgun:
-                if (shotgunBullet > 0)
+                if (shotgunBulletInClip > 0 || shotgunBullet > 0)
                 {
-                    --shotgunBullet;
+                    --shotgunBulletInClip;
+                    if (shotgunBulletInClip == 0)
+                    {
+                        rateOfFireShotgun *= 1.5f;
+                        if (shotgunBullet > 5)
+                        {
+                            shotgunBulletInClip = 5;
+                        }
+                        else
+                        {
+                            shotgunBulletInClip = shotgunBullet;
+                        }
+                        shotgunBullet -= shotgunBulletInClip;
+                    }
+                    ammoText.text = shotgunBulletInClip + " / " + shotgunBullet;
                     return true;
                 }
                 else
@@ -450,9 +525,22 @@ public class HeroCoop : Unit
                     return false;
                 }
             case Weapon.SniperRifle:
-                if (sniperBullet > 0)
+                if (sniperBulletInClip > 0 || sniperBullet > 0)
                 {
-                    --sniperBullet;
+                    --sniperBulletInClip;
+                    if (sniperBulletInClip == 0)
+                    {
+                        if (sniperBullet > 1)
+                        {
+                            sniperBulletInClip = 1;
+                        }
+                        else
+                        {
+                            sniperBulletInClip = sniperBullet;
+                        }
+                        sniperBullet -= sniperBulletInClip;
+                    }
+                    ammoText.text = sniperBulletInClip + " / " + sniperBullet;
                     return true;
                 }
                 else

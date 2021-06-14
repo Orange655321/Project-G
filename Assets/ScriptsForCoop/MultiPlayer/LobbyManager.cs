@@ -46,6 +46,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Log("Joined the room");
         PhotonNetwork.LoadLevel("COOP");
     }
+    public void leave() {
+        PhotonNetwork.LeaveRoom();
+
+    }
 
     private void Log(string message)
     {

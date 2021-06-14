@@ -4779,7 +4779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4050579402191815262
 Transform:
   m_ObjectHideFlags: 0
@@ -5104,6 +5104,11 @@ MonoBehaviour:
   prefabShootgunBullet: {fileID: 4208371342346929037, guid: a436e804cb44d4041ba605ebc3d14a00,
     type: 3}
   partSys: {fileID: 4050579402140705600}
+  spriteChoiceWeapon:
+  - {fileID: 799262449798176093, guid: 1b74bd92829c34b858439ab44b382080, type: 3}
+  - {fileID: 8674224963838751272, guid: 0cfc353bb1d504396aeff9230d10843e, type: 3}
+  - {fileID: 4007563407999144429, guid: 162c658aab5d840b4bec30eca11ca40e, type: 3}
+  - {fileID: 4133013261999898342, guid: 69e4a5f54b28a4ec88e1241b0a075252, type: 3}
 --- !u!114 &-3501978168630547215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5117,7 +5122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
+  ShowParameterInspector: 0
   m_SynchronizeParameters:
   - Type: 4
     SynchronizeType: 1
@@ -5126,23 +5131,29 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: shoot
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: pistol
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: ak-47
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: switch
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: knifeOn
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: shotgun
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: knifeOff
+  - Type: 9
+    SynchronizeType: 2
+    Name: death
+  - Type: 9
+    SynchronizeType: 2
+    Name: sniperRifle
   m_SynchronizeLayers:
   - SynchronizeType: 1
     LayerIndex: 0

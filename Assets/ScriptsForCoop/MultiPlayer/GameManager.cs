@@ -30,14 +30,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public static void leave()
     {
-        //убираем героя  с карты 
-        //PhotonNetwork.Destroy(heroPrefab);
+        //убираем героя  с карты
+        Debug.Log("WTF");
         PhotonNetwork.LeaveRoom(); 
     }
 
     public override void OnLeftRoom()
     {
         //когда текущий игрок покинул покидает комнату
+        PhotonNetwork.Destroy(heroPrefab);
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene("MainMenu");
     }
     public override void OnPlayerEnteredRoom(Player newPlayer)
