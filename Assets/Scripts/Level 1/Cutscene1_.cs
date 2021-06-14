@@ -25,6 +25,8 @@ public class Cutscene1_ : MonoBehaviour
         if (!GameMasterLvl1.EnemyKilled && once2)
         {
             once2 = false;
+            GameMasterLvl1.EnemyCount = 18;
+            GameMasterLvl1.EnemyKilled = true;
             playableDirector.playableGraph.GetRootPlayable(0).SetSpeed(1);
         }
         lastTime = playableDirector.time;

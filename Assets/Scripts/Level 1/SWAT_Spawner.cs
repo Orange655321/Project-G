@@ -6,6 +6,7 @@ public class SWAT_Spawner : MonoBehaviour
 {
     public PlayableDirector playabledirector;
     public GameObject swat;
+    public GameObject stopers;
     private int swatnumber = 5;
     private bool flg = true;
     // Start is called before the first frame update
@@ -21,6 +22,7 @@ public class SWAT_Spawner : MonoBehaviour
         {
             flg = false;
             StartCoroutine(LETSGO());
+            StartCoroutine(OPENTHEDOOR());
         }
     }
     IEnumerator LETSGO()
@@ -33,6 +35,12 @@ public class SWAT_Spawner : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
         yield return 0;
+    }
+
+    IEnumerator OPENTHEDOOR()
+    {
+        yield return new WaitForSecondsRealtime(4f);
+        stopers.GetComponent<ForCutscene2>().enabled = true;
     }
 }
 

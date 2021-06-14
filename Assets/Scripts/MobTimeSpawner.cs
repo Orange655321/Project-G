@@ -10,6 +10,7 @@ public class MobTimeSpawner : MonoBehaviour
     public GameObject Trigger;
     public GameObject Player;
     public List<GameObject> Places;
+    public List<GameObject> gates;
     private bool Spawn_flag = false;
     private bool once = true;
     public static bool StartCut = true;
@@ -28,6 +29,8 @@ public class MobTimeSpawner : MonoBehaviour
         if ((Spawn_flag) && (once))
         {
             Mob_Placement();
+            gates[0].transform.rotation = Quaternion.Euler(0, 0, 270f);
+            gates[1].transform.rotation = Quaternion.Euler(0, 0, 90f);
             once = false;
         }
         if (StartCut && MobNumber<=0)
