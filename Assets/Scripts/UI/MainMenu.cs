@@ -21,8 +21,10 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
-        sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
+        //mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
+        //sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
+        mSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("musicVol");
+        sSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("sfxVol");
         nicknameInputText.text = PlayerDataHolder.nickname;
     }
     public void PlaySurvival() //
@@ -42,8 +44,8 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         switch(flag)
         {
-            case 1: SceneManager.LoadScene("lvl_1"); break;
-            case 2: SceneManager.LoadScene("Survival"); break;
+            case 1: SceneManager.LoadSceneAsync("lvl_1"); break;
+            case 2: SceneManager.LoadSceneAsync("Survival"); break;
         }
         
     }

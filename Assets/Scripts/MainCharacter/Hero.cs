@@ -66,6 +66,7 @@ public class Hero : Unit
     public GameMaster GM;
     public bool Claws_flag = false;
     public bool C4_flag = false;
+    public GameObject press_e;
     private Material matBlink;
     private Material matDefault;
     private SpriteRenderer spriteRend;
@@ -405,10 +406,12 @@ public class Hero : Unit
                 case Items.ItemType.Claws:
                     Claws_flag = true;
                     item.RemoveItem();
+                    GameMasterLvl1.ChangeTarget();
                     break;
                 case Items.ItemType.C4:
                     C4_flag = true;
                     item.RemoveItem();
+                    GameMasterLvl2.ChangeTarget();
                     break;
             }
         }
@@ -589,12 +592,16 @@ public class Hero : Unit
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (Claws_flag || C4_flag) { press_e.SetActive(true); }
+        else { press_e.SetActive(false); }
         if (Input.GetKey(KeyCode.E) && Claws_flag && collision.CompareTag("Gate"))
         {
+            press_e.SetActive(false);
             GameMasterLvl1.Opening();
         }
         if (Input.GetKey(KeyCode.E) && C4_flag && collision.CompareTag("Door"))
         {
+            Destroy(press_e);
             GameMasterLvl2.Door_explosion();
         }
         if (collision.CompareTag("Roof"))

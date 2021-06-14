@@ -4764,6 +4764,9 @@ GameObject:
   - component: {fileID: 5789553372575706890}
   - component: {fileID: 8234001182046040167}
   - component: {fileID: 873383600148133260}
+  - component: {fileID: 425029673875258208}
+  - component: {fileID: 5876398206094366516}
+  - component: {fileID: 3097988186380394956}
   m_Layer: 0
   m_Name: BTS_1
   m_TagString: Untagged
@@ -4862,6 +4865,142 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6234161, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &425029673875258208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498828591551303129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5221d16387d99a54681faccd52cf3979, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 999
+  damage: 20
+  cost: 9999
+  pointAttack: {fileID: 2898394290530722481}
+  prefabAKBullet: {fileID: 4258112528853497413, guid: fbc3674926dcefd47a9cf516b8db0c34,
+    type: 3}
+  prefabBobs: {fileID: 0}
+  partSys: {fileID: 1487945824831215296}
+  player: {fileID: 8502521571921673793, guid: 593b42191727ab2428367435aca9d16f, type: 3}
+  RateOfFire: 0.1
+  attackRange: 22
+  flag: 0
+--- !u!114 &5876398206094366516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498828591551303129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aad4d1e0f3c00bc4e9c6ea07cb381c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myFX: {fileID: 3097988186380394956}
+  shootFX: {fileID: 8300000, guid: 06353cdb3f5995744a9c7bb416d1d194, type: 3}
+  reloadFX: {fileID: 8300000, guid: 1aef4620c90e5484ab98b0e39ce3b6d6, type: 3}
+--- !u!82 &3097988186380394956
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4498828591551303129}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -3019802454513243795, guid: 569494beaaba01547916fce4e9c901bd,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6962508225979229250
 GameObject:
   m_ObjectHideFlags: 0

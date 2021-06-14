@@ -9,11 +9,11 @@ public class Restarter : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
         }
-        if (Input.GetKeyDown("space"))
+        else
         {
-            Application.Quit();
+            Time.timeScale = 1f;
         }
     }
 }

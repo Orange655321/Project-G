@@ -19,9 +19,11 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-       // script = Player.GetComponent<Shooting>();
-        mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
-        sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
+        // script = Player.GetComponent<Shooting>();
+        //mSlider.GetComponent<Slider>().value = DataHolder.MusicLvl;
+        //sSlider.GetComponent<Slider>().value = DataHolder.SoundLvl;
+        mSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("musicVol");
+        sSlider.GetComponent<Slider>().value = PlayerPrefs.GetFloat("sfxVol");
     }
 
     // Update is called once per frame
