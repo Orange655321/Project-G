@@ -20,13 +20,16 @@ public class Spawner2_lvl1 : MonoBehaviour
     }
     void Update()
     {
-        if (Vector3.Distance(Player.transform.position, Triggers[0].transform.position) <= 1f)
+        if (!Assassination_CutsceneScript.once)
         {
-            Spawn_flag = true;
-        }
-        if (Vector3.Distance(Player.transform.position, Triggers[1].transform.position) <= 1f)
-        {
-            Spawn_flag = true;
+            if (Vector3.Distance(Player.transform.position, Triggers[0].transform.position) <= 1f)
+            {
+                Spawn_flag = true;
+            }
+            if (Vector3.Distance(Player.transform.position, Triggers[1].transform.position) <= 1f)
+            {
+                Spawn_flag = true;
+            }
         }
         if ((Spawn_flag) && (once_) && (!Assassination_CutsceneScript.once))
         {

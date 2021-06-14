@@ -137,6 +137,7 @@ public class Swat : AllEnemy
     {
         for (int i = 0; i < 6; ++i)
         {
+            //spriteRend.material = matBlink;
             spriteRend.material = matBlink;
             yield return new WaitForSeconds(0.130f);
             spriteRend.material = matDefault;

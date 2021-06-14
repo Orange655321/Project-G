@@ -10,20 +10,30 @@ public class GameMasterLvl1 : MonoBehaviour
     public List<GameObject> Gate;
     public List<GameObject> Opened_Gate;
     public PlayableDirector playabledirector;
-    // Start is called before the first frame update
+    public GameObject cross;
+    public List<GameObject> quest_targets;
+    private int target_number = 0;
+
     void Start()
     {
         EnemyCount = 18;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (EnemyCount==0)
         {
             EnemyKilled = false;
         }
-        //Debug.Log(EnemyCount);
+
+        Vector3 lookDir = quest_targets[target_number].transform.position - cross.transform.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+        cross.transform.eulerAngles = new Vector3(0, 0, angle);
+    }
+
+    public void ChangeTarget()
+    {
+        target_number++;
     }
 
     public void Opening()

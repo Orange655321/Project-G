@@ -14,7 +14,7 @@ TagManager:
   - Roof
   - Door
   - EndLVL
-  - Image
+  - QuestChanger
   layers:
   - Default
   - TransparentFX
