@@ -10,8 +10,14 @@ public class GameMaster_lvl2 : MonoBehaviour
     public GameObject cross;
     public List<GameObject> quest_targets;
     private int target_number = 0;
+    public Hero hero;
     // Start is called before the first frame update
 
+    private void Start()
+    {
+        hero.action_lock = true;
+        StartCoroutine(Delay());
+    }
 
     // Update is called once per frame
     void Update()
@@ -40,5 +46,11 @@ public class GameMaster_lvl2 : MonoBehaviour
     public void Building_outside()
     {
         Roof.SetActive(true);
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSecondsRealtime(19f);
+        hero.action_lock = false;
     }
 }

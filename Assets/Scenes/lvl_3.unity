@@ -14964,6 +14964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playableDirector: {fileID: 63215216}
+  hero: {fileID: 2100297810}
 --- !u!61 &1862066672
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20290,6 +20291,7 @@ MonoBehaviour:
   GameMasterLvl1: {fileID: 0}
   GameMasterLvl2: {fileID: 0}
   firePoint: {fileID: 623977325}
+  action_lock: 0
   prefabPistolBullet: {fileID: 4236449361567314506, guid: 465e1adfeb69c634591782464f4ea875,
     type: 3}
   prefabAKBullet: {fileID: 4258112528853497413, guid: fbc3674926dcefd47a9cf516b8db0c34,

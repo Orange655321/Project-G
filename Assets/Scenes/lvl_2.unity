@@ -23763,6 +23763,7 @@ MonoBehaviour:
   - {fileID: 348653657}
   - {fileID: 1271238565}
   - {fileID: 1465376274}
+  hero: {fileID: 1433730109}
 --- !u!4 &720961422
 Transform:
   m_ObjectHideFlags: 0
@@ -25515,6 +25516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playableDirector: {fileID: 1134399941}
   bts: {fileID: 203914213}
+  hero: {fileID: 1433730109}
 --- !u!61 &1134399944
 BoxCollider2D:
   m_ObjectHideFlags: 0

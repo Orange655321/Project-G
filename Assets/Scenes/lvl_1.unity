@@ -1269,7 +1269,7 @@ Transform:
   - {fileID: 483380831}
   - {fileID: 2108569402}
   m_Father: {fileID: 0}
-  m_RootOrder: 32
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &257365062
 MonoBehaviour:
@@ -1960,7 +1960,7 @@ Transform:
   - {fileID: 1387838514}
   - {fileID: 1291563106}
   m_Father: {fileID: 0}
-  m_RootOrder: 29
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &393917267
 GameObject:
@@ -3013,12 +3013,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640153771}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 28
+  m_Father: {fileID: 1856225643}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &652678723
 GameObject:
@@ -5873,6 +5873,7 @@ MonoBehaviour:
   - {fileID: 1387838513}
   - {fileID: 1291563105}
   stoper: {fileID: 2108569401}
+  hero: {fileID: 1105947157}
 --- !u!4 &1041049065
 Transform:
   m_ObjectHideFlags: 0
@@ -6029,7 +6030,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 31
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1075705616
 GameObject:
@@ -16020,6 +16021,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8502521570832929874}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1105947157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8502521571921673798, guid: 593b42191727ab2428367435aca9d16f,
+    type: 3}
+  m_PrefabInstance: {fileID: 8502521570832929874}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105947155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89f02225ab2b5740afaabba6cba4dbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1105947158 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8502521571921673796, guid: 593b42191727ab2428367435aca9d16f,
@@ -27824,6 +27837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playableDirector: {fileID: 1663557479}
+  hero: {fileID: 1105947157}
 --- !u!1 &1680927807
 GameObject:
   m_ObjectHideFlags: 0
@@ -29116,6 +29130,7 @@ Transform:
   - {fileID: 1269635682}
   - {fileID: 1537649283}
   - {fileID: 1325788325}
+  - {fileID: 640153774}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31029,7 +31044,7 @@ RectTransform:
   m_Children:
   - {fileID: 2091743615}
   m_Father: {fileID: 0}
-  m_RootOrder: 30
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

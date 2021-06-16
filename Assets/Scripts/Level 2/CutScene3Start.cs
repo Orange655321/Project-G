@@ -15,9 +15,17 @@ public class CutScene3Start : MonoBehaviour
         if (collision.CompareTag("Player") && cut_flag && hero.C4_flag)
         {
             cut_flag = false;
+            hero.action_lock = true;
+            StartCoroutine(Delay());
             playableDirector.Play();
             Blocks[0].SetActive(false);
             Blocks[1].SetActive(false);
         }
+    }
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSecondsRealtime(5f);
+        hero.action_lock = false;
     }
 }

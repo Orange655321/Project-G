@@ -7,15 +7,21 @@ public class Assassination_CutsceneScript : MonoBehaviour
 {
     public PlayableDirector playabledirector;
     public GameObject Player;
+    private Hero hero;
     public static bool once = true;
     public GameObject game_master;
     public GameObject stoper;
 
-    // Update is called once per frame
+    private void Start()
+    {
+        hero = Player.GetComponent<Hero>();
+    }
+
     void Update()
     {
         if ((Vector3.Distance(Player.transform.position, transform.position) <= 1.9f) && once)
         {
+            hero.action_lock = true;
             stoper.SetActive(true);
             StartCoroutine(Delay());
             playabledirector.Play();
@@ -27,6 +33,7 @@ public class Assassination_CutsceneScript : MonoBehaviour
     IEnumerator Delay()
     {
         yield return new WaitForSecondsRealtime(54.5f);
+        hero.action_lock = false;
         stoper.SetActive(false);
     }
 }

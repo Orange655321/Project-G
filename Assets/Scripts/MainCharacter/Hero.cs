@@ -89,6 +89,7 @@ public class Hero : Unit
     private float nextFireShotgunTime;
     private float nextFireSniperTime;
     private float distanceSniperRifle = 50f;
+    public bool action_lock;
 
     public GameObject prefabPistolBullet;
     public GameObject prefabAKBullet;
@@ -188,43 +189,46 @@ public class Hero : Unit
             ammoText.text = sniperBulletInClip + " / " + sniperBullet;
             spriteChoiceWeapon[(int)isWhatWeapon].SetActive(true);
         }
-        if (Input.GetButton("Fire1") && isWhatWeapon == Weapon.AK && Time.time > nextFireAKTime)
+        if (!action_lock)
         {
-            if (itsShoot())
+            if (Input.GetButton("Fire1") && isWhatWeapon == Weapon.AK && Time.time > nextFireAKTime)
             {
-                nextFireAKTime = Time.time + rateOfFireAK;
-                shootAK();
-                rateOfFireAK = 0.1f;
+                if (itsShoot())
+                {
+                    nextFireAKTime = Time.time + rateOfFireAK;
+                    shootAK();
+                    rateOfFireAK = 0.1f;
+                }
             }
-        }
-        else if (Input.GetButtonUp("Fire1")) 
-        {
-            switch (isWhatWeapon)
+            else if (Input.GetButtonUp("Fire1"))
             {
-                case Weapon.Pistol:
-                    if (Time.time > nextFirePistolTime && itsShoot())
-                    {
-                        nextFirePistolTime = Time.time + rateOfFirePistol;
-                        shootPistol();
-                        rateOfFirePistol = 0.4f;
-                    }
-                    break;
-                case Weapon.Shotgun:
-                    if (Time.time > nextFireShotgunTime && itsShoot())
-                    {
-                        nextFireShotgunTime = Time.time + rateOfFireShotgun;
-                        shootShotgun();
-                        rateOfFireShotgun = 1.3f;
-                    }
-                    break;
-                case Weapon.SniperRifle:
-                    if (Time.time > nextFireSniperTime && itsShoot())
-                    {
-                        nextFireSniperTime = Time.time + rateOfFireSniper;
-                        shootSniperRifle();
-                    }
-                    break;
+                switch (isWhatWeapon)
+                {
+                    case Weapon.Pistol:
+                        if (Time.time > nextFirePistolTime && itsShoot())
+                        {
+                            nextFirePistolTime = Time.time + rateOfFirePistol;
+                            shootPistol();
+                            rateOfFirePistol = 0.4f;
+                        }
+                        break;
+                    case Weapon.Shotgun:
+                        if (Time.time > nextFireShotgunTime && itsShoot())
+                        {
+                            nextFireShotgunTime = Time.time + rateOfFireShotgun;
+                            shootShotgun();
+                            rateOfFireShotgun = 1.3f;
+                        }
+                        break;
+                    case Weapon.SniperRifle:
+                        if (Time.time > nextFireSniperTime && itsShoot())
+                        {
+                            nextFireSniperTime = Time.time + rateOfFireSniper;
+                            shootSniperRifle();
+                        }
+                        break;
 
+                }
             }
         }
         healthText.text = "" + health;

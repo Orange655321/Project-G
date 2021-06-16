@@ -14,6 +14,7 @@ public class GameMasterLvl1 : MonoBehaviour
     public List<GameObject> quest_targets;
     public GameObject stoper;
     private int target_number = 0;
+    public Hero hero;
 
     void Start()
     {
@@ -44,6 +45,7 @@ public class GameMasterLvl1 : MonoBehaviour
         Opened_Gate[0].SetActive(true);
         Opened_Gate[1].SetActive(true);
         stoper.SetActive(true);
+        hero.action_lock = true;
         playabledirector.Play();
     }
 }
