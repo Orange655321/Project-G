@@ -37,13 +37,14 @@ public class Enemy : AllEnemy
 
     private void Update()
     { 
-        if(hero.isDie()) 
-        {
+        //if(hero.isDie()) 
+       // {
    
             if (Vector2.Distance(player.transform.position, transform.position) > attackRange)
             {
                 animCtrl.AttackAnimationOff();
                 Angry();
+                Debug.Log("angry");
             }
             else
             {
@@ -51,9 +52,10 @@ public class Enemy : AllEnemy
                 {
                     Attack();
                     nextAttackTime = Time.time + 1f / RateOfFire;
+                    Debug.Log("attack");
                 }
             }
-        }
+       // }
     }
 
     public override void Attack() 
