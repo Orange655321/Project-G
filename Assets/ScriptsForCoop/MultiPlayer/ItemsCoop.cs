@@ -15,7 +15,7 @@ public class ItemsCoop : MonoBehaviourPunCallbacks
         Claws
     }
     public ItemType itemType;
-
+    [PunRPC]
     public void RemoveItem()
     {
         PhotonNetwork.Destroy(gameObject);

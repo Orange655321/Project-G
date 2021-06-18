@@ -24570,6 +24570,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1162469731, guid: 593b42191727ab2428367435aca9d16f, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 944672526943603478, guid: 593b42191727ab2428367435aca9d16f,
         type: 3}
       propertyPath: cam
@@ -24781,7 +24785,7 @@ PrefabInstance:
     - target: {fileID: 8502521571921673798, guid: 593b42191727ab2428367435aca9d16f,
         type: 3}
       propertyPath: health
-      value: 1
+      value: 2000000
       objectReference: {fileID: 0}
     - target: {fileID: 8502521571921673798, guid: 593b42191727ab2428367435aca9d16f,
         type: 3}
@@ -25368,7 +25372,7 @@ MonoBehaviour:
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
     cacheStartup: 0
-  showNavGraphs: 1
+  showNavGraphs: 0
   showUnwalkableNodes: 1
   debugMode: 0
   debugFloor: 0
@@ -25376,7 +25380,7 @@ MonoBehaviour:
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 0
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -25395,7 +25399,7 @@ MonoBehaviour:
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
   euclideanEmbedding:

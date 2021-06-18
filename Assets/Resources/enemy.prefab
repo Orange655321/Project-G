@@ -211,6 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fab0463e768374331a9308a1d8ef4a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  photonView: {fileID: 0}
   health: 20
   armor: 0
   RateOfFire: 1
@@ -243,7 +244,6 @@ MonoBehaviour:
   observableSearch: 0
   ObservedComponents:
   - {fileID: 7105268804388551447}
-  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
