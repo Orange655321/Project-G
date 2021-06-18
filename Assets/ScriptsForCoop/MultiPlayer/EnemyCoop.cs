@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class EnemyCoop : MonoBehaviourPunCallbacks
 {
-    private PhotonView photonView;
+    public PhotonView photonView;
     public int health;
     public int armor;
     public int RateOfFire;
@@ -46,7 +46,7 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
         if (!photonView.IsMine) return;
         if (health <= 0)
         {
-            isDead = true;
+            isDead = true; 
             Die();
         }
         if (player != null)
@@ -87,11 +87,11 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
         rb.velocity = lookDir.normalized * speed;
       
     }
-
+    [PunRPC]
     public void TakeDamage(int damage)
     {
-        Debug.Log("notDMG");
         health -= damage;
+        
        
     }
     void Die()
@@ -103,4 +103,6 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.Destroy(gameObject);
     }
+    
+
 }

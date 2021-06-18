@@ -24,7 +24,7 @@ public class AnimationController : MonoBehaviour
     {
         animator.SetTrigger("shoot");
     }
-  public void KnifeAnimationOn()
+    public void KnifeAnimationOn()
     {
         animator.SetTrigger("knifeOn");
     }
