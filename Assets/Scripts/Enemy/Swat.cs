@@ -131,11 +131,11 @@ public class Swat : AllEnemy
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMasterLvl1.EnemyCount--;
-        if(dropChance > 0.1)
+        Destroy(gameObject);
+        if (dropChance > 0.1)
         {
             GM.spawnItems(transform.position);
         }
-        Destroy(gameObject);
     }
     IEnumerator Invulnerability()
     {

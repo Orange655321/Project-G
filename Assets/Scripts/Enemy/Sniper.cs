@@ -91,11 +91,11 @@ public class Sniper : AllEnemy
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMasterLvl1.EnemyCount--;
+        Destroy(gameObject);
         if (dropChance > 0.1)
         {
             GM.spawnItems(transform.position);
         }
-        Destroy(gameObject);
     }
     IEnumerator ShotDelay()
     {
