@@ -31516,9 +31516,19 @@ PrefabInstance:
       objectReference: {fileID: 336256925}
     - target: {fileID: 8502521571921673798, guid: 593b42191727ab2428367435aca9d16f,
         type: 3}
+      propertyPath: AKBulletForce
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8502521571921673798, guid: 593b42191727ab2428367435aca9d16f,
+        type: 3}
       propertyPath: GameMasterLvl1
       value: 
       objectReference: {fileID: 1041049064}
+    - target: {fileID: 8502521571921673798, guid: 593b42191727ab2428367435aca9d16f,
+        type: 3}
+      propertyPath: pistolBulletForce
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8502521571921673798, guid: 593b42191727ab2428367435aca9d16f,
         type: 3}
       propertyPath: spriteChoiceWeapon.Array.size
