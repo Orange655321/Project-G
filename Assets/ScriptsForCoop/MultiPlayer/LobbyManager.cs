@@ -5,16 +5,15 @@ using Photon.Pun;
 using UnityEngine.UI;
 using Photon.Realtime;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using ExitGames.Client.Photon.StructWrapping;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
-    public Text LogText;
     public const string MAP_PROP_KEY = "map";
 
     public static int keyOfMap;
     void Start()
     {
-        
         PhotonNetwork.NickName = "Player " + Random.Range(1, 100);
         Log("Player's nickname is set to " + PhotonNetwork.NickName);
         PhotonNetwork.GameVersion = "alpha v 1.0.0";
@@ -37,7 +36,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void JoinRoom()
     {
         PhotonNetwork.JoinRandomRoom();
-        keyOfMap = (int) PhotonNetwork.CurrentRoom.CustomProperties[MAP_PROP_KEY];
+        int a = 0;
+        bool d = PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(MAP_PROP_KEY, out a);
+        keyOfMap = a;
     }
     public override void OnJoinedRoom()
     {
@@ -54,7 +55,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Log(string message)
     {
         Debug.Log(message);
-        LogText.text += "\n";
-        LogText.text += message;
+ 
     }
 }

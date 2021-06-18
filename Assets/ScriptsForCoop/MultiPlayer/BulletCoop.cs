@@ -15,7 +15,7 @@ public class BulletCoop : MonoBehaviourPunCallbacks
         if(enemy != null) 
         {
             PhotonView photonView = enemy.photonView;
-            if (!photonView.IsMine) photonView.RPC("TakeDamage", RpcTarget.All, damage);
+            if (!photonView.IsMine) photonView.RPC("TakeDamage", RpcTarget.MasterClient, damage);
             else enemy.TakeDamage(damage);
 
             PhotonNetwork.Destroy(gameObject);

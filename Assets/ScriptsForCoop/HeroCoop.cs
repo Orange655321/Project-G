@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-public class HeroCoop : Unit
+public class HeroCoop : Unit, IPunObservable
 {
     private PhotonView photonView;
     private Vector3 offset;
@@ -111,7 +111,6 @@ public class HeroCoop : Unit
         dieCanvas = GameObject.Find("DieCanvas");
         dieCanvas.SetActive(false);
         healthText = GameObject.Find("Health").GetComponent<Text>();
-        Debug.Log(healthText == null);
         armorText = GameObject.Find("Shield").GetComponent<Text>();
         scoreText = GameObject.Find("Score").GetComponent<Text>();
         ammoText = GameObject.Find("ammo").GetComponent<Text>();
@@ -374,7 +373,7 @@ public class HeroCoop : Unit
                     if (health != 200)
                     {
                         health = item.healing(health);
-                        if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                        if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.MasterClient);
                         else item.RemoveItem();
                     }
                     break;
@@ -382,7 +381,7 @@ public class HeroCoop : Unit
                     if (armor != 100)
                     {
                         armor = item.shielding(armor);
-                        if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                        if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.MasterClient);
                         else item.RemoveItem();
                     }
                     break;
@@ -390,7 +389,7 @@ public class HeroCoop : Unit
                     if (pistolBullet != 272)
                     {
                         pistolBullet = item.getPistolBullet(pistolBullet);
-                        if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                        if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.MasterClient);
                         else item.RemoveItem();
                     }
                     break;
@@ -403,7 +402,7 @@ public class HeroCoop : Unit
                     {
                         isWeapon[0] = true;
                     }
-                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.MasterClient);
                     else item.RemoveItem();
                     break;
                 case ItemsCoop.ItemType.AK:
@@ -415,7 +414,7 @@ public class HeroCoop : Unit
                     {
                         isWeapon[1] = true;
                     }
-                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.MasterClient);
                     else item.RemoveItem();
                     break;
                 case ItemsCoop.ItemType.Shotgun:
@@ -427,12 +426,12 @@ public class HeroCoop : Unit
                     {
                         isWeapon[2] = true;
                     }
-                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.MasterClient);
                     else item.RemoveItem();
                     break;
                 case ItemsCoop.ItemType.Claws:
                     Claws_flag = true;
-                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.All);
+                    if (!pi.IsMine) pi.RPC("RemoveItem", RpcTarget.MasterClient);
                     else item.RemoveItem();
                     break;            
             }
@@ -631,5 +630,13 @@ public class HeroCoop : Unit
             spriteRend.material = matDefault;
             yield return new WaitForSeconds(0.180f);
         }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        { stream.SendNext(score); }
+        else { score = (int)stream.ReceiveNext(); }
+        throw new System.NotImplementedException();
     }
 }
