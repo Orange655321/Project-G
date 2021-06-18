@@ -41,22 +41,14 @@ public class Sniper : AllEnemy
     // Update is called once per frame
     void Update()
     {
-        if (hero.isDie())
+        if (player == null)
         {
-            Angry();
-            if (Vector2.Distance(player.transform.position, transform.position) < attackRange)
-            // {
-            //animCtrl.RunAnimationOff();
-            if (Time.time >= nextAttackTime && !line.activeSelf)
-            //{
-            StartCoroutine(ShotDelay());
-            //}
-            //}
-            //else
-            //{
-            //animCtrl.RunAnimationOn();
-            // }
+            player = GameObject.FindGameObjectWithTag("Player");
         }
+        Angry();
+            if (Vector2.Distance(player.transform.position, transform.position) < attackRange)
+                if (Time.time >= nextAttackTime && !line.activeSelf)
+                    StartCoroutine(ShotDelay());
     }
     public override void Angry()
     {

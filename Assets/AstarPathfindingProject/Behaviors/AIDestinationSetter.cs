@@ -19,7 +19,22 @@ namespace Pathfinding {
 		IAstarAI ai;
 
 		void OnEnable () {
-			target = GameObject.FindGameObjectWithTag("Player").transform;
+			if(GameObject.FindGameObjectsWithTag("Player").Length > 1)
+            {
+				if((GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).magnitude 
+					> (GameObject.FindGameObjectsWithTag("Player")[1].transform.position - gameObject.transform.position).magnitude)
+                {
+					target = GameObject.FindGameObjectsWithTag("Player")[1].transform;
+				}
+                else
+                {
+					target = GameObject.FindGameObjectsWithTag("Player")[0].transform;
+				}
+			}
+			else
+            {
+				target = GameObject.FindGameObjectWithTag("Player").transform;
+			}
 			ai = GetComponent<IAstarAI>();
 			// Update the destination right before searching for a path as well.
 			// This is enough in theory, but this script will also update the destination every

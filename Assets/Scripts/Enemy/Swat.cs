@@ -52,8 +52,10 @@ public class Swat : AllEnemy
     // Update is called once per frame
     void Update()
     {
-        if (hero.isDie())
+        if(player == null)
         {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
             Angry();
             if (Vector2.Distance(player.transform.position, transform.position) < attackRange)
             {
@@ -68,7 +70,6 @@ public class Swat : AllEnemy
             {
                 animCtrl.RunAnimationOn();
             }
-        }
     }
     public override void Angry()
     {
