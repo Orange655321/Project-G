@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : AllEnemy
 {
@@ -53,7 +54,7 @@ public class Enemy : AllEnemy
                     nextAttackTime = Time.time + 1f / RateOfFire;
                 }
             }
-       // }
+        //}
     }
 
     public override void Attack() 

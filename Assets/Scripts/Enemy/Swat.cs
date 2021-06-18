@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Swat : AllEnemy
 {
@@ -30,12 +31,15 @@ public class Swat : AllEnemy
     private Material matBlink;
     private Material matDefault;
     private SpriteRenderer spriteRend;
-    private AnimatorControlerEnemy animCtrl;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
-        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
-        animCtrl = GetComponent<AnimatorControlerEnemy>();
+        if (SceneManager.GetActiveScene().name == "Survival")
+        {
+            GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
+        }
+        animator = GetComponent<Animator>();
         isInvulnerability = false;
         spriteRend = GetComponent<SpriteRenderer>();
         matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
@@ -52,14 +56,18 @@ public class Swat : AllEnemy
     // Update is called once per frame
     void Update()
     {
-        if(player == null)
+        if(player == null || animator == null || pistolSC == null || matBlink == null || matDefault == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
+            animator = GetComponent<Animator>();
+            pistolSC = GetComponent<PistolSoundController>();
+            matBlink = Resources.Load("MCblink", typeof(Material)) as Material;
+            matDefault = spriteRend.material;
         }
             Angry();
             if (Vector2.Distance(player.transform.position, transform.position) < attackRange)
             {
-                animCtrl.RunAnimationOff();
+                animator.SetBool("run", true);
                 if (Time.time >= nextAttackTime)
                 {
                     nextAttackTime = Time.time + 1f / RateOfFire;
@@ -68,7 +76,7 @@ public class Swat : AllEnemy
             }
             else
             {
-                animCtrl.RunAnimationOn();
+                animator.SetBool("run", false);
             }
     }
     public override void Angry()
@@ -85,7 +93,7 @@ public class Swat : AllEnemy
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         bullet.GetComponent<Bullet>().isEnemy = true;
         rb.AddForce(transform.up * AKBulletForce, ForceMode2D.Impulse);
-        animCtrl.PlayAnimationShoot();
+        animator.SetTrigger("shoot");
         pistolSC.shootSound();
         partSys.Play();
     }

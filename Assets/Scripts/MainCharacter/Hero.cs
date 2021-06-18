@@ -551,6 +551,7 @@ public class Hero : Unit
     }
     private void shootSniperRifle()
     {
+        pistolSC.shootSound();
         AllEnemy allEnemy;
         RaycastHit2D[] raycasts = Physics2D.RaycastAll(firePoint.position, transform.up, distanceSniperRifle);
         foreach(RaycastHit2D enemy in raycasts) 

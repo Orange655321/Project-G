@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Sniper : AllEnemy
 {
@@ -24,11 +25,16 @@ public class Sniper : AllEnemy
     private Hero hero;
     private AnimatorControlerEnemy animCtrl;
     public GameObject line;
+    private PistolSoundController pistolSC;
     // Start is called before the first frame update
     void Start()
     {
         line.SetActive(false);
-        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
+        if (SceneManager.GetActiveScene().name == "Survival")
+        {
+            GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
+        }
+        pistolSC = GetComponent<PistolSoundController>();
         animCtrl = GetComponent<AnimatorControlerEnemy>();
         player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
@@ -98,6 +104,7 @@ public class Sniper : AllEnemy
         nextAttackTime = Time.time + RateOfFire;
         Attack();
         line.SetActive(false);
+        pistolSC.shootSound();
         yield return null;
     }
 }
