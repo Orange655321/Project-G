@@ -10,7 +10,7 @@ using ExitGames.Client.Photon.StructWrapping;
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
     public const string MAP_PROP_KEY = "map";
-
+   // Text LogText;
     public static int keyOfMap;
     void Start()
     {
@@ -29,9 +29,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomOptions.CustomRoomPropertiesForLobby = new string[] { MAP_PROP_KEY };
         roomOptions.CustomRoomProperties = new Hashtable { { MAP_PROP_KEY, Random.Range(0,100) }};
         PhotonNetwork.CreateRoom(null, roomOptions, null);
-        //roomOptions.CustomRoomPropertiesForLobby = { SEED_OF_MAP, AI_KEY, HZ_KEY};
-        //roomOptions.CustomRoomProperties = new Hashtable { { SEED_OF_MAP, Random.Range(0, 100) } };
-        //PhotonNetwork.CreateRoom(null, new Photon.Realtime.RoomOptions { MaxPlayers = 2});
+        
     }
     public void JoinRoom()
     {
@@ -42,10 +40,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        
-
-        Log("Joined the room");
-        PhotonNetwork.LoadLevel("COOP");
+                PhotonNetwork.LoadLevel("COOP");
     }
     public void leave() {
         PhotonNetwork.LeaveRoom();
@@ -54,6 +49,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private void Log(string message)
     {
+       // LogText.text += message;
+        //LogText.text += '\n';
         Debug.Log(message);
  
     }

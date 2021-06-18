@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using System;
 
 public class HeroCoop : Unit, IPunObservable
 {
@@ -152,6 +153,7 @@ public class HeroCoop : Unit, IPunObservable
         nextFireShotgunTime = Time.time;
         nextFireSniperTime = Time.time;
         ammoText.text = pistolBulletInClip + " / " + pistolBullet;
+       
 
     }
     void LateUpdate()
@@ -164,7 +166,7 @@ public class HeroCoop : Unit, IPunObservable
     void Update()
     {
         //if (!photonView.IsMine) return;
-
+        
         if (Input.GetKeyUp(KeyCode.Space) && Time.time > nextAttackTime)
         {
             nextAttackTime = Time.time + rateOfAttack;

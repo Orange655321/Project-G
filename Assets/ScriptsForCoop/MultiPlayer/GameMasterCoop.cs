@@ -35,7 +35,7 @@ public class GameMasterCoop : MonoBehaviourPunCallbacks
 
 
     private int finalScore;
- 
+
     private void Awake()
     {
         respawnPlace = GameObject.FindGameObjectsWithTag("Grass");
@@ -51,7 +51,7 @@ public class GameMasterCoop : MonoBehaviourPunCallbacks
     {
         //враги спавняться только в мастерклиенте 
         if (!PhotonNetwork.IsMasterClient) return;
-        if(enemySpawned > enemyCount && numberEnemy > 0)
+        if (enemySpawned > enemyCount && numberEnemy > 0)
         {
             spawnEnemy();
         }
@@ -69,14 +69,14 @@ public class GameMasterCoop : MonoBehaviourPunCallbacks
             respawnNumber = Random.Range(0, respawnPlace.Length);
             x = respawnPlace[respawnNumber].transform.position.x;
             y = respawnPlace[respawnNumber].transform.position.y;
-        }// выйдем только при false - когда вокруг не будет ни одного префаба
+        }// выйдем только при false - когда вокруг не будет ни одного префаба 
         while (Physics2D.OverlapCircle(new Vector2(x, y), minDist, prefabEnemy.layer) != null);
-        numberEnemy--; 
-        PhotonNetwork.InstantiateRoomObject(prefabEnemy.name, new Vector3(x, y, transform.position.z), transform.rotation);// собственно, ставим сам префаб
+        numberEnemy--;
+        PhotonNetwork.InstantiateRoomObject(prefabEnemy.name, new Vector3(x, y, transform.position.z), transform.rotation);// собственно, ставим сам префаб 
         enemyCount++;
     }
 
-    
+
     public void spawnItems(Vector3 pos)
     {
         ItemsCoop.ItemType item = (ItemsCoop.ItemType)Random.Range(3, 6);
@@ -89,7 +89,7 @@ public class GameMasterCoop : MonoBehaviourPunCallbacks
                 PhotonNetwork.InstantiateRoomObject(prefabShieldPack.name, pos, prefabShieldPack.transform.rotation);
                 break;
             case ItemsCoop.ItemType.PistolBulletPack:
-                PhotonNetwork.InstantiateRoomObject(prefabPistolBulletPack.name, pos, prefabPistolBulletPack.transform.rotation);              
+                PhotonNetwork.InstantiateRoomObject(prefabPistolBulletPack.name, pos, prefabPistolBulletPack.transform.rotation);
                 break;
             case ItemsCoop.ItemType.Pistol:
                 PhotonNetwork.InstantiateRoomObject(prefabPistol.name, pos, prefabPistol.transform.rotation);
