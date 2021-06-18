@@ -109,7 +109,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1782547861
   m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: ca5a776ee99c3284f85f245993c07e5f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -155,7 +155,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  armor: 0
   RateOfFire: 1
   speed: 5
   cost: 100
@@ -311,7 +310,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9078221761693117838}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
   m_Name: 

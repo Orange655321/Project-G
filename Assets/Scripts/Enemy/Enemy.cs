@@ -38,13 +38,12 @@ public class Enemy : AllEnemy
     private void Update()
     { 
         //if(hero.isDie()) 
-       // {
+        //{
    
             if (Vector2.Distance(player.transform.position, transform.position) > attackRange)
             {
                 animCtrl.AttackAnimationOff();
                 Angry();
-                Debug.Log("angry");
             }
             else
             {
@@ -52,7 +51,6 @@ public class Enemy : AllEnemy
                 {
                     Attack();
                     nextAttackTime = Time.time + 1f / RateOfFire;
-                    Debug.Log("attack");
                 }
             }
        // }
@@ -87,7 +85,7 @@ public class Enemy : AllEnemy
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMasterLvl1.EnemyCount--;
-        if(dropChance > 0.5)
+        if(dropChance > 0.7)
         {
             GM.spawnItems(transform.position);
         }

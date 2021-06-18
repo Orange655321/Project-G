@@ -29,11 +29,6 @@ public class LevelGenerator : MonoBehaviour
         RemoveSingleWalls();
         SpawnLevel();
     }
-    private void Start()
-    {
-        Debug.Log(roomHeight);
-        Debug.Log(roomWidth);
-    }
     void Setup()
     {
         //find grid size

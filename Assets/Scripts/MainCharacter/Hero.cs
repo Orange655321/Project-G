@@ -80,8 +80,8 @@ public class Hero : Unit
     private Weapon isWhatWeapon;// 0 - пистолет, 1 - АК, 2 - дробовик сделай енам
     private float rateOfFireAK = 0.1f;
     private float rateOfFirePistol = 0.4f;
-    private float rateOfFireShotgun = 1.3f;
-    private float rateOfFireSniper = 2f;
+    private float rateOfFireShotgun = 1f;
+    private float rateOfFireSniper = 1.5f;
     private float rateOfAttack = 5f;
     private float nextAttackTime;
     private float nextFireAKTime;
@@ -97,6 +97,7 @@ public class Hero : Unit
     public ParticleSystem partSys;
     private PistolSoundController pistolSC;
     public GameObject[] spriteChoiceWeapon;
+    public GameObject gameObjectLine;
     enum Weapon
     {
         Pistol,
@@ -116,6 +117,7 @@ public class Hero : Unit
 
     void Start()
     {
+        gameObjectLine.SetActive(false);
         isWeapon = new bool[] { true, true, true, true }; // 0- пистолет, 1- АК, 2- дробовик, 3 - винтовка снайперсая
         pistolBulletInClip = 17;
         pistolBullet = 34 - pistolBulletInClip;
@@ -224,7 +226,7 @@ public class Hero : Unit
                         if (Time.time > nextFireSniperTime && itsShoot())
                         {
                             nextFireSniperTime = Time.time + rateOfFireSniper;
-                            shootSniperRifle();
+                            StartCoroutine(ShotDelay());
                         }
                         break;
 
@@ -545,14 +547,15 @@ public class Hero : Unit
     }
     private void shootSniperRifle()
     {
-
-        //Ray2D ray = new Ray2D(transform.position, mousePosition);
-        RaycastHit2D[] raycasts = Physics2D.RaycastAll(firePoint.position, mousePosition, distanceSniperRifle, enemyLayers);
+        RaycastHit2D[] raycasts = Physics2D.RaycastAll(firePoint.position, transform.up, distanceSniperRifle);
         foreach(RaycastHit2D enemy in raycasts) 
         {
+            if(enemy.collider.CompareTag("Wall") || enemy.collider.CompareTag("Gate"))
+            {
+                return; 
+            }
             enemy.collider.GetComponent<AllEnemy>().TakeDamage(sniperBulletDamage);
         }
-        
     }
     private void shootPistol()
     {
@@ -637,5 +640,13 @@ public class Hero : Unit
             spriteRend.material = matDefault;
             yield return new WaitForSeconds(0.180f);
         }
+    }
+    IEnumerator ShotDelay()
+    {
+        gameObjectLine.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        shootSniperRifle();
+        gameObjectLine.SetActive(false);
+        yield return null;
     }
 }

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Police : AllEnemy
+public class Sniper : AllEnemy
 {
     public int health;
     public int armor;
-    public int RateOfFire;
+    public float RateOfFire;
     public int speed;
     public int cost;
     public int damage;
@@ -17,23 +17,20 @@ public class Police : AllEnemy
     private bool isDead;
     private GameObject player;
     public Rigidbody2D rb;
-    public GameObject prefabPistolBullet;
     [SerializeField]
     private GameMaster GM;
-    private float pistolBulletForce = 8f;
     private float nextAttackTime;
     private float dropChance;
-    public ParticleSystem partSys;
-    private PistolSoundController pistolSC;
-    private AnimatorControlerEnemy animCtrl;
     private Hero hero;
+    private AnimatorControlerEnemy animCtrl;
+    public GameObject line;
     // Start is called before the first frame update
     void Start()
     {
+        line.SetActive(false);
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
         animCtrl = GetComponent<AnimatorControlerEnemy>();
         player = GameObject.FindGameObjectWithTag("Player");
-        pistolSC = GetComponent<PistolSoundController>();
         rb = GetComponent<Rigidbody2D>();
         nextAttackTime = 0f;
         dropChance = Random.Range(0f, 1f);
@@ -48,18 +45,17 @@ public class Police : AllEnemy
         {
             Angry();
             if (Vector2.Distance(player.transform.position, transform.position) < attackRange)
-            {
-                animCtrl.RunAnimationOff();
-                if (Time.time >= nextAttackTime)
-                {
-                    nextAttackTime = Time.time + 1f / RateOfFire;
-                    Attack();
-                }
-            }
-            else
-            {
-                animCtrl.RunAnimationOn();
-            }
+            // {
+            //animCtrl.RunAnimationOff();
+            if (Time.time >= nextAttackTime && !line.activeSelf)
+            //{
+            StartCoroutine(ShotDelay());
+            //}
+            //}
+            //else
+            //{
+            //animCtrl.RunAnimationOn();
+            // }
         }
     }
     public override void Angry()
@@ -69,16 +65,20 @@ public class Police : AllEnemy
         transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
-
     public override void Attack()
     {
-        GameObject bullet = Instantiate(prefabPistolBullet, pointAttack.transform.position, pointAttack.transform.rotation);
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        bullet.GetComponent<Bullet>().isEnemy = true;
-        rb.AddForce(transform.up * pistolBulletForce, ForceMode2D.Impulse);
-        animCtrl.PlayAnimationShoot();
-        pistolSC.shootSound();
-        partSys.Play();
+        RaycastHit2D[] raycasts = Physics2D.RaycastAll(pointAttack.transform.position, transform.up);
+        foreach (RaycastHit2D her in raycasts)
+        {
+            if (her.collider.CompareTag("Wall") || her.collider.CompareTag("Gate"))
+            {
+                return;
+            }
+            if (her.collider.CompareTag("Player"))
+            {
+                 her.collider.GetComponent<Hero>().TakeDamage(damage); 
+            }
+        }
     }
     public override void TakeDamage(int damage)
     {
@@ -93,10 +93,19 @@ public class Police : AllEnemy
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMasterLvl1.EnemyCount--;
-        if(dropChance > 0.5)
+        if (dropChance > 0.1)
         {
             GM.spawnItems(transform.position);
         }
         Destroy(gameObject);
+    }
+    IEnumerator ShotDelay()
+    {
+        line.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        nextAttackTime = Time.time + RateOfFire;
+        Attack();
+        line.SetActive(false);
+        yield return null;
     }
 }

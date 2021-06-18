@@ -19,6 +19,7 @@ public class Swat : AllEnemy
     public Rigidbody2D rb;
     public GameObject prefabAKBullet;
     [SerializeField]
+    private GameMaster GM;
     private float AKBulletForce = 9f;
     private float nextAttackTime;
     private float dropChance;
@@ -33,6 +34,7 @@ public class Swat : AllEnemy
     // Start is called before the first frame update
     void Start()
     {
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMaster>();
         animCtrl = GetComponent<AnimatorControlerEnemy>();
         isInvulnerability = false;
         spriteRend = GetComponent<SpriteRenderer>();
@@ -120,10 +122,10 @@ public class Swat : AllEnemy
     {
         player.GetComponent<Hero>().AddToScore(cost);
         GameMasterLvl1.EnemyCount--;
-        /*if(dropChance > 0.5)
+        if(dropChance > 0.1)
         {
             GM.spawnItems(transform.position);
-        }*/
+        }
         Destroy(gameObject);
     }
     IEnumerator Invulnerability()
