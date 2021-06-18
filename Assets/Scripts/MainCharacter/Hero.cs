@@ -139,6 +139,10 @@ public class Hero : Unit
 
     void Update()
     {
+        if(gameObjectLine.activeSelf && isWhatWeapon != Weapon.SniperRifle)
+        {
+            gameObjectLine.SetActive(false);
+        }
         if (Time.timeScale == 0f)
         {
             return;
@@ -547,14 +551,19 @@ public class Hero : Unit
     }
     private void shootSniperRifle()
     {
+        AllEnemy allEnemy;
         RaycastHit2D[] raycasts = Physics2D.RaycastAll(firePoint.position, transform.up, distanceSniperRifle);
         foreach(RaycastHit2D enemy in raycasts) 
         {
-            if(enemy.collider.CompareTag("Wall") || enemy.collider.CompareTag("Gate"))
+            allEnemy = enemy.collider.GetComponent<AllEnemy>();
+            if (enemy.collider.CompareTag("Wall") || enemy.collider.CompareTag("Gate"))
             {
                 return; 
             }
-            enemy.collider.GetComponent<AllEnemy>().TakeDamage(sniperBulletDamage);
+            if (allEnemy != null)
+            {
+                enemy.collider.GetComponent<AllEnemy>().TakeDamage(sniperBulletDamage);
+            }   
         }
     }
     private void shootPistol()
