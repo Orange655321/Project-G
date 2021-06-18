@@ -51,10 +51,12 @@ public class GameMasterCoop : MonoBehaviourPunCallbacks
     {
         //враги спавняться только в мастерклиенте 
         if (!PhotonNetwork.IsMasterClient) return;
-        if (enemySpawned > enemyCount && numberEnemy > 0)
+        int a = Random.Range(0, 300);
+        if ( a == 1)
         {
             spawnEnemy();
         }
+
 
 
     }

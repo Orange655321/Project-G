@@ -8,7 +8,7 @@ using System;
 
 public class HeroCoop : Unit, IPunObservable
 {
-    private PhotonView photonView;
+    public PhotonView photonView;
     private Vector3 offset;
 
     [SerializeField]
@@ -311,7 +311,7 @@ public class HeroCoop : Unit, IPunObservable
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта к мыше и осью х
         transform.eulerAngles = new Vector3(0, 0, angle);
     }
-
+    [PunRPC]
     public override void TakeDamage(int damage)
     {
         if (!isInvulnerability)

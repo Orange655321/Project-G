@@ -29,8 +29,23 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
     public void Start()
     {
         photonView = GetComponent<PhotonView>();
+        if(GameObject.FindGameObjectsWithTag("Player").Length > 1)
+        {
+            if((GameObject.FindGameObjectsWithTag("Player")[0].transform.position - gameObject.transform.position).magnitude
+                > (GameObject.FindGameObjectsWithTag("Player")[1].transform.position - gameObject.transform.position).magnitude)
+            {
+                player = GameObject.FindGameObjectsWithTag("Player")[1];
+            }
+            else
+            {
+                player = GameObject.FindGameObjectsWithTag("Player")[0];
 
-        player = GameObject.FindGameObjectWithTag("Player");
+            }
+        }
+        else
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMasterCoop>();
         rb = GetComponent<Rigidbody2D>();
         pathFinder = GetComponent<AstarPathFinder>();
@@ -70,13 +85,18 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
     {
 
     }
-
+    
     private void Attack()
     {
-        Collider2D colInfo = Physics2D.OverlapCircle(pointAttack.transform.position, attackRange / 3, layerHero);
+        Collider2D colInfo = Physics2D.OverlapCircle(pointAttack.transform.position, attackRange, layerHero);
+        PhotonView pv = player.GetComponent<HeroCoop>().photonView;
         if (colInfo != null)
         {
-            player.GetComponent<HeroCoop>().TakeDamage(zombieDamage);
+
+            if (!pv.IsMine) photonView.RPC("TakeDamage", RpcTarget.Others, zombieDamage);
+            else player.GetComponent<HeroCoop>().TakeDamage(zombieDamage);
+            Debug.Log("ALLO");
+ 
         }
     }
     private void Angry()
@@ -84,7 +104,7 @@ public class EnemyCoop : MonoBehaviourPunCallbacks
         Vector2 lookDir = player.transform.position - transform.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; //угол между вектором от объекта и героем
         transform.eulerAngles = new Vector3(0, 0, angle);
-        rb.velocity = lookDir.normalized * speed;
+        //rb.velocity = lookDir.normalized * speed;
       
     }
     [PunRPC]
